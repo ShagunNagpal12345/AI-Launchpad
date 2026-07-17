@@ -22,7 +22,6 @@ import AiForProfessionalsPage from './pages/AiForProfessionalsPage';
 import AiFundamentalsPage from './pages/AiFundamentalsPage';
 import ChatGPTForEveryonePage from './pages/ChatGPTForEveryonePage';
 import DeepLearningHandbookPage from './pages/DeepLearningHandbookPage';
-import LlmProjectGuidePage from './pages/LlmProjectGuidePage';
 import LLMProjectGuidePage from './pages/LLMProjectGuidePage';
 import MachineLearningPage from './pages/MachineLearningPage';
 import MLOpsBestPracticesPage from './pages/MLOpsBestPracticesPage';
@@ -85,7 +84,7 @@ export default function App() {
         />
         <Route
           path="/resources/llm-project-guide"
-          element={<LlmProjectGuidePage theme={theme} />}
+          element={<LLMProjectGuidePage theme={theme} />}
         />
         <Route
           path="/resources/machine-learning-cheatsheet"
