@@ -27,7 +27,7 @@ import MachineLearningPage from './pages/MachineLearningPage';
 import MLOpsBestPracticesPage from './pages/MLOpsBestPracticesPage';
 import PythonForDataSciencePage from './pages/PythonForDataSciencePage';
 
-const defaultTheme = 'dark';
+const defaultTheme = 'light';
 const rootThemeTargets = ['documentElement', 'body'];
 
 export default function App() {
