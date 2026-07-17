@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="4096" height="4096" viewBox="0 0 1024 1024">
+<defs>
+  <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#3B82F6"/>
+    <stop offset="1" stop-color="#1D4ED8"/>
+  </linearGradient>
+  <linearGradient id="blueSoft" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#93C5FD"/>
+    <stop offset="1" stop-color="#2563EB"/>
+  </linearGradient>
+  <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#8B5CF6"/>
+    <stop offset="1" stop-color="#4F46E5"/>
+  </linearGradient>
+  <linearGradient id="orange" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#FB923C"/>
+    <stop offset="1" stop-color="#EA580C"/>
+  </linearGradient>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+    <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0F172A" flood-opacity=".16"/>
+  </filter>
+</defs>
+
+<g filter="url(#shadow)">
+  <rect x="160" y="230" width="704" height="620" rx="76" fill="#EFF6FF" stroke="#93C5FD" stroke-width="28"/>
+  <rect x="160" y="230" width="704" height="170" rx="76" fill="url(#blueSoft)"/>
+  <path d="M160 332h704" stroke="#2563EB" stroke-width="24"/>
+  <path d="M308 154v150M716 154v150" stroke="#1D4ED8" stroke-width="36" stroke-linecap="round"/>
+  <g fill="#2563EB">
+    <rect x="274" y="474" width="104" height="104" rx="18"/>
+    <rect x="460" y="474" width="104" height="104" rx="18"/>
+    <rect x="646" y="474" width="104" height="104" rx="18"/>
+    <rect x="274" y="634" width="104" height="104" rx="18"/>
+    <rect x="460" y="634" width="104" height="104" rx="18"/>
+    <rect x="646" y="634" width="104" height="104" rx="18"/>
+  </g>
+</g>
+</svg>

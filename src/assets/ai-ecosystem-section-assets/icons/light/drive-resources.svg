@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="4096" height="4096" viewBox="0 0 1024 1024">
+<defs>
+  <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#3B82F6"/>
+    <stop offset="1" stop-color="#1D4ED8"/>
+  </linearGradient>
+  <linearGradient id="blueSoft" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#93C5FD"/>
+    <stop offset="1" stop-color="#2563EB"/>
+  </linearGradient>
+  <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#8B5CF6"/>
+    <stop offset="1" stop-color="#4F46E5"/>
+  </linearGradient>
+  <linearGradient id="orange" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#FB923C"/>
+    <stop offset="1" stop-color="#EA580C"/>
+  </linearGradient>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+    <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0F172A" flood-opacity=".16"/>
+  </filter>
+</defs>
+
+<g filter="url(#shadow)">
+  <path d="M158 336c0-54 44-98 98-98h188l72 88h252c54 0 98 44 98 98v332c0 54-44 98-98 98H256c-54 0-98-44-98-98z" fill="url(#blue)"/>
+  <path d="M158 396h708v88H158z" fill="#60A5FA" opacity=".45"/>
+  <path d="M222 292h228l56 70H222z" fill="#93C5FD"/>
+  <rect x="260" y="516" width="504" height="212" rx="40" fill="#EFF6FF" opacity=".2"/>
+</g>
+</svg>

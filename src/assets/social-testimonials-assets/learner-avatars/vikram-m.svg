@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="4096" height="4096" viewBox="0 0 1024 1024">
+<defs>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+    <feDropShadow dx="0" dy="22" stdDeviation="22" flood-color="#0F172A" flood-opacity=".16"/>
+  </filter>
+  <linearGradient id="insta" x1="0" y1="1" x2="1" y2="0">
+    <stop offset="0" stop-color="#F9CE34"/>
+    <stop offset=".35" stop-color="#EE2A7B"/>
+    <stop offset=".7" stop-color="#6228D7"/>
+    <stop offset="1" stop-color="#4F5BD5"/>
+  </linearGradient>
+</defs>
+
+<g filter="url(#shadow)">
+  <circle cx="512" cy="512" r="414" fill="#EEF2F7"/>
+  <path d="M312 420c14-188 104-280 200-280 120 0 208 94 214 280-74-18-140-62-182-124-40 62-116 106-232 124z" fill="#1F2937"/>
+  <ellipse cx="512" cy="470" rx="168" ry="198" fill="#C98B5B"/>
+  <circle cx="448" cy="470" r="16" fill="#111827"/>
+  <circle cx="576" cy="470" r="16" fill="#111827"/>
+  <path d="M458 560c32 24 76 24 108 0" stroke="#7C2D12" stroke-width="16" stroke-linecap="round" fill="none"/>
+  <path d="M256 876c44-170 152-242 256-242s212 72 256 242z" fill="#334155"/>
+</g>
+</svg>

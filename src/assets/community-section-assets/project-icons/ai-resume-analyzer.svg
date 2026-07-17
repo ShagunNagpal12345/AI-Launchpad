@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="4096" height="4096" viewBox="0 0 1024 1024">
+<defs>
+  <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#3B82F6"/>
+    <stop offset="1" stop-color="#1D4ED8"/>
+  </linearGradient>
+  <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#8B5CF6"/>
+    <stop offset="1" stop-color="#6D28D9"/>
+  </linearGradient>
+  <linearGradient id="orange" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#FB923C"/>
+    <stop offset="1" stop-color="#EA580C"/>
+  </linearGradient>
+  <linearGradient id="green" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#34D399"/>
+    <stop offset="1" stop-color="#059669"/>
+  </linearGradient>
+  <linearGradient id="cyan" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#22D3EE"/>
+    <stop offset="1" stop-color="#0891B2"/>
+  </linearGradient>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+    <feDropShadow dx="0" dy="24" stdDeviation="24" flood-color="#0F172A" flood-opacity=".18"/>
+  </filter>
+</defs>
+
+<g filter="url(#shadow)">
+  <rect x="210" y="120" width="540" height="760" rx="76" fill="#fff" stroke="#C4B5FD" stroke-width="22"/>
+  <rect x="278" y="205" width="404" height="72" rx="24" fill="#EDE9FE"/>
+  <circle cx="352" cy="380" r="68" fill="url(#violet)"/>
+  <path d="M314 382a38 38 0 1076 0 38 38 0 10-76 0zm-34 104c28-54 116-54 144 0" fill="#fff"/>
+  <rect x="470" y="340" width="160" height="24" rx="12" fill="#A78BFA"/>
+  <rect x="470" y="392" width="124" height="20" rx="10" fill="#DDD6FE"/>
+  <rect x="286" y="545" width="356" height="24" rx="12" fill="#C4B5FD"/>
+  <rect x="286" y="603" width="310" height="24" rx="12" fill="#DDD6FE"/>
+  <rect x="286" y="661" width="250" height="24" rx="12" fill="#EDE9FE"/>
+  <circle cx="744" cy="756" r="130" fill="url(#violet)"/>
+  <path d="M680 756l42 42 88-102" stroke="#fff" stroke-width="34" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</g>
+</svg>
