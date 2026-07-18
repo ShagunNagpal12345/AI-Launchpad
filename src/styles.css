@@ -121,6 +121,33 @@ button:hover, a:hover { transform: translateY(-1px); }
   display: none;
 }
 
+.projects-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.projects-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.social-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.social-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.testimonials-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.testimonials-scroll::-webkit-scrollbar {
+  display: none;
+}
+
 
 /* =========================================================
    COURSE DETAIL MODAL

@@ -83,6 +83,8 @@ const mainToolCards = [
     href: "/resume-builder",
     button: "Build Resume",
     status: "coming-soon",
+    launchDate: "2026-08-01T00:00:00+05:30",
+    launchLabel: "1st August",
   },
   {
     ...careerTools[4],
@@ -90,6 +92,8 @@ const mainToolCards = [
     href: "/interview-simulator",
     button: "Start Practice",
     status: "coming-soon",
+    launchDate: "2026-09-04T00:00:00+05:30",
+    launchLabel: "4th September",
   },
   {
     ...careerTools[2],
@@ -145,8 +149,139 @@ function useInViewOnce() {
   return { ref, isVisible };
 }
 
-function MainToolCard({ tool, index, isVisible, isLight }) {
+function getTimeLeft(targetDate) {
+  const distance = new Date(targetDate).getTime() - Date.now();
+
+  if (distance <= 0) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0, isLive: true };
+  }
+
+  return {
+    days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+    hours: Math.floor((distance / (1000 * 60 * 60)) % 24),
+    minutes: Math.floor((distance / (1000 * 60)) % 60),
+    seconds: Math.floor((distance / 1000) % 60),
+    isLive: false,
+  };
+}
+
+function CountdownModal({ tool, isLight, onClose }) {
+  const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(tool.launchDate));
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setTimeLeft(getTimeLeft(tool.launchDate));
+    }, 1000);
+
+    return () => window.clearInterval(intervalId);
+  }, [tool.launchDate]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
+  const timeUnits = [
+    { label: "Days", value: timeLeft.days },
+    { label: "Hours", value: timeLeft.hours },
+    { label: "Minutes", value: timeLeft.minutes },
+    { label: "Seconds", value: timeLeft.seconds },
+  ];
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 px-4 backdrop-blur-sm"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="coming-soon-title"
+    >
+      <div
+        className={`w-full max-w-xl rounded-[24px] border p-6 shadow-[0_35px_90px_-45px_rgba(15,23,42,0.9)] sm:p-8 ${
+          isLight
+            ? "border-[#d9e2f0] bg-white text-slate-900"
+            : "border-[#28415c] bg-[#071726] text-white"
+        }`}
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <p className="text-[11px] font-extrabold uppercase tracking-[0.22em] text-[#ff7218]">
+              Coming Soon
+            </p>
+            <h3
+              id="coming-soon-title"
+              className="mt-2 text-[28px] font-black tracking-[-0.04em]"
+            >
+              {tool.title}
+            </h3>
+            <p
+              className={`mt-3 max-w-lg text-sm leading-6 ${
+                isLight ? "text-slate-600" : "text-slate-300"
+              }`}
+            >
+              Launching on {tool.launchLabel}. The countdown below shows exactly
+              how long is left.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={onClose}
+            className={`inline-flex h-10 w-10 items-center justify-center rounded-full border text-lg font-bold transition ${
+              isLight
+                ? "border-slate-200 text-slate-500 hover:bg-slate-100"
+                : "border-slate-700 text-slate-300 hover:bg-slate-800"
+            }`}
+            aria-label="Close popup"
+          >
+            ×
+          </button>
+        </div>
+
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          {timeUnits.map((unit) => (
+            <div
+              key={unit.label}
+              className={`rounded-[18px] border px-4 py-5 text-center ${
+                isLight
+                  ? "border-[#e4e9f1] bg-[#f8fafc]"
+                  : "border-[#22344b] bg-[#0b1728]"
+              }`}
+            >
+              <div className="text-[28px] font-black tracking-[-0.05em] text-[#ff7218]">
+                {String(unit.value).padStart(2, "0")}
+              </div>
+              <div
+                className={`mt-1 text-[11px] font-extrabold uppercase tracking-[0.18em] ${
+                  isLight ? "text-slate-500" : "text-slate-400"
+                }`}
+              >
+                {unit.label}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {timeLeft.isLive ? (
+          <p className="mt-5 text-sm font-semibold text-emerald-500">
+            This section is now live.
+          </p>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
+function MainToolCard({ tool, index, isVisible, isLight, onComingSoonClick }) {
   const theme = cardThemes[index % cardThemes.length];
+  const isComingSoon = tool.status === "coming-soon";
 
   return (
     <article
@@ -199,18 +334,32 @@ function MainToolCard({ tool, index, isVisible, isLight }) {
             ))}
           </div>
 
-          <a
-            href={tool.href}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex min-h-[42px] w-full items-center justify-center gap-2 rounded-[11px] bg-[#ff7218] px-4 py-2.5 text-[13px] font-extrabold text-white shadow-[0_13px_28px_-18px_rgba(249,115,22,0.72)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#ee6814] active:scale-95 sm:w-auto sm:text-[13px]"
-          >
-            {tool.button}
-            <ArrowRight
-              size={15}
-              className="transition-transform duration-300 group-hover:translate-x-1"
-            />
-          </a>
+          {isComingSoon ? (
+            <button
+              type="button"
+              onClick={() => onComingSoonClick(tool)}
+              className="inline-flex min-h-[42px] w-full items-center justify-center gap-2 rounded-[11px] bg-[#ff7218] px-4 py-2.5 text-[13px] font-extrabold text-white shadow-[0_13px_28px_-18px_rgba(249,115,22,0.72)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#ee6814] active:scale-95 sm:w-auto sm:text-[13px]"
+            >
+              {tool.button}
+              <ArrowRight
+                size={15}
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </button>
+          ) : (
+            <a
+              href={tool.href}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex min-h-[42px] w-full items-center justify-center gap-2 rounded-[11px] bg-[#ff7218] px-4 py-2.5 text-[13px] font-extrabold text-white shadow-[0_13px_28px_-18px_rgba(249,115,22,0.72)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#ee6814] active:scale-95 sm:w-auto sm:text-[13px]"
+            >
+              {tool.button}
+              <ArrowRight
+                size={15}
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </a>
+          )}
         </div>
       </div>
     </article>
@@ -287,6 +436,7 @@ function SecondaryToolCard({ item, index, isVisible, isLight }) {
 
 export default function ToolsSection({ theme = "light" }) {
   const { ref, isVisible } = useInViewOnce();
+  const [activeComingSoonTool, setActiveComingSoonTool] = useState(null);
   const normalizedTheme = String(theme).toLowerCase();
   const isLight = ["light", "day", "white"].includes(normalizedTheme);
 
@@ -334,6 +484,7 @@ export default function ToolsSection({ theme = "light" }) {
               index={index}
               isVisible={isVisible}
               isLight={isLight}
+              onComingSoonClick={setActiveComingSoonTool}
             />
           ))}
         </div>
@@ -351,6 +502,13 @@ export default function ToolsSection({ theme = "light" }) {
         </div>
       </div>
       </div>
+      {activeComingSoonTool ? (
+        <CountdownModal
+          tool={activeComingSoonTool}
+          isLight={isLight}
+          onClose={() => setActiveComingSoonTool(null)}
+        />
+      ) : null}
       </div>
     </section>
   );

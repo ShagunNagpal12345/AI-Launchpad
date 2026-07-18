@@ -59,11 +59,11 @@ export default function GoalsSection({ theme = "light" }) {
   const isLight = ["light", "day", "white"].includes(normalizedTheme);
 
   return (
-    <section className={`py-8 md:py-10 ${isLight ? "bg-[#f7f9fc]" : "bg-[#020b18]"}`}>
+    <section className={`py-7 md:py-10 ${isLight ? "bg-[#f7f9fc]" : "bg-[#020b18]"}`}>
       <div className="mx-auto max-w-[1500px] px-4 sm:px-5 lg:px-6">
         <div
           className={`
-            rounded-[20px] border px-3 py-7 sm:px-5 md:py-8
+            rounded-[20px] border px-3 py-6 sm:px-5 sm:py-7 md:py-8
             ${
               isLight
                 ? "border-[#e7ebf2] bg-white/90 shadow-[0_16px_55px_-42px_rgba(15,23,42,0.28)]"
@@ -73,7 +73,7 @@ export default function GoalsSection({ theme = "light" }) {
         >
           <SplitGradientHeading
             theme={theme}
-            className={`text-center text-[25px] font-bold tracking-[-0.035em] sm:text-[28px] ${
+            className={`text-center text-[22px] font-bold tracking-[-0.035em] sm:text-[25px] md:text-[28px] ${
               isLight ? "text-[#101a3d]" : "text-white"
             }`}
             plain="Choose your"
@@ -83,13 +83,18 @@ export default function GoalsSection({ theme = "light" }) {
           <div
             className="
               goals-scroll
-              mt-7
+              -mx-3
+              mt-6
               flex
               snap-x
               snap-mandatory
               gap-3
               overflow-x-auto
+              px-3
               pb-2
+              sm:mx-0
+              sm:mt-7
+              sm:px-0
               md:grid
               md:grid-cols-4
               md:overflow-visible
@@ -105,10 +110,10 @@ export default function GoalsSection({ theme = "light" }) {
                   key={goal.title}
                   href={goal.href || "#"}
                   className={`
-                    group flex min-h-[205px] w-[82vw] max-w-[210px] shrink-0 snap-start
-                    flex-col items-center rounded-[16px] border px-4 pb-5 pt-5 text-center
+                    group flex min-h-[194px] w-[74vw] max-w-[208px] shrink-0 snap-start
+                    flex-col items-center rounded-[16px] border px-4 pb-5 pt-4 text-center
                     transition duration-300 hover:-translate-y-1 ${accent.border} ${accent.glow}
-                    sm:w-[68vw] md:w-auto md:max-w-none
+                    sm:min-h-[205px] sm:w-[46vw] sm:max-w-[220px] sm:pt-5 md:w-auto md:max-w-none
                     ${
                       isLight
                         ? "border-[#e8ecf2] bg-white shadow-[0_10px_28px_-24px_rgba(15,23,42,0.25)]"
@@ -119,29 +124,33 @@ export default function GoalsSection({ theme = "light" }) {
                   <div
                     className="
                       flex
-                      h-[68px]
-                      w-[82px]
+                      h-[60px]
+                      w-[72px]
                       items-center
                       justify-center
                       overflow-hidden
+                      sm:h-[68px]
+                      sm:w-[82px]
                     "
                   >
                     <img
                       src={icon}
                       alt={`${goal.title} icon`}
                       className="
-                        h-[64px]
-                        w-[64px]
+                        h-[56px]
+                        w-[56px]
                         object-contain
                         transition
                         duration-300
                         group-hover:scale-105
+                        sm:h-[64px]
+                        sm:w-[64px]
                       "
                     />
                   </div>
 
                   <h3
-                    className={`mt-3 min-h-[44px] text-[15px] font-bold leading-[1.25] tracking-[-0.02em] ${
+                    className={`mt-3 min-h-[40px] text-[14px] font-bold leading-[1.25] tracking-[-0.02em] sm:min-h-[44px] sm:text-[15px] ${
                       isLight ? "text-[#101a3d]" : "text-white"
                     }`}
                   >
@@ -149,7 +158,7 @@ export default function GoalsSection({ theme = "light" }) {
                   </h3>
 
                   <p
-                    className={`mt-3 max-w-[150px] text-[12px] font-medium leading-[1.5] ${
+                    className={`mt-2.5 max-w-[150px] text-[11px] font-medium leading-[1.5] sm:mt-3 sm:text-[12px] ${
                       isLight ? "text-[#778198]" : "text-slate-400"
                     }`}
                   >

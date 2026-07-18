@@ -112,17 +112,22 @@ function SocialCard({ platform, isLight }) {
       className={`
         group
         flex
-        min-h-[260px]
+        min-h-[192px]
         flex-col
         items-center
         rounded-[18px]
         border
-        px-5
-        py-6
+        px-3
+        py-4
         text-center
         transition
         duration-300
         hover:-translate-y-1
+        sm:min-h-[228px]
+        sm:px-5
+        sm:py-5
+        md:min-h-[248px]
+        md:py-6
         ${
           isLight
             ? "border-[#e6eaf1] bg-white hover:border-blue-200 hover:shadow-[0_18px_42px_-32px_rgba(37,99,235,0.34)]"
@@ -130,39 +135,47 @@ function SocialCard({ platform, isLight }) {
         }
       `}
     >
-      <div className="flex h-[88px] items-center justify-center">
+      <div className="flex h-[58px] items-center justify-center sm:h-[72px] md:h-[88px]">
         <img
           src={platform.icon}
           alt={`${platform.name} icon`}
           className="
-            h-[72px]
-            w-[72px]
+            h-[46px]
+            w-[46px]
             object-contain
             transition
             duration-300
             group-hover:scale-105
+            sm:h-[58px]
+            sm:w-[58px]
+            md:h-[72px]
+            md:w-[72px]
           "
         />
       </div>
 
-      <h3 className={`mt-5 text-[16px] font-bold ${isLight ? "text-[#111a3b]" : "text-white"}`}>
+      <h3 className={`mt-3 text-[13px] font-bold sm:mt-4 sm:text-[15px] md:mt-5 md:text-[16px] ${isLight ? "text-[#111a3b]" : "text-white"}`}>
         {platform.name}
       </h3>
 
       <strong
         className={`
-          mt-6
-          text-[29px]
+          mt-3.5
+          text-[20px]
           font-extrabold
           leading-none
           tracking-[-0.04em]
+          sm:mt-4
+          sm:text-[24px]
+          md:mt-6
+          md:text-[29px]
           ${isLight ? "text-[#111a3b]" : "text-white"}
         `}
       >
         {platform.value}
       </strong>
 
-      <span className={`mt-3 text-[13px] font-medium ${isLight ? "text-[#68748a]" : "text-slate-400"}`}>
+      <span className={`mt-2 text-[11px] font-medium sm:mt-2.5 sm:text-[12px] md:mt-3 md:text-[13px] ${isLight ? "text-[#68748a]" : "text-slate-400"}`}>
         {platform.label}
       </span>
     </a>
@@ -190,15 +203,21 @@ function TestimonialCard({ testimonial, isLight }) {
     <article
       className={`
         flex
-        min-h-[320px]
+        min-h-[unset]
         flex-col
         rounded-[18px]
         border
-        px-6
-        py-6
+        px-4
+        py-4
         transition
         duration-300
         hover:-translate-y-1
+        sm:min-h-[276px]
+        sm:px-5
+        sm:py-5
+        md:min-h-[308px]
+        md:px-6
+        md:py-6
         ${
           isLight
             ? "border-[#e6eaf1] bg-white hover:border-orange-200 hover:shadow-[0_18px_42px_-32px_rgba(249,115,22,0.3)]"
@@ -210,36 +229,46 @@ function TestimonialCard({ testimonial, isLight }) {
 
       <p
         className={`
-          mt-6
-          text-[15px]
+          mt-4
+          text-[13px]
           font-medium
-          leading-7
+          leading-5
+          sm:mt-5
+          sm:text-[14px]
+          sm:leading-6
+          md:mt-6
+          md:text-[15px]
+          md:leading-7
           ${isLight ? "text-[#5f6a7f]" : "text-slate-300"}
         `}
       >
         {testimonial.quote}
       </p>
 
-      <div className="mt-auto flex items-center gap-3 pt-7">
+      <div className="mt-5 flex items-center gap-3 pt-0 sm:mt-auto sm:pt-6 md:pt-7">
         <img
           src={testimonial.avatar}
           alt={testimonial.name}
           className="
-            h-12
-            w-12
+            h-10
+            w-10
             rounded-full
             border
             border-slate-200/70
             object-cover
+            sm:h-11
+            sm:w-11
+            md:h-12
+            md:w-12
           "
         />
 
         <div>
-          <h3 className={`text-[14px] font-bold ${isLight ? "text-[#111a3b]" : "text-white"}`}>
+          <h3 className={`text-[12px] font-bold sm:text-[13px] md:text-[14px] ${isLight ? "text-[#111a3b]" : "text-white"}`}>
             {testimonial.name}
           </h3>
 
-          <p className={`mt-1 text-[12px] font-medium ${isLight ? "text-[#7a8497]" : "text-slate-400"}`}>
+          <p className={`mt-1 text-[10px] font-medium sm:text-[11px] md:text-[12px] ${isLight ? "text-[#7a8497]" : "text-slate-400"}`}>
             {testimonial.role}
           </p>
         </div>
@@ -253,12 +282,12 @@ export default function TestimonialsCareerSection({ theme = "light" }) {
   const isLight = ["light", "day", "white"].includes(normalizedTheme);
 
   return (
-    <section className={`py-5 md:py-7 ${isLight ? "bg-[#f7f9fc]" : "bg-[#020b18]"}`}>
+    <section className={`py-4 md:py-7 ${isLight ? "bg-[#f7f9fc]" : "bg-[#020b18]"}`}>
       <div className="mx-auto max-w-[1580px] px-4 sm:px-5 lg:px-6">
         <div className="grid gap-5 xl:grid-cols-[0.9fr_1.1fr]">
           {/* Social presence */}
           <article
-            className={`rounded-[22px] border px-5 py-6 sm:px-6 ${
+            className={`rounded-[22px] border px-4 py-5 sm:px-6 sm:py-6 ${
               isLight
                 ? "border-[#e4e9f1] bg-white shadow-[0_16px_55px_-44px_rgba(15,23,42,0.25)]"
                 : "border-[#1d2d43] bg-[linear-gradient(145deg,#071426,#051121)] shadow-[0_22px_65px_-48px_rgba(0,0,0,0.9)]"
@@ -266,7 +295,7 @@ export default function TestimonialsCareerSection({ theme = "light" }) {
           >
             <SplitGradientHeading
               theme={theme}
-              className={`text-[24px] font-extrabold tracking-[-0.035em] sm:text-[28px] ${
+              className={`text-[21px] font-extrabold tracking-[-0.035em] sm:text-[24px] md:text-[28px] ${
                 isLight ? "text-[#111a3b]" : "text-white"
               }`}
               plain="We're Active"
@@ -275,32 +304,17 @@ export default function TestimonialsCareerSection({ theme = "light" }) {
 
             <div
               className="
-                social-scroll
-                mt-6
-                flex
-                snap-x
-                snap-mandatory
-                gap-4
-                overflow-x-auto
-                pb-2
-                sm:grid
-                sm:grid-cols-2
-                sm:overflow-visible
+                mt-5
+                grid
+                grid-cols-2
+                gap-3
+                sm:mt-6
+                sm:gap-4
                 lg:grid-cols-4
               "
             >
               {socialPlatforms.map((platform) => (
-                <div
-                  key={platform.name}
-                  className="
-                    w-[78vw]
-                    max-w-[220px]
-                    shrink-0
-                    snap-start
-                    sm:w-auto
-                    sm:max-w-none
-                  "
-                >
+                <div key={platform.name}>
                   <SocialCard platform={platform} isLight={isLight} />
                 </div>
               ))}
@@ -309,7 +323,7 @@ export default function TestimonialsCareerSection({ theme = "light" }) {
 
           {/* Testimonials */}
           <article
-            className={`rounded-[22px] border px-5 py-6 sm:px-6 ${
+            className={`rounded-[22px] border px-4 py-5 sm:px-6 sm:py-6 ${
               isLight
                 ? "border-[#e4e9f1] bg-white shadow-[0_16px_55px_-44px_rgba(15,23,42,0.25)]"
                 : "border-[#1d2d43] bg-[linear-gradient(145deg,#071426,#051121)] shadow-[0_22px_65px_-48px_rgba(0,0,0,0.9)]"
@@ -318,7 +332,7 @@ export default function TestimonialsCareerSection({ theme = "light" }) {
             <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
               <SplitGradientHeading
                 theme={theme}
-                className={`text-[24px] font-extrabold tracking-[-0.035em] sm:text-[28px] ${
+                className={`text-[21px] font-extrabold tracking-[-0.035em] sm:text-[24px] md:text-[28px] ${
                   isLight ? "text-[#111a3b]" : "text-white"
                 }`}
                 plain="What Our"
@@ -333,32 +347,19 @@ export default function TestimonialsCareerSection({ theme = "light" }) {
 
             <div
               className="
-                testimonials-scroll
-                mt-6
-                flex
-                snap-x
-                snap-mandatory
-                gap-4
-                overflow-x-auto
-                pb-2
+                mt-5
+                grid
+                grid-cols-1
+                gap-3
+                sm:mt-6
+                sm:gap-4
+                sm:grid-cols-2
                 md:grid
                 md:grid-cols-3
-                md:overflow-visible
               "
             >
               {learnerTestimonials.map((testimonial) => (
-                <div
-                  key={testimonial.name}
-                  className="
-                    w-[84vw]
-                    max-w-[290px]
-                    shrink-0
-                    snap-start
-                    sm:w-[70vw]
-                    md:w-auto
-                    md:max-w-none
-                  "
-                >
+                <div key={testimonial.name}>
                   <TestimonialCard testimonial={testimonial} isLight={isLight} />
                 </div>
               ))}

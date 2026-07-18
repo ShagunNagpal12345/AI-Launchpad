@@ -107,34 +107,35 @@ function DarkEcosystemCard({ item }) {
     <a
       href={item.href}
       className="
-        group flex min-h-[320px] min-w-0 flex-col rounded-[18px]
-        border border-white/[0.08] bg-[#0d182b] px-5 py-7 text-center
+        group flex min-h-[280px] min-w-0 flex-col rounded-[18px]
+        border border-white/[0.08] bg-[#0d182b] px-4 py-6 text-center
         shadow-[0_16px_38px_-28px_rgba(0,0,0,0.45)]
         transition duration-300
         hover:-translate-y-1
         hover:border-blue-400/25
         hover:shadow-[0_20px_45px_-28px_rgba(37,99,235,0.28)]
+        sm:min-h-[300px] sm:px-5 sm:py-7
         md:min-h-[355px]
       "
     >
-      <div className="flex min-h-[112px] items-center justify-center">
+      <div className="flex min-h-[96px] items-center justify-center sm:min-h-[104px] md:min-h-[112px]">
         <img
           src={item.icon}
           alt=""
           aria-hidden="true"
-          className="h-[82px] w-[82px] object-contain transition duration-300 group-hover:scale-105"
+          className="h-[72px] w-[72px] object-contain transition duration-300 group-hover:scale-105 sm:h-[78px] sm:w-[78px] md:h-[82px] md:w-[82px]"
         />
       </div>
 
-      <h3 className="mt-2 text-[18px] font-extrabold leading-tight tracking-[-0.025em] text-white">
+      <h3 className="mt-2 text-[17px] font-extrabold leading-tight tracking-[-0.025em] text-white sm:text-[18px]">
         {item.title}
       </h3>
 
-      <p className="mx-auto mt-4 max-w-[190px] text-[14px] font-medium leading-[1.55] text-slate-300">
+      <p className="mx-auto mt-3 max-w-[200px] text-[13px] font-medium leading-[1.55] text-slate-300 sm:mt-4 sm:text-[14px]">
         {item.description}
       </p>
 
-      <div className="mt-auto inline-flex items-center justify-center gap-2 pt-6 text-[14px] font-bold text-sky-300">
+      <div className="mt-auto inline-flex min-h-[44px] items-center justify-center gap-2 pt-5 text-[13px] font-bold text-sky-300 sm:pt-6 sm:text-[14px]">
         <span>{item.cta}</span>
 
         <ArrowRight
@@ -151,34 +152,35 @@ function LightEcosystemCard({ item }) {
     <a
       href={item.href}
       className="
-        group flex min-h-[320px] min-w-0 flex-col rounded-[18px]
-        border border-[#e7ebf2] bg-white px-5 py-7 text-center
+        group flex min-h-[280px] min-w-0 flex-col rounded-[18px]
+        border border-[#e7ebf2] bg-white px-4 py-6 text-center
         shadow-[0_10px_35px_-26px_rgba(15,23,42,0.28)]
         transition duration-300
         hover:-translate-y-1
         hover:border-blue-200
         hover:shadow-[0_20px_45px_-28px_rgba(37,99,235,0.35)]
+        sm:min-h-[300px] sm:px-5 sm:py-7
         md:min-h-[355px]
       "
     >
-      <div className="flex min-h-[105px] items-center justify-center">
+      <div className="flex min-h-[96px] items-center justify-center sm:min-h-[102px] md:min-h-[105px]">
         <img
           src={item.icon}
           alt=""
           aria-hidden="true"
-          className="h-[88px] w-[88px] object-contain transition duration-300 group-hover:scale-105"
+          className="h-[74px] w-[74px] object-contain transition duration-300 group-hover:scale-105 sm:h-[82px] sm:w-[82px] md:h-[88px] md:w-[88px]"
         />
       </div>
 
-      <h3 className="mt-2 text-[18px] font-extrabold leading-tight tracking-[-0.025em] text-[#0b1639]">
+      <h3 className="mt-2 text-[17px] font-extrabold leading-tight tracking-[-0.025em] text-[#0b1639] sm:text-[18px]">
         {item.title}
       </h3>
 
-      <p className="mx-auto mt-4 max-w-[190px] text-[14px] font-medium leading-[1.55] text-[#69758d]">
+      <p className="mx-auto mt-3 max-w-[200px] text-[13px] font-medium leading-[1.55] text-[#69758d] sm:mt-4 sm:text-[14px]">
         {item.description}
       </p>
 
-      <div className="mt-auto inline-flex items-center justify-center gap-2 pt-6 text-[14px] font-bold text-[#3575e8]">
+      <div className="mt-auto inline-flex min-h-[44px] items-center justify-center gap-2 pt-5 text-[13px] font-bold text-[#3575e8] sm:pt-6 sm:text-[14px]">
         <span>{item.cta}</span>
 
         <ArrowRight
@@ -201,14 +203,14 @@ export default function EcosystemSection({ theme = "dark" }) {
   return (
     <section
       id="ecosystem"
-      className={`py-10 md:py-14 ${
+      className={`py-8 md:py-14 ${
         isLight ? "bg-[#f8fafc]" : "bg-[#030b18]"
       }`}
     >
       <div className={shell}>
         <div
           className={`
-            overflow-hidden rounded-[22px] border px-3 py-7 sm:px-5 md:py-8
+            overflow-hidden rounded-[22px] border px-3 py-6 sm:px-5 sm:py-7 md:py-8
             ${
               isLight
                 ? `
@@ -226,7 +228,7 @@ export default function EcosystemSection({ theme = "dark" }) {
         >
           <SplitGradientHeading
             theme={theme}
-            className={`text-center text-[26px] font-black tracking-[-0.035em] sm:text-[30px] ${
+            className={`text-center text-[22px] font-black tracking-[-0.035em] sm:text-[26px] md:text-[30px] ${
               isLight ? "text-[#0a1538]" : "text-white"
             }`}
             plain={isLight ? "The AI Learning" : "The AI Launchpad"}
@@ -235,8 +237,8 @@ export default function EcosystemSection({ theme = "dark" }) {
 
           <div
             className="
-              ecosystem-scroll mt-7 flex snap-x snap-mandatory gap-3
-              overflow-x-auto pb-3
+              ecosystem-scroll -mx-3 mt-6 flex snap-x snap-mandatory gap-3 overflow-x-auto px-3 pb-3
+              sm:mx-0 sm:mt-7 sm:px-0
               lg:grid lg:grid-cols-3 lg:overflow-visible lg:pb-0
               xl:grid-cols-6
             "
@@ -244,7 +246,7 @@ export default function EcosystemSection({ theme = "dark" }) {
             {items.map((item) => (
               <div
                 key={item.title}
-                className="w-[84vw] max-w-[270px] shrink-0 snap-start sm:w-[70vw] lg:w-auto lg:max-w-none"
+                className="w-[78vw] max-w-[250px] shrink-0 snap-start sm:w-[50vw] sm:max-w-[260px] lg:w-auto lg:max-w-none"
               >
                 {isLight ? <LightEcosystemCard item={item} /> : <DarkEcosystemCard item={item} />}
               </div>
