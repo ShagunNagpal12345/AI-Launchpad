@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { AdminContentProvider } from './content/AdminContentContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import HeroStatsStrip from './components/HeroStatsStrip';
@@ -15,6 +16,7 @@ import ProjectsCommunitySection from './components/ProjectsCommunitySection';
 import TestimonialsCareerSection from './components/TestimonialsCareerSection';
 import PricingSection from './components/PricingSection';
 import DataSenseStudio from './components/datasensestudio';
+import AdminGate from './components/AdminGate';
 import CtaSection from './components/CtaSection';
 import SiteFooter from './components/SiteFooter';
 import AdvancedAiPage from './pages/AdvancedAiPage';
@@ -26,6 +28,7 @@ import LLMProjectGuidePage from './pages/LLMProjectGuidePage';
 import MachineLearningPage from './pages/MachineLearningPage';
 import MLOpsBestPracticesPage from './pages/MLOpsBestPracticesPage';
 import PythonForDataSciencePage from './pages/PythonForDataSciencePage';
+import AdminConsolePage from './pages/AdminConsolePage';
 
 const defaultTheme = 'light';
 const rootThemeTargets = ['documentElement', 'body'];
@@ -50,12 +53,13 @@ export default function App() {
   }, [theme]);
 
   return (
-    <div
-      className="min-h-screen bg-base text-ink transition-colors duration-300"
-      style={{ backgroundImage: 'var(--page-gradient)' }}
-    >
-      <Navbar theme={theme} onToggleTheme={() => setTheme((current) => current === 'dark' ? 'light' : 'dark')} />
-      <Routes>
+    <AdminContentProvider>
+      <div
+        className="min-h-screen bg-base text-ink transition-colors duration-300"
+        style={{ backgroundImage: 'var(--page-gradient)' }}
+      >
+        <Navbar theme={theme} onToggleTheme={() => setTheme((current) => current === 'dark' ? 'light' : 'dark')} />
+        <Routes>
         <Route
           path="/"
           element={
@@ -88,7 +92,7 @@ export default function App() {
         />
         <Route
           path="/resources/machine-learning-cheatsheet"
-          element={<LLMProjectGuidePage theme={theme} />}
+          element={<MachineLearningPage theme={theme} />}
         />
         <Route
           path="/resources/python-for-data-science"
@@ -122,8 +126,17 @@ export default function App() {
           path="/learn-ai/ai-for-professionals"
           element={<AiForProfessionalsPage theme={theme} />}
         />
-      </Routes>
-      <SiteFooter theme={theme} />
-    </div>
+        <Route
+          path="/admin"
+          element={
+            <AdminGate>
+              <AdminConsolePage theme={theme} />
+            </AdminGate>
+          }
+        />
+        </Routes>
+        <SiteFooter theme={theme} />
+      </div>
+    </AdminContentProvider>
   );
 }

@@ -1,116 +1,51 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { 
   Play, Clock, PlayIcon, ExternalLink, 
   BarChart, Database, Code, AlertTriangle, Brain,
   Video, Film, Radio, GraduationCap, ListVideo, MessageSquare 
 } from 'lucide-react';
 import SplitGradientHeading from './SplitGradientHeading';
+import { useAdminContent } from '../content/AdminContentContext';
 
 const YouTubePanel = ({ theme = "light" }) => {
   const normalizedTheme = String(theme).toLowerCase();
   const isLight = ["light", "day", "white"].includes(normalizedTheme);
+  const { content } = useAdminContent();
+  const studioContent = content.dataSenseStudio;
   // --- 1. CHANNEL NAVIGATION TABS ---
-  const channelTabs = [
-    { name: 'Videos', icon: <Video size={16}/>, url: 'https://www.youtube.com/@Senseofdata/videos' },
-    { name: 'Shorts', icon: <Film size={16}/>, url: 'https://www.youtube.com/@Senseofdata/shorts' },
-    { name: 'Live', icon: <Radio size={16}/>, url: 'https://www.youtube.com/@Senseofdata/streams' },
-    { name: 'Courses', icon: <GraduationCap size={16}/>, url: 'https://www.youtube.com/@Senseofdata/courses' },
-    { name: 'Playlists', icon: <ListVideo size={16}/>, url: 'https://www.youtube.com/@Senseofdata/playlists' },
-    { name: 'Posts', icon: <MessageSquare size={16}/>, url: 'https://www.youtube.com/@Senseofdata/posts' }
-  ];
+  const tabIcons = {
+    Videos: <Video size={16} />,
+    Shorts: <Film size={16} />,
+    Live: <Radio size={16} />,
+    Courses: <GraduationCap size={16} />,
+    Playlists: <ListVideo size={16} />,
+    Posts: <MessageSquare size={16} />,
+  };
 
   // Video Data Configuration
-const videos = [
-  {
-    id: 'WcMu3mGwwgU',
-    title: "Claude Fable 5 vs Opus 4.8 vs GPT-5.5 Codex - Who Builds Better?",
-    channel: "DataSense",
-    views: "240K Views",
-    duration: "--:--",
-    category: "AI Battle",
-    icon: <Brain size={14} className="text-purple-500" />
-  },
-  {
-    id: '1nRxNtpRc-M',
-    title: "Claude Code for Beginners: Build Slides, Videos & Websites With No Code",
-    channel: "DataSense",
-    views: "12K views",
-    duration: "12:45",
-    category: "Career Guide",
-    icon: <AlertTriangle size={14} className="text-amber-500" />
-  },
-  {
-    id: 'wgdeJUm38yU',
-    title: "Python Project 1: Build Snake Game in Python",
-    channel: "DataSense",
-    views: "12K Views",
-    duration: "--:--",
-    category: "Python",
-    icon: <Code size={14} className="text-emerald-500" />
-  },
-  
-  {
-    id: 'GYNal5k6Nlo',
-    title: "AWS for FREE on Your Laptop • 47 Services • No Credit Card",
-    channel: "DataSense",
-    views: "18K Views",
-    duration: "--:--",
-    category: "Cloud",
-    icon: <Database size={14} className="text-blue-500" />
-  },
-  {
-    id: 'F1B3KRG-A1w',
-    title: "Claude Fable 5 vs GPT-5.5 Play Chess: One Broke the Rules",
-    channel: "DataSense",
-    views: "100k Views",
-    duration: "--:--",
-    category: "AI Challenge",
-    icon: <Brain size={14} className="text-purple-500" />
-  },
-  {
-    id: 'b8kFTTFh-_I',
-    title: "How to Upload a Project to GitHub from Your Laptop",
-    channel: "DataSense",
-    views: "8K Views",
-    duration: "--:--",
-    category: "GitHub",
-    icon: <Code size={14} className="text-emerald-500" />
-  },
-  {
-      id: 'sMeeC6IJ2Qo',
-      title: "Complete SQL Roadmap for Data Science",
-      channel: "DataSense",
-      views: "8.5K views",
-      duration: "45:20",
-      category: "SQL Mastery",
-      icon: <Database size={14} className="text-blue-500"/>
-},
+  const categoryIcons = {
+    brain: <Brain size={14} className="text-purple-500" />,
+    alert: <AlertTriangle size={14} className="text-amber-500" />,
+    code: <Code size={14} className="text-emerald-500" />,
+    database: <Database size={14} className="text-blue-500" />,
+    chart: <BarChart size={14} className="text-orange-500" />,
+  };
 
-{
-
-    id: 'W-jQg5D1RoE',
-    title: "Power BI 15 Day Crash Course - Full Playlist",
-    channel: "DataSense",
-    views: "25K views",
-    duration: "1:30:00",
-    category: "Power BI",
-    icon: <BarChart size={14} className="text-orange-500"/>
-
-},
-  {
-    id: '1wND5uT3H7A',
-    title: "Reinforcement Learning for First-Timers",
-    channel: "DataSense",
-    views: "15K Views",
-    duration: "--:--",
-    category: "AI/ML",
-    icon: <Brain size={14} className="text-purple-500" />
-  }
-
-
-];
+  const videos = studioContent.videos.map((video) => ({
+    ...video,
+    icon: categoryIcons[video.iconKey] || categoryIcons.brain,
+  }));
 
   const [currentVideo, setCurrentVideo] = useState(videos[0]);
+
+  useEffect(() => {
+    if (!videos.length) return;
+
+    setCurrentVideo((current) => {
+      const matchedVideo = videos.find((video) => video.id === current?.id);
+      return matchedVideo || videos[0];
+    });
+  }, [studioContent.videos]);
 
   return (
     <section
@@ -158,8 +93,8 @@ const videos = [
                   className={`text-[24px] font-extrabold tracking-[-0.035em] sm:text-[28px] ${
                     isLight ? "text-[#111a3b]" : "text-white"
                   }`}
-                  plain="DataSense"
-                  accent="Studio"
+                  plain={studioContent.heading}
+                  accent={studioContent.accentHeading}
                 />
             </div>
             
@@ -174,13 +109,13 @@ const videos = [
                     : "border-orange-400/25 bg-orange-400/10 text-orange-300 hover:bg-orange-400/15"
                 }`}
             >
-                Subscribe to Channel <ExternalLink size={14}/>
+                {studioContent.subscribeLabel} <ExternalLink size={14}/>
             </a>
           </div>
 
           {/* --- CHANNEL NAVIGATION BAR --- */}
           <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
-              {channelTabs.map((tab) => (
+              {studioContent.tabs.map((tab) => (
                   <a 
                       key={tab.name}
                       href={tab.url}
@@ -193,7 +128,7 @@ const videos = [
                       }`}
                   >
                       <span className={`transition-colors ${isLight ? "text-slate-400 group-hover:text-blue-500" : "text-slate-500 group-hover:text-sky-300"}`}>
-                          {tab.icon}
+                          {tabIcons[tab.name] || <Play size={16} />}
                       </span>
                       {tab.name}
                   </a>

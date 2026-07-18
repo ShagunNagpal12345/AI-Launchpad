@@ -1,10 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import {
-  classroomFilters,
-  classroomIntro,
-  classroomTracks,
-} from '../data/classroomData';
 import SplitGradientHeading from './SplitGradientHeading';
+import { useAdminContent } from '../content/AdminContentContext';
 import './InsideClassroom.css';
 
 const classroomImages = import.meta.glob(
@@ -85,6 +81,13 @@ function getModuleText(course) {
 export default function InsideClassroom({
   theme = 'light',
 }) {
+  const { content } = useAdminContent();
+  const classroomIntro = content.classroom.intro;
+  const classroomTracks = content.classroom.tracks;
+  const classroomFilters = [
+    { id: 'all', label: 'All' },
+    ...classroomTracks.map(({ id, title }) => ({ id, label: title })),
+  ];
   const [active, setActive] = useState('all');
   const [selectedCourse, setSelectedCourse] =
     useState(null);
@@ -99,7 +102,19 @@ export default function InsideClassroom({
     return classroomTracks.filter(
       (track) => track.id === active,
     );
-  }, [active]);
+  }, [active, classroomTracks]);
+
+  useEffect(() => {
+    if (active === 'all') return;
+
+    const trackStillExists = classroomTracks.some(
+      (track) => track.id === active,
+    );
+
+    if (!trackStillExists) {
+      setActive('all');
+    }
+  }, [active, classroomTracks]);
 
   useEffect(() => {
     if (!selectedCourse) {
@@ -162,8 +177,8 @@ export default function InsideClassroom({
               as="h2"
               theme={theme}
               className="classroom-heading-title"
-              plain="Where Learning AI Becomes"
-              accent="Building for Real"
+              plain={classroomIntro.heading}
+              accent={classroomIntro.accentHeading}
             />
 
             <p>{classroomIntro.description}</p>

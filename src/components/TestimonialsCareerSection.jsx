@@ -6,6 +6,7 @@ import linkedinIcon from "../assets/social-testimonials-assets/social-icons/link
 import instagramIcon from "../assets/social-testimonials-assets/social-icons/instagram.svg";
 import topmateIcon from "../assets/social-testimonials-assets/social-icons/tompate.jpeg";
 import SplitGradientHeading from "./SplitGradientHeading";
+import { useAdminContent } from "../content/AdminContentContext";
 
 /* Learner avatars */
 import snehaAvatar from "../assets/social-testimonials-assets/learner-avatars/sneha-r.png";
@@ -18,28 +19,28 @@ import starIcon from "../assets/social-testimonials-assets/ui-icons/star.svg";
 const socialPlatforms = [
   {
     name: "YouTube",
-    value: "42K+",
-    label: "Subscribers",
+    value: "125K+",
+    label: "Viewers",
     icon: youtubeIcon,
     href: "https://www.youtube.com/",
   },
   {
     name: "Topmate",
-    value: "12K+",
-    label: "Community",
+    value: "5K+",
+    label: "Bookings",
     icon: topmateIcon,
     href: "#topmate",
   },
   {
     name: "LinkedIn",
-    value: "8K+",
+    value: "5K+",
     label: "Followers",
     icon: linkedinIcon,
     href: "https://www.linkedin.com/",
   },
   {
     name: "Instagram",
-    value: "15K+",
+    value: "25K+",
     label: "Followers",
     icon: instagramIcon,
     href: "https://www.instagram.com/",
@@ -278,6 +279,7 @@ function TestimonialCard({ testimonial, isLight }) {
 }
 
 export default function TestimonialsCareerSection({ theme = "light" }) {
+  const { content } = useAdminContent();
   const normalizedTheme = String(theme).toLowerCase();
   const isLight = ["light", "day", "white"].includes(normalizedTheme);
 
@@ -298,8 +300,8 @@ export default function TestimonialsCareerSection({ theme = "light" }) {
               className={`text-[21px] font-extrabold tracking-[-0.035em] sm:text-[24px] md:text-[28px] ${
                 isLight ? "text-[#111a3b]" : "text-white"
               }`}
-              plain="We're Active"
-              accent="Everywhere"
+              plain={content.social.heading}
+              accent={content.social.accentHeading}
             />
 
             <div
@@ -313,7 +315,7 @@ export default function TestimonialsCareerSection({ theme = "light" }) {
                 lg:grid-cols-4
               "
             >
-              {socialPlatforms.map((platform) => (
+              {content.social.items.map((platform) => (
                 <div key={platform.name}>
                   <SocialCard platform={platform} isLight={isLight} />
                 </div>
@@ -335,12 +337,12 @@ export default function TestimonialsCareerSection({ theme = "light" }) {
                 className={`text-[21px] font-extrabold tracking-[-0.035em] sm:text-[24px] md:text-[28px] ${
                   isLight ? "text-[#111a3b]" : "text-white"
                 }`}
-                plain="What Our"
-                accent="Learners Say"
+                plain={content.testimonials.heading}
+                accent={content.testimonials.accentHeading}
               />
 
               <HeaderAction href="#all-testimonials">
-                View all
+                {content.testimonials.ctaLabel}
                 <ArrowRight className="h-3.5 w-3.5" />
               </HeaderAction>
             </div>
@@ -358,7 +360,7 @@ export default function TestimonialsCareerSection({ theme = "light" }) {
                 md:grid-cols-3
               "
             >
-              {learnerTestimonials.map((testimonial) => (
+              {content.testimonials.items.map((testimonial) => (
                 <div key={testimonial.name}>
                   <TestimonialCard testimonial={testimonial} isLight={isLight} />
                 </div>

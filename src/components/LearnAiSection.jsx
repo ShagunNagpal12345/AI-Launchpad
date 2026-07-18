@@ -15,39 +15,47 @@ const learningTracks = [
     title: "AI Fundamentals",
     href: "/learn-ai/ai-fundamentals",
     items: [
-      "Python Basics",
-      "Math for AI",
-      "Statistics",
-      "AI Basics",
-      "Mini Project",
+      "Python for AI",
+      "GenAI Basics",
+      "Prompt Engineering",
+      "LLM Fundamentals",
+      "RAG Basics",
+      "Agentic AI Intro",
     ],
-    courseCount: "10 Courses",
     accent: "blue",
   },
   {
-    title: "Machine Learning",
+    title: "Agent Builder",
     href: "/learn-ai/machine-learning",
     items: [
-      "Supervised ML",
-      "Unsupervised ML",
-      "Model Evaluation",
-      "End-to-End ML",
-      "Capstone Project",
+      "LangChain",
+      "LangGraph",
+      "Deep Agents",
+      "Human-in-the-Loop",
+      "Time Travel & Checkpointing",
+      "Multi-Agent Systems",
+      "Tool Calling & MCP",
+      "Memory & State",
+      "Telemetry & Observability",
+      "Evaluation & Testing",
+      "Guardrails",
+      "Agent Deployment",
     ],
-    courseCount: "12 Courses",
     accent: "green",
   },
   {
-    title: "Deep Learning",
+    title: "Frontier Enginering",
     href: "/learn-ai/deep-learning",
     items: [
-      "Neural Networks",
-      "CNNs",
-      "RNNs & LSTMs",
-      "Transformers",
-      "Capstone Project",
+      "Backend Design",
+      "Frontend Design",
+      "API Management",
+      "Databases & Vector Stores",
+      "System Design",
+      "Microservices",
+      "CI/CD",
+      "Containerization",
     ],
-    courseCount: "12 Courses",
     accent: "violet",
   },
   {
@@ -57,23 +65,33 @@ const learningTracks = [
       "NLP & GenAI",
       "Computer Vision",
       "RL & Agents",
+      "Fine-Tuning",
+      "Model Optimization",
       "MLOps",
+      "LLMOps",
+      "Distributed Training",
+      "Multimodal AI",
+      "Model Serving",
+      "AI Safety & Alignment",
       "Capstone Project",
     ],
-    courseCount: "15 Courses",
     accent: "orange",
   },
   {
     title: "AI for Professionals",
     href: "/learn-ai/ai-for-professionals",
     items: [
-      "Industry Projects",
-      "Case Studies",
-      "Deploy AI Apps",
+      "Enterprise AI Strategy",
+      "Industry Use Cases",
+      "AI Product Management",
+      "Building AI Apps",
+      "Deploying AI at Scale",
+      "AI Governance & Compliance",
+      "Cost & ROI",
       "Best Practices",
-      "Career Boost",
+      "Case Studies",
+      "Career Growth",
     ],
-    courseCount: "10 Courses",
     accent: "cyan",
   },
 ];
@@ -209,18 +227,6 @@ function TrackCard({ track, isLight }) {
         ))}
       </ul>
 
-      <div
-        className={`
-          border-t px-4 py-5 text-center text-[15px] font-extrabold
-          ${
-            isLight
-              ? `${accent.footer} border-[#edf0f4]`
-              : "border-white/[0.07] text-sky-400"
-          }
-        `}
-      >
-        {track.courseCount}
-      </div>
     </Link>
   );
 }

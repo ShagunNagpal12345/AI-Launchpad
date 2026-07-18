@@ -1,156 +1,215 @@
-import {
-  ArrowRight,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
-import { goals } from "../data/siteData";
-
-import beginnerIcon from "../assets/learning-goal-icons/ai-for-beginners.png";
-import professionalIcon from "../assets/learning-goal-icons/ai-for-professionals.png";
-import computerVisionIcon from "../assets/learning-goal-icons/computer-vision.png";
-import dataScienceIcon from "../assets/learning-goal-icons/data-science.png";
-import deepLearningIcon from "../assets/learning-goal-icons/deep-learning.png";
-import machineLearningIcon from "../assets/learning-goal-icons/machine-learning.png";
-import nlpGenaiIcon from "../assets/learning-goal-icons/nlp-genai.png";
+import aiForEveryoneIcon from "../assets/learning-goal-icons/ai-for-everyone.png";
+import claudeCodeForBuildersIcon from "../assets/learning-goal-icons/claude-code-for-builders.png";
+import aiForNonCodersIcon from "../assets/learning-goal-icons/ai-for-non-coders.png";
+import agenticAiIcon from "../assets/learning-goal-icons/agentic-ai.png";
+import multiagentOrchestrationIcon from "../assets/learning-goal-icons/multiagent-orchestration.png";
+import aiSoftwareDevelopmentIcon from "../assets/learning-goal-icons/ai-software-development.png";
+import devopsIcon from "../assets/learning-goal-icons/devops.png";
+import n8nExpertIcon from "../assets/learning-goal-icons/n8n-expert.png";
+import aiArchitectIcon from "../assets/learning-goal-icons/ai-architect.png";
+import pythonProIcon from "../assets/learning-goal-icons/python-pro.png";
+import sqlMasterIcon from "../assets/learning-goal-icons/sql-master.png";
 import SplitGradientHeading from "./SplitGradientHeading";
+import { useAdminContent } from "../content/AdminContentContext";
+import { DEFAULT_ADMIN_CONTENT } from "../content/defaultAdminContent";
 
 const goalIcons = [
-  beginnerIcon,
-  machineLearningIcon,
-  deepLearningIcon,
-  nlpGenaiIcon,
-  computerVisionIcon,
-  dataScienceIcon,
-  professionalIcon,
+  aiForEveryoneIcon,
+  claudeCodeForBuildersIcon,
+  aiForNonCodersIcon,
+  agenticAiIcon,
+  multiagentOrchestrationIcon,
+  aiSoftwareDevelopmentIcon,
+  devopsIcon,
+  n8nExpertIcon,
+  aiArchitectIcon,
+  pythonProIcon,
+  sqlMasterIcon,
 ];
 
 const accents = [
   {
     border: "group-hover:border-orange-200",
-    glow: "group-hover:shadow-[0_18px_38px_-28px_rgba(249,115,22,0.45)]",
+    glow: "group-hover:shadow-[0_18px_40px_-24px_rgba(249,115,22,0.45)]",
   },
   {
     border: "group-hover:border-orange-200",
-    glow: "group-hover:shadow-[0_18px_38px_-28px_rgba(249,115,22,0.45)]",
+    glow: "group-hover:shadow-[0_18px_40px_-24px_rgba(249,115,22,0.45)]",
   },
   {
     border: "group-hover:border-orange-200",
-    glow: "group-hover:shadow-[0_18px_38px_-28px_rgba(249,115,22,0.45)]",
+    glow: "group-hover:shadow-[0_18px_40px_-24px_rgba(249,115,22,0.45)]",
   },
   {
     border: "group-hover:border-violet-200",
-    glow: "group-hover:shadow-[0_18px_38px_-28px_rgba(139,92,246,0.45)]",
+    glow: "group-hover:shadow-[0_18px_40px_-24px_rgba(139,92,246,0.45)]",
   },
   {
     border: "group-hover:border-indigo-200",
-    glow: "group-hover:shadow-[0_18px_38px_-28px_rgba(99,102,241,0.45)]",
+    glow: "group-hover:shadow-[0_18px_40px_-24px_rgba(99,102,241,0.45)]",
   },
   {
     border: "group-hover:border-blue-200",
-    glow: "group-hover:shadow-[0_18px_38px_-28px_rgba(59,130,246,0.45)]",
+    glow: "group-hover:shadow-[0_18px_40px_-24px_rgba(59,130,246,0.45)]",
   },
   {
     border: "group-hover:border-cyan-200",
-    glow: "group-hover:shadow-[0_18px_38px_-28px_rgba(6,182,212,0.45)]",
+    glow: "group-hover:shadow-[0_18px_40px_-24px_rgba(6,182,212,0.45)]",
+  },
+  {
+    border: "group-hover:border-emerald-200",
+    glow: "group-hover:shadow-[0_18px_40px_-24px_rgba(16,185,129,0.45)]",
+  },
+  {
+    border: "group-hover:border-fuchsia-200",
+    glow: "group-hover:shadow-[0_18px_40px_-24px_rgba(217,70,239,0.45)]",
+  },
+  {
+    border: "group-hover:border-sky-200",
+    glow: "group-hover:shadow-[0_18px_40px_-24px_rgba(14,165,233,0.45)]",
+  },
+  {
+    border: "group-hover:border-lime-200",
+    glow: "group-hover:shadow-[0_18px_40px_-24px_rgba(132,204,22,0.45)]",
   },
 ];
 
+const goalHrefByTitle = {
+  "AI for Everyone": "/resources/chatgpt-for-everyone",
+  "Claude Code for Builders": "#",
+  "AI for Non Coders": "#",
+  "Agentic AI": "#",
+  "Multiagent Orchestration": "#",
+  "AI Software Development": "#",
+  Devops: "#",
+  "N8N Expert": "#",
+  "AI Architect": "#",
+  "Python Pro": "/resources/python-for-data-science",
+  "SQL Master": "#",
+};
+
+function resolveGoalHref(goal) {
+  const mappedHref = goalHrefByTitle[goal.title];
+  const href = goal.href?.trim();
+
+  if (!mappedHref) {
+    return href || "#";
+  }
+
+  if (!href || href === "#") {
+    return mappedHref;
+  }
+
+  // Repair older saved admin content where a goal still points to the wrong legacy page.
+  if (
+    goal.title === "Machine Learning" &&
+    href === "/resources/llm-project-guide"
+  ) {
+    return mappedHref;
+  }
+
+  return href;
+}
+
 export default function GoalsSection({ theme = "light" }) {
+  const { content } = useAdminContent();
   const normalizedTheme = String(theme).toLowerCase();
   const isLight = ["light", "day", "white"].includes(normalizedTheme);
+  const defaultGoalItems = DEFAULT_ADMIN_CONTENT.goals.items;
+  const goalItems =
+    content.goals.items?.length === defaultGoalItems.length
+      ? content.goals.items
+      : defaultGoalItems;
 
   return (
-    <section className={`py-7 md:py-10 ${isLight ? "bg-[#f7f9fc]" : "bg-[#020b18]"}`}>
-      <div className="mx-auto max-w-[1500px] px-4 sm:px-5 lg:px-6">
+    <section
+      className={`py-10 md:py-16 transition-colors duration-300 ${
+        isLight ? "bg-[#f7f9fc]" : "bg-[#020b18]"
+      }`}
+    >
+      <div className="mx-auto max-w-[1500px] px-4 sm:px-6 lg:px-8">
         <div
           className={`
-            rounded-[20px] border px-3 py-6 sm:px-5 sm:py-7 md:py-8
+            relative overflow-hidden rounded-[24px] border px-4 py-8 sm:px-6 sm:py-10 md:py-12
             ${
               isLight
-                ? "border-[#e7ebf2] bg-white/90 shadow-[0_16px_55px_-42px_rgba(15,23,42,0.28)]"
-                : "border-[#1d2d43] bg-[linear-gradient(145deg,#071426,#051121)] shadow-[0_22px_65px_-48px_rgba(0,0,0,0.9)]"
+                ? "border-[#e7ebf2] bg-white/90 backdrop-blur-sm shadow-[0_16px_55px_-42px_rgba(15,23,42,0.15)]"
+                : "border-[#1d2d43] bg-[linear-gradient(145deg,#071426,#051121)] shadow-[0_22px_65px_-48px_rgba(0,0,0,0.8)]"
             }
           `}
         >
           <SplitGradientHeading
             theme={theme}
-            className={`text-center text-[22px] font-bold tracking-[-0.035em] sm:text-[25px] md:text-[28px] ${
+            className={`text-center text-[24px] font-bold tracking-tight sm:text-[28px] md:text-[32px] ${
               isLight ? "text-[#101a3d]" : "text-white"
             }`}
-            plain="Choose your"
-            accent="learning goal"
+            plain={content.goals.heading}
+            accent={content.goals.accentHeading}
           />
 
           <div
             className="
               goals-scroll
-              -mx-3
-              mt-6
+              -mx-4
+              mt-8
               flex
               snap-x
               snap-mandatory
-              gap-3
+              gap-4
               overflow-x-auto
-              px-3
-              pb-2
+              px-4
+              pb-6
               sm:mx-0
-              sm:mt-7
+              sm:mt-10
               sm:px-0
-              md:grid
-              md:grid-cols-4
+              md:flex-wrap
+              md:justify-center
               md:overflow-visible
-              xl:grid-cols-7
+              md:pb-2
+              lg:gap-5
             "
           >
-            {goals.map((goal, index) => {
-              const icon = goalIcons[index];
-              const accent = accents[index];
+            {goalItems.map((goal, index) => {
+              const icon = goal.icon || goalIcons[index];
+              const accent = accents[index % accents.length];
+              const href = resolveGoalHref(goal);
 
               return (
                 <a
                   key={goal.title}
-                  href={goal.href || "#"}
+                  href={href}
                   className={`
-                    group flex min-h-[194px] w-[74vw] max-w-[208px] shrink-0 snap-start
-                    flex-col items-center rounded-[16px] border px-4 pb-5 pt-4 text-center
-                    transition duration-300 hover:-translate-y-1 ${accent.border} ${accent.glow}
-                    sm:min-h-[205px] sm:w-[46vw] sm:max-w-[220px] sm:pt-5 md:w-auto md:max-w-none
+                    group relative flex min-h-[220px] w-[75vw] max-w-[220px] shrink-0 snap-start
+                    flex-col items-center rounded-[20px] border px-5 pb-6 pt-6 text-center
+                    transition-all duration-400 ease-out hover:-translate-y-1.5 
+                    sm:w-[45vw] sm:max-w-[240px] md:w-auto md:flex-1 md:basis-[200px] lg:max-w-[240px]
+                    ${accent.border} ${accent.glow}
                     ${
                       isLight
-                        ? "border-[#e8ecf2] bg-white shadow-[0_10px_28px_-24px_rgba(15,23,42,0.25)]"
-                        : "border-white/[0.08] bg-[#0c1a2d] hover:border-blue-400/25"
+                        ? "border-[#e8ecf2] bg-white shadow-sm hover:shadow-[0_12px_30px_-15px_rgba(15,23,42,0.15)]"
+                        : "border-white/[0.06] bg-[#0c1a2d] hover:border-white/[0.12]"
                     }
                   `}
                 >
+                  {/* Subtle background pad for the icon */}
                   <div
-                    className="
-                      flex
-                      h-[60px]
-                      w-[72px]
-                      items-center
-                      justify-center
-                      overflow-hidden
-                      sm:h-[68px]
-                      sm:w-[82px]
-                    "
+                    className={`
+                      mb-4 flex h-[72px] w-[72px] items-center justify-center rounded-2xl
+                      transition-transform duration-500 ease-out group-hover:scale-110
+                      ${isLight ? "bg-slate-50" : "bg-white/[0.02]"}
+                    `}
                   >
                     <img
                       src={icon}
                       alt={`${goal.title} icon`}
-                      className="
-                        h-[56px]
-                        w-[56px]
-                        object-contain
-                        transition
-                        duration-300
-                        group-hover:scale-105
-                        sm:h-[64px]
-                        sm:w-[64px]
-                      "
+                      className="h-[48px] w-[48px] object-contain sm:h-[52px] sm:w-[52px]"
                     />
                   </div>
 
                   <h3
-                    className={`mt-3 min-h-[40px] text-[14px] font-bold leading-[1.25] tracking-[-0.02em] sm:min-h-[44px] sm:text-[15px] ${
+                    className={`mt-1 min-h-[44px] text-[15px] font-bold leading-tight tracking-tight sm:text-[16px] ${
                       isLight ? "text-[#101a3d]" : "text-white"
                     }`}
                   >
@@ -158,8 +217,8 @@ export default function GoalsSection({ theme = "light" }) {
                   </h3>
 
                   <p
-                    className={`mt-2.5 max-w-[150px] text-[11px] font-medium leading-[1.5] sm:mt-3 sm:text-[12px] ${
-                      isLight ? "text-[#778198]" : "text-slate-400"
+                    className={`mt-2 text-[12px] font-medium leading-relaxed sm:text-[13px] ${
+                      isLight ? "text-[#64748b]" : "text-slate-400"
                     }`}
                   >
                     {goal.description}
@@ -167,15 +226,17 @@ export default function GoalsSection({ theme = "light" }) {
 
                   {goal.cta && (
                     <div
-                      className={`mt-auto flex items-center gap-1.5 pt-4 text-[12px] font-bold opacity-0 transition duration-200 group-hover:opacity-100 ${
-                        isLight ? "text-blue-600" : "text-sky-400"
-                      }`}
+                      className={`
+                        mt-auto flex items-center justify-center gap-1.5 pt-5 text-[13px] font-bold 
+                        opacity-0 translate-y-2 transition-all duration-300 ease-out
+                        group-hover:translate-y-0 group-hover:opacity-100
+                        ${isLight ? "text-blue-600" : "text-sky-400"}
+                      `}
                     >
                       {goal.cta}
-
                       <ArrowRight
-                        className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
-                        strokeWidth={2.2}
+                        className="h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-1"
+                        strokeWidth={2.5}
                       />
                     </div>
                   )}

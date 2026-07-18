@@ -18,15 +18,15 @@ export const navItems = [
 ];
 
 export const stats = [
-  ['500+', 'Builders'], ['21+', 'Courses'], ['500+', 'SQL Questions'], ['2800+', 'Reviews'], ['4–8', 'Live Sessions / Month']
+  ['500+', 'AIBuilders'], ['100+', 'Live Sessions Completed'], ['500+', 'SQL Questions'], ['200+', '5 Star Reviews'], ['8–10', 'Live Sessions / Month']
 ];
 
 export const heroStats = [
-  { value: '500+', label: 'Builders', icon: Users, tone: 'orange' },
-  { value: '100+', label: 'Courses', icon: BookOpenCheck, tone: 'orange' },
-  { value: '50+', label: 'Projects', icon: Database, tone: 'blue' },
-  { value: '2800+', label: 'Reviews', icon: Sparkles, tone: 'orange' },
-  { value: '4–8', label: 'Live Sessions / Month', icon: Radar, tone: 'orange' }
+  { value: '500+', label: 'AI Builders', icon: Users, tone: 'orange' },
+  { value: '100+', label: 'Live Sessions Completed', icon: BookOpenCheck, tone: 'orange' },
+  { value: '20+', label: 'Projects Delivered.', icon: Database, tone: 'blue' },
+  { value: '200+', label: '5 Star Reviews by Topmate ', icon: Sparkles, tone: 'orange' },
+  { value: '8–10', label: 'Live Sessions / Month', icon: Radar, tone: 'orange' }
 ];
 
 export const ecosystem = [

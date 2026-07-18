@@ -5,54 +5,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import SplitGradientHeading from "./SplitGradientHeading";
-
-const freePlan = [
-  "Access to Community",
-  "Selected Resources",
-  "Open Live Sessions",
-  "Limited Practice Access",
-];
-
-const premiumPlan = [
-  "All Courses & Learning Tracks",
-  "Live Sessions & Recordings",
-  "Assignments & Projects",
-  "Premium Practice Access",
-  "Priority Support & More",
-];
-
-const faqs = [
-  {
-    question: "What is AI Launchpad by Data Sense?",
-    answer:
-      "AI Launchpad is a practical learning ecosystem where learners can access structured AI courses, live classes, projects, practice arenas, career tools and a builder community.",
-  },
-  {
-    question: "Is the community really free?",
-    answer:
-      "Yes. You can join the community for free and access selected learning resources, discussions, open sessions and limited practice features.",
-  },
-  {
-    question: "What’s included in the Premium plan?",
-    answer:
-      "Premium includes complete learning tracks, live sessions and recordings, assignments, projects, premium practice access and priority support.",
-  },
-  {
-    question: "How do live sessions work?",
-    answer:
-      "Live sessions are scheduled through the community calendar. Premium members can join the sessions and access recordings afterward.",
-  },
-  {
-    question: "Do I get certificates?",
-    answer:
-      "Certificates can be provided for eligible courses, projects or learning tracks after completing the required lessons and assessments.",
-  },
-  {
-    question: "Can I cancel anytime?",
-    answer:
-      "Yes. The Premium membership is billed monthly and can be cancelled before the next billing cycle.",
-  },
-];
+import { useAdminContent } from "../content/AdminContentContext";
 
 function PlanFeature({ children, premium = false }) {
   return (
@@ -75,7 +28,7 @@ function PlanFeature({ children, premium = false }) {
   );
 }
 
-function FreePlanCard({ isLight }) {
+function FreePlanCard({ isLight, plan }) {
   return (
     <article
       className={`
@@ -90,26 +43,26 @@ function FreePlanCard({ isLight }) {
     >
       <div className="text-center">
         <h3 className={`text-[24px] font-extrabold tracking-[-0.035em] ${isLight ? "text-[#111a3b]" : "text-white"}`}>
-          Free
+          {plan.name}
         </h3>
 
         <p className={`mt-1 text-[12px] font-medium ${isLight ? "text-slate-500" : "text-slate-400"}`}>
-          For learners getting started
+          {plan.tagline}
         </p>
 
         <div className="mt-5 flex items-end justify-center gap-2">
           <span className={`text-[42px] font-black leading-none tracking-[-0.05em] ${isLight ? "text-[#111a3b]" : "text-white"}`}>
-            $0
+            {plan.price}
           </span>
 
           <span className={`pb-1 text-[12px] font-semibold ${isLight ? "text-slate-500" : "text-slate-400"}`}>
-            Forever
+            {plan.cadence}
           </span>
         </div>
       </div>
 
       <ul className="mt-7 space-y-3.5">
-        {freePlan.map((item) => (
+        {plan.features.map((item) => (
           <PlanFeature key={item}>{item}</PlanFeature>
         ))}
       </ul>
@@ -129,13 +82,13 @@ function FreePlanCard({ isLight }) {
           }
         `}
       >
-        Get Started Free
+        {plan.ctaLabel}
       </a>
     </article>
   );
 }
 
-function PremiumPlanCard({ isLight }) {
+function PremiumPlanCard({ isLight, plan }) {
   return (
     <article
       className={`
@@ -161,27 +114,27 @@ function PremiumPlanCard({ isLight }) {
           <Crown className="h-5 w-5 text-orange-500" />
 
           <h3 className="text-[24px] font-extrabold tracking-[-0.035em] text-orange-600">
-            Premium
+            {plan.name}
           </h3>
         </div>
 
         <p className={`mt-1 text-[12px] font-medium ${isLight ? "text-slate-500" : "text-slate-400"}`}>
-          For serious AI builders
+          {plan.tagline}
         </p>
 
         <div className="mt-5 flex items-end justify-center gap-2">
           <span className={`text-[42px] font-black leading-none tracking-[-0.05em] ${isLight ? "text-[#111a3b]" : "text-white"}`}>
-            $25
+            {plan.price}
           </span>
 
           <span className={`pb-1 text-[12px] font-semibold ${isLight ? "text-slate-500" : "text-slate-400"}`}>
-            / month
+            {plan.cadence}
           </span>
         </div>
       </div>
 
       <ul className="relative z-10 mt-7 space-y-3.5">
-        {premiumPlan.map((item) => (
+        {plan.features.map((item) => (
           <PlanFeature key={item} premium>
             {item}
           </PlanFeature>
@@ -199,7 +152,7 @@ function PremiumPlanCard({ isLight }) {
           hover:-translate-y-0.5 hover:bg-[#ea6b12]
         "
       >
-        Go Premium
+        {plan.ctaLabel}
       </a>
     </article>
   );
@@ -260,6 +213,7 @@ function FAQItem({ item, open, onToggle, isLight }) {
 }
 
 export default function PricingSection({ theme = "light" }) {
+  const { content } = useAdminContent();
   const [openFaq, setOpenFaq] = useState(0);
   const normalizedTheme = String(theme).toLowerCase();
   const isLight = ["light", "day", "white"].includes(normalizedTheme);
@@ -284,17 +238,17 @@ export default function PricingSection({ theme = "light" }) {
               className={`text-[25px] font-extrabold tracking-[-0.04em] sm:text-[29px] ${
                 isLight ? "text-[#111a3b]" : "text-white"
               }`}
-              plain="Simple, Transparent"
-              accent="Pricing"
+              plain={content.pricing.heading}
+              accent={content.pricing.accentHeading}
             />
 
             <p className={`mt-2 text-[13px] font-medium ${isLight ? "text-slate-500" : "text-slate-400"}`}>
-              Choose the plan that&apos;s right for you
+              {content.pricing.subheading}
             </p>
 
             <div className="mt-6 grid gap-5 lg:grid-cols-2">
-              <FreePlanCard isLight={isLight} />
-              <PremiumPlanCard isLight={isLight} />
+              <FreePlanCard isLight={isLight} plan={content.pricing.freePlan} />
+              <PremiumPlanCard isLight={isLight} plan={content.pricing.premiumPlan} />
             </div>
           </article>
 
@@ -311,12 +265,12 @@ export default function PricingSection({ theme = "light" }) {
               className={`text-[25px] font-extrabold tracking-[-0.04em] sm:text-[29px] ${
                 isLight ? "text-[#111a3b]" : "text-white"
               }`}
-              plain="Frequently Asked"
-              accent="Questions"
+              plain={content.faq.heading}
+              accent={content.faq.accentHeading}
             />
 
             <div className="mt-6 space-y-3">
-              {faqs.map((item, index) => (
+              {content.faq.items.map((item, index) => (
                 <FAQItem
                   key={item.question}
                   item={item}

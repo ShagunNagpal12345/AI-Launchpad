@@ -94,6 +94,72 @@ button:hover, a:hover { transform: translateY(-1px); }
   display: none;
 }
 
+.ecosystem-marquee-shell::before,
+.ecosystem-marquee-shell::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  width: 24px;
+  pointer-events: none;
+}
+
+.ecosystem-marquee-shell::before {
+  left: 0;
+  background: linear-gradient(90deg, rgba(247, 249, 252, 0.98), rgba(247, 249, 252, 0));
+}
+
+.ecosystem-marquee-shell::after {
+  right: 0;
+  background: linear-gradient(270deg, rgba(247, 249, 252, 0.98), rgba(247, 249, 252, 0));
+}
+
+[data-theme='dark'] .ecosystem-marquee-shell::before {
+  background: linear-gradient(90deg, rgba(3, 11, 24, 0.98), rgba(3, 11, 24, 0));
+}
+
+[data-theme='dark'] .ecosystem-marquee-shell::after {
+  background: linear-gradient(270deg, rgba(3, 11, 24, 0.98), rgba(3, 11, 24, 0));
+}
+
+.ecosystem-marquee-track {
+  animation: ecosystemLoop 24s linear infinite;
+  will-change: transform;
+}
+
+.ecosystem-marquee-shell:hover .ecosystem-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes ecosystemLoop {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(calc(-50% - 0.75rem), 0, 0);
+  }
+}
+
+@media (min-width: 640px) {
+  @keyframes ecosystemLoop {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+
+    to {
+      transform: translate3d(calc(-50% - 1rem), 0, 0);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ecosystem-marquee-track {
+    animation: none;
+  }
+}
+
 .goals-scroll {
   scrollbar-width: none;
   -ms-overflow-style: none;

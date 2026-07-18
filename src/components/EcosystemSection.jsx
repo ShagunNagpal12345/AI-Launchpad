@@ -14,6 +14,8 @@ import gamingArenaLightIcon from "../assets/ai-ecosystem-section-assets/icons/li
 import driveResourcesLightIcon from "../assets/ai-ecosystem-section-assets/icons/light/drive-resources.png";
 import communityLightIcon from "../assets/ai-ecosystem-section-assets/icons/light/community.png";
 import SplitGradientHeading from "./SplitGradientHeading";
+import { useAdminContent } from "../content/AdminContentContext";
+import { DEFAULT_ADMIN_CONTENT } from "../content/defaultAdminContent";
 
 const shell = "mx-auto max-w-[1480px] px-4 sm:px-5 lg:px-6";
 
@@ -193,12 +195,22 @@ function LightEcosystemCard({ item }) {
 }
 
 export default function EcosystemSection({ theme = "dark" }) {
+  const { content } = useAdminContent();
   const isLight = theme === "light";
-  const items = isLight ? lightItems : darkItems.map((item, index) => ({
-    ...item,
-    icon: lightItems[index]?.icon || item.icon,
-    cta: lightItems[index]?.cta || "Explore",
-  }));
+  const defaultItems = DEFAULT_ADMIN_CONTENT.ecosystem.items;
+  const storedItems = content.ecosystem.items || [];
+  const storedItemMap = new Map(storedItems.map((item) => [item.title, item]));
+  const mergedItems = defaultItems.map(
+    (item) => storedItemMap.get(item.title) || item,
+  );
+  const extraItems = storedItems.filter(
+    (item) =>
+      !defaultItems.some(
+        (defaultItem) => defaultItem.title === item.title,
+      ),
+  );
+  const items = [...mergedItems, ...extraItems];
+  const loopingItems = [...items, ...items];
 
   return (
     <section
@@ -231,26 +243,32 @@ export default function EcosystemSection({ theme = "dark" }) {
             className={`text-center text-[22px] font-black tracking-[-0.035em] sm:text-[26px] md:text-[30px] ${
               isLight ? "text-[#0a1538]" : "text-white"
             }`}
-            plain={isLight ? "The AI Learning" : "The AI Launchpad"}
-            accent={isLight ? "Hub Ecosystem" : "Ecosystem"}
+            plain={content.ecosystem.heading}
+            accent={content.ecosystem.accentHeading}
           />
 
           <div
             className="
-              ecosystem-scroll -mx-3 mt-6 flex snap-x snap-mandatory gap-3 overflow-x-auto px-3 pb-3
-              sm:mx-0 sm:mt-7 sm:px-0
-              lg:grid lg:grid-cols-3 lg:overflow-visible lg:pb-0
-              xl:grid-cols-6
+              ecosystem-marquee-shell relative mt-6 overflow-hidden pb-3
+              sm:mt-7
             "
           >
-            {items.map((item) => (
+            <div
+              className="
+                ecosystem-marquee-track flex w-max gap-3
+                sm:gap-4
+              "
+            >
+            {loopingItems.map((item, index) => (
               <div
-                key={item.title}
-                className="w-[78vw] max-w-[250px] shrink-0 snap-start sm:w-[50vw] sm:max-w-[260px] lg:w-auto lg:max-w-none"
+                key={`${item.title}-${index}`}
+                aria-hidden={index >= items.length}
+                className="w-[78vw] max-w-[250px] shrink-0 sm:w-[50vw] sm:max-w-[260px] lg:w-[240px] lg:max-w-[240px] xl:w-[228px] xl:max-w-[228px]"
               >
                 {isLight ? <LightEcosystemCard item={item} /> : <DarkEcosystemCard item={item} />}
               </div>
             ))}
+            </div>
           </div>
         </div>
       </div>

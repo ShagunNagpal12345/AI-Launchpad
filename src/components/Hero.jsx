@@ -7,8 +7,11 @@ import heroBackDark from "../assets/hero/herobackdark.png";
 import heroBackDarkVideo from "../assets/hero/herobackdark.mp4";
 import heroBackLight from "../assets/hero/herobacklight.png";
 import heroBackLightVideo from "../assets/hero/herobacklight.mp4";
+import { useAdminContent } from "../content/AdminContentContext";
 
 export default function Hero({ theme = "dark" }) {
+  const { content } = useAdminContent();
+  const heroContent = content.hero;
   const isLight = theme === "light";
   const heroBackground = isLight ? heroBackLight : heroBackDark;
   const heroBackgroundVideo = isLight ? heroBackLightVideo : heroBackDarkVideo;
@@ -104,7 +107,7 @@ export default function Hero({ theme = "dark" }) {
               }
             `}
           >
-            <span className="block">Stop Watching AI Tutorials.</span>
+            <span className="block">{heroContent.heading}</span>
 
             <span
               className={`mt-1 block bg-clip-text text-transparent ${
@@ -113,7 +116,7 @@ export default function Hero({ theme = "dark" }) {
                   : "bg-[linear-gradient(90deg,#58a9f5_0%,#53d5df_22%,#67d39a_42%,#ffd45c_62%,#ff9b54_80%,#f2556f_100%)]"
               }`}
             >
-              Build What Matters.
+              {heroContent.accentHeading}
             </span>
           </h1>
 
@@ -133,9 +136,7 @@ export default function Hero({ theme = "dark" }) {
               }
             `}
           >
-            A practical AI learning ecosystem with live classes, projects,
-            practice arenas, and a builder community to help you go from
-            learning to building real-world solutions.
+            {heroContent.subheading}
           </p>
 
           <div className="mt-7 flex flex-wrap items-center gap-4">
@@ -166,7 +167,7 @@ export default function Hero({ theme = "dark" }) {
                 sm:w-auto
               "
             >
-              Join Free on Skool
+              {heroContent.primaryButtonLabel}
               <ArrowRight className="h-[18px] w-[18px]" strokeWidth={2.2} />
             </a>
 
@@ -209,7 +210,7 @@ export default function Hero({ theme = "dark" }) {
                 sm:w-auto
               `}
             >
-              Explore the Platform
+              {heroContent.secondaryButtonLabel}
 
               <span
                 className={`
@@ -264,3 +265,362 @@ export default function Hero({ theme = "dark" }) {
     </section>
   );
 }
+
+
+// import {
+//   ArrowRight,
+//   Play,
+//   Star,
+//   Users,
+// } from "lucide-react";
+
+// import { useAdminContent } from "../content/AdminContentContext";
+// import HeroAnimation from "./heroanimation";
+
+// function TestimonialCard({ isLight }) {
+//   return (
+//     <article
+//       className={`
+//         mt-8
+//         max-w-[470px]
+//         rounded-2xl
+//         border
+//         p-4
+//         shadow-[0_18px_45px_-32px_rgba(15,23,42,0.32)]
+//         ${
+//           isLight
+//             ? "border-slate-100 bg-white/95"
+//             : "border-white/10 bg-white/[0.05]"
+//         }
+//       `}
+//     >
+//       <div className="flex items-center gap-4">
+//         <div
+//           className="
+//             grid
+//             h-14
+//             w-14
+//             shrink-0
+//             place-items-center
+//             rounded-full
+//             bg-gradient-to-br
+//             from-orange-100
+//             to-amber-50
+//             text-sm
+//             font-extrabold
+//             text-[#071635]
+//           "
+//         >
+//           RV
+//         </div>
+
+//         <div className="min-w-0 flex-1">
+//           <blockquote
+//             className={`
+//               text-[12px]
+//               font-medium
+//               leading-5
+//               ${
+//                 isLight
+//                   ? "text-[#20304f]"
+//                   : "text-slate-200"
+//               }
+//             `}
+//           >
+//             “I went from watching tutorials to shipping my first AI agent in
+//             just 3 weeks.”
+//           </blockquote>
+
+//           <div className="mt-3 flex items-end justify-between gap-4">
+//             <div>
+//               <div
+//                 className={`
+//                   text-[11px]
+//                   font-bold
+//                   ${
+//                     isLight
+//                       ? "text-[#071635]"
+//                       : "text-white"
+//                   }
+//                 `}
+//               >
+//                 Rohan Verma
+//               </div>
+
+//               <div
+//                 className={`
+//                   mt-1
+//                   text-[9px]
+//                   ${
+//                     isLight
+//                       ? "text-slate-500"
+//                       : "text-slate-400"
+//                   }
+//                 `}
+//               >
+//                 AI Engineer
+//               </div>
+//             </div>
+
+//             <div className="flex gap-0.5 text-orange-400">
+//               {Array.from({ length: 5 }).map((_, index) => (
+//                 <Star
+//                   key={index}
+//                   className="h-3.5 w-3.5 fill-current"
+//                   strokeWidth={1.5}
+//                 />
+//               ))}
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </article>
+//   );
+// }
+
+// export default function Hero({ theme = "light" }) {
+//   const { content } = useAdminContent();
+
+//   const heroContent = content.hero;
+//   const isLight = theme === "light";
+
+//   return (
+//     <section
+//       id="top"
+//       className={`
+//         relative
+//         isolate
+//         overflow-hidden
+//         py-8
+//         lg:py-12
+//         ${
+//           isLight
+//             ? "bg-[#f5f8fe]"
+//             : "bg-[#030b18]"
+//         }
+//       `}
+//     >
+//       <div
+//         aria-hidden="true"
+//         className={`
+//           pointer-events-none
+//           absolute
+//           inset-0
+//           ${
+//             isLight
+//               ? "bg-[radial-gradient(circle_at_65%_25%,rgba(213,226,255,0.8),transparent_38%),radial-gradient(circle_at_15%_90%,rgba(230,235,255,0.9),transparent_34%)]"
+//               : "bg-[radial-gradient(circle_at_70%_25%,rgba(30,64,175,0.18),transparent_35%),radial-gradient(circle_at_10%_90%,rgba(79,70,229,0.12),transparent_30%)]"
+//           }
+//         `}
+//       />
+
+//       <div
+//         className="
+//           relative
+//           mx-auto
+//           max-w-[1540px]
+//           px-5
+//           sm:px-8
+//           lg:px-10
+//         "
+//       >
+//         <div
+//           className="
+//             grid
+//             items-start
+//             gap-10
+//             xl:grid-cols-[0.78fr_1.22fr]
+//             xl:gap-8
+//           "
+//         >
+//           <div className="pt-1 xl:pt-3">
+//             <div
+//               className={`
+//                 inline-flex
+//                 items-center
+//                 gap-2
+//                 rounded-full
+//                 border
+//                 px-3
+//                 py-2
+//                 text-[11px]
+//                 font-medium
+//                 ${
+//                   isLight
+//                     ? "border-orange-100 bg-white/75 text-[#33415f]"
+//                     : "border-white/10 bg-white/[0.04] text-slate-300"
+//                 }
+//               `}
+//             >
+//               <span
+//                 className="
+//                   grid
+//                   h-7
+//                   w-7
+//                   place-items-center
+//                   rounded-full
+//                   bg-orange-50
+//                   text-orange-500
+//                 "
+//               >
+//                 <Users className="h-4 w-4" />
+//               </span>
+
+//               <span>
+//                 Join{" "}
+//                 <strong className="font-extrabold text-blue-600">
+//                   50,000+ builders
+//                 </strong>{" "}
+//                 learning AI the right way
+//               </span>
+//             </div>
+
+//             <h1
+//               className={`
+//                 mt-8
+//                 max-w-[560px]
+//                 text-[45px]
+//                 font-black
+//                 leading-[1.02]
+//                 tracking-[-0.055em]
+//                 sm:text-[58px]
+//                 xl:text-[64px]
+//                 ${
+//                   isLight
+//                     ? "text-[#071635]"
+//                     : "text-white"
+//                 }
+//               `}
+//             >
+//               <span className="block">
+//                 {heroContent.heading}
+//               </span>
+
+//               <span
+//                 className={`
+//                   mt-3
+//                   block
+//                   bg-clip-text
+//                   text-transparent
+//                   ${
+//                     isLight
+//                       ? "bg-[linear-gradient(90deg,#3264f6_0%,#10b9de_30%,#39c975_57%,#f5a800_100%)]"
+//                       : "bg-[linear-gradient(90deg,#5a88ff_0%,#35d3eb_30%,#5de39b_58%,#ffbd32_100%)]"
+//                   }
+//                 `}
+//               >
+//                 {heroContent.accentHeading}
+//               </span>
+//             </h1>
+
+//             <p
+//               className={`
+//                 mt-7
+//                 max-w-[550px]
+//                 text-[16px]
+//                 font-medium
+//                 leading-[1.75]
+//                 sm:text-[18px]
+//                 ${
+//                   isLight
+//                     ? "text-[#34435f]"
+//                     : "text-slate-300"
+//                 }
+//               `}
+//             >
+//               {heroContent.subheading}
+//             </p>
+
+//             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+//               <a
+//                 href="https://www.skool.com/the-agent-lab-3899"
+//                 target="_blank"
+//                 rel="noreferrer"
+//                 className="
+//                   inline-flex
+//                   min-h-[58px]
+//                   items-center
+//                   justify-center
+//                   gap-3
+//                   rounded-xl
+//                   bg-gradient-to-b
+//                   from-[#ff8a25]
+//                   to-[#ff6b00]
+//                   px-8
+//                   text-[15px]
+//                   font-bold
+//                   text-white
+//                   shadow-[0_16px_35px_-15px_rgba(249,115,22,0.8)]
+//                   transition
+//                   duration-200
+//                   hover:-translate-y-0.5
+//                   hover:shadow-[0_20px_42px_-15px_rgba(249,115,22,0.9)]
+//                 "
+//               >
+//                 {heroContent.primaryButtonLabel}
+
+//                 <ArrowRight
+//                   className="h-[18px] w-[18px]"
+//                   strokeWidth={2.2}
+//                 />
+//               </a>
+
+//               <a
+//                 href="#ecosystem"
+//                 className={`
+//                   inline-flex
+//                   min-h-[58px]
+//                   items-center
+//                   justify-center
+//                   gap-3
+//                   rounded-xl
+//                   border
+//                   px-8
+//                   text-[15px]
+//                   font-bold
+//                   transition
+//                   duration-200
+//                   hover:-translate-y-0.5
+//                   ${
+//                     isLight
+//                       ? "border-slate-200 bg-white text-[#071635] shadow-sm hover:border-slate-300"
+//                       : "border-white/15 bg-white/[0.05] text-white hover:border-white/25 hover:bg-white/[0.08]"
+//                   }
+//                 `}
+//               >
+//                 {heroContent.secondaryButtonLabel}
+
+//                 <span
+//                   className={`
+//                     grid
+//                     h-6
+//                     w-6
+//                     place-items-center
+//                     rounded-full
+//                     ${
+//                       isLight
+//                         ? "bg-[#071635] text-white"
+//                         : "bg-white text-[#071635]"
+//                     }
+//                   `}
+//                 >
+//                   <Play
+//                     className="ml-0.5 h-3 w-3"
+//                     fill="currentColor"
+//                     strokeWidth={0}
+//                   />
+//                 </span>
+//               </a>
+//             </div>
+
+//             <TestimonialCard isLight={isLight} />
+//           </div>
+
+//           <div className="min-w-0">
+//             <HeroAnimation theme={theme} />
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }

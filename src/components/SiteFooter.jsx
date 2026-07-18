@@ -6,6 +6,7 @@ import {
   Twitter,
   Youtube,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 import dsLogoPng from "../assets/DS Logo.png";
 
 const footerGroups = [
@@ -50,7 +51,7 @@ const footerGroups = [
       { label: "Our Mission", href: "#mission" },
       { label: "Contact Us", href: "#contact" },
       { label: "Privacy Policy", href: "#privacy" },
-      { label: "Terms of Use", href: "#terms" },
+      { label: "Admin Console", href: "/admin", internal: true },
     ],
   },
 ];
@@ -105,18 +106,31 @@ function FooterColumn({ group, isLight }) {
       <ul className="mt-4 space-y-2.5">
         {group.links.map((link) => (
           <li key={link.label}>
-            <a
-              href={link.href}
-              target={link.external ? "_blank" : undefined}
-              rel={link.external ? "noreferrer" : undefined}
-              className={`text-[13px] font-medium transition-colors ${
-                isLight
-                  ? "text-slate-600 hover:text-blue-600"
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              {link.label}
-            </a>
+            {link.internal ? (
+              <Link
+                to={link.href}
+                className={`text-[13px] font-medium transition-colors ${
+                  isLight
+                    ? "text-slate-600 hover:text-blue-600"
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                href={link.href}
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noreferrer" : undefined}
+                className={`text-[13px] font-medium transition-colors ${
+                  isLight
+                    ? "text-slate-600 hover:text-blue-600"
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                {link.label}
+              </a>
+            )}
           </li>
         ))}
       </ul>
