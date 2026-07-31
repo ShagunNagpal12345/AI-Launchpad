@@ -124,7 +124,7 @@ export default function Navbar({ theme, onToggleTheme }) {
             <span className="hidden sm:inline">{theme === "dark" ? "Light" : "Dark"}</span>
           </button>
           <a href="https://www.skool.com/the-agent-lab-3899" target="_blank" rel="noreferrer" className="hidden items-center gap-2 rounded-xl bg-accent px-4 py-2 text-sm font-bold text-slate-950 shadow-glow sm:flex"><Users className="h-4 w-4" />Join Skool</a>
-          <button type="button" onClick={() => setIsMenuOpen((current) => !current)} className="grid h-10 w-10 place-items-center rounded-xl border border-line/10 bg-panel2/70 text-ink lg:hidden" aria-label={isMenuOpen ? "Close menu" : "Open menu"} aria-expanded={isMenuOpen}>
+          <button type="button" onClick={() => setIsMenuOpen((current) => !current)} className="grid h-11 w-11 place-items-center rounded-xl border border-line/10 bg-panel2/70 text-ink lg:hidden" aria-label={isMenuOpen ? "Close menu" : "Open menu"} aria-expanded={isMenuOpen}>
             {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>

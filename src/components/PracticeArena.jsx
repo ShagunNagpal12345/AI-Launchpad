@@ -151,7 +151,7 @@ export default function PracticeArena() {
         <div className="relative flex max-h-[94vh] w-full max-w-[1600px] flex-col bg-[#050b14] shadow-2xl">
           <div className="flex min-h-12 items-center justify-between gap-4 border-b border-white/10 px-4 text-white">
             <div className="min-w-0"><p className="truncate text-sm font-extrabold">{activeScreenshot.title}</p><p className="hidden truncate text-xs text-slate-400 sm:block">{activeScreenshot.description}</p></div>
-            <button type="button" onClick={() => setActiveScreenshot(null)} autoFocus className="grid h-10 w-10 shrink-0 place-items-center hover:bg-white/10" aria-label="Close enlarged screenshot">
+            <button type="button" onClick={() => setActiveScreenshot(null)} autoFocus className="grid h-11 w-11 shrink-0 place-items-center hover:bg-white/10" aria-label="Close enlarged screenshot">
               <X className="h-5 w-5" aria-hidden="true" />
             </button>
           </div>

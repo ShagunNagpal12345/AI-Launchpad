@@ -2254,13 +2254,13 @@ function Sidebar({ theme, activeTopic, setActiveTopic, search, setSearch, mobile
 
   return <>
     {mobileOpen && <button type="button" aria-label="Close chapters" onClick={() => setMobileOpen(false)} className="fixed inset-0 z-40 bg-slate-950/45 lg:hidden" />}
-    <aside className={`fixed inset-y-0 left-0 z-50 flex w-[330px] flex-col border-r transition-transform duration-300 lg:sticky lg:top-0 lg:z-10 lg:h-screen lg:translate-x-0 ${styles.sidebar} ${mobileOpen ? "translate-x-0" : "-translate-x-full"}`}>
+    <aside className={`fixed inset-y-0 left-0 z-50 flex w-[min(330px,100vw)] flex-col border-r transition-transform duration-300 lg:sticky lg:top-0 lg:z-10 lg:h-screen lg:w-[330px] lg:translate-x-0 ${styles.sidebar} ${mobileOpen ? "translate-x-0" : "-translate-x-full"}`}>
       <div className="flex items-center justify-between border-b border-slate-200/70 px-5 py-5 dark:border-white/[0.08]">
         <a href="/" className="flex items-center gap-3">
           <span className="grid h-10 w-10 place-items-center rounded-xl bg-violet-600 text-white"><BookOpen className="h-5 w-5" /></span>
           <div><p className={`text-sm font-extrabold ${styles.text}`}>Deep Learning Handbook</p><p className={`mt-0.5 text-xs ${styles.muted}`}>50 chapters + cheat sheets</p></div>
         </a>
-        <button type="button" onClick={() => setMobileOpen(false)} className={`grid h-9 w-9 place-items-center rounded-lg lg:hidden ${styles.soft} ${styles.muted}`}><X className="h-4 w-4" /></button>
+        <button type="button" onClick={() => setMobileOpen(false)} className={`grid h-11 w-11 place-items-center rounded-lg lg:hidden ${styles.soft} ${styles.muted}`} aria-label="Close chapters"><X className="h-4 w-4" /></button>
       </div>
       <div className="p-4"><div className="relative"><Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" /><input type="search" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search 50 chapters" className={`h-11 w-full rounded-xl border pl-10 pr-4 text-sm outline-none transition ${styles.isLight ? "border-slate-200 bg-slate-50 text-slate-900 focus:border-violet-400 focus:bg-white" : "border-white/[0.08] bg-white/[0.04] text-white placeholder:text-slate-500 focus:border-violet-400"}`} /></div></div>
       <nav className="flex-1 overflow-y-auto px-3 pb-5">

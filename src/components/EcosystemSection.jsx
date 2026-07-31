@@ -125,6 +125,8 @@ function DarkEcosystemCard({ item }) {
           src={item.icon}
           alt=""
           aria-hidden="true"
+          loading="lazy"
+          decoding="async"
           className="h-[72px] w-[72px] object-contain transition duration-300 group-hover:scale-105 sm:h-[78px] sm:w-[78px] md:h-[82px] md:w-[82px]"
         />
       </div>
@@ -170,6 +172,8 @@ function LightEcosystemCard({ item }) {
           src={item.icon}
           alt=""
           aria-hidden="true"
+          loading="lazy"
+          decoding="async"
           className="h-[74px] w-[74px] object-contain transition duration-300 group-hover:scale-105 sm:h-[82px] sm:w-[82px] md:h-[88px] md:w-[88px]"
         />
       </div>

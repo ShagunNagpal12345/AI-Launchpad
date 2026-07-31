@@ -120,7 +120,7 @@ function AssignmentCard({ assignment, isLight }) {
 
   return (
     <article
-      className={`flex min-w-[282px] snap-start flex-col rounded-2xl border p-4 sm:min-w-[330px] sm:p-5 lg:min-w-0 ${
+      className={`flex min-w-0 flex-[0_0_100%] snap-start snap-always flex-col rounded-2xl border p-4 sm:flex-[0_0_330px] sm:p-5 lg:min-w-0 lg:flex-auto ${
         isLight
           ? "border-slate-200/90 bg-white shadow-[0_18px_48px_-40px_rgba(15,23,42,0.25)]"
           : "border-white/[0.08] bg-[#0c1a2d] shadow-[0_22px_65px_-48px_rgba(0,0,0,0.9)]"
@@ -143,9 +143,9 @@ function AssignmentCard({ assignment, isLight }) {
         {assignment.description}
       </p>
 
-      <div className={`mt-4 flex items-center justify-between gap-3 border-t pt-4 ${isLight ? "border-slate-200" : "border-white/[0.08]"}`}>
+      <div className={`mt-4 flex flex-col gap-3 border-t pt-4 min-[360px]:flex-row min-[360px]:items-center min-[360px]:justify-between ${isLight ? "border-slate-200" : "border-white/[0.08]"}`}>
         <div className="flex min-w-0 items-center gap-3">
-          <img src={assignment.avatar} alt="" className="h-10 w-10 shrink-0 rounded-full object-cover" />
+          <img src={assignment.avatar} alt="" loading="lazy" decoding="async" className="h-10 w-10 shrink-0 rounded-full object-cover" />
           <div className="min-w-0">
             <p className={`text-xs ${isLight ? "text-slate-500" : "text-slate-400"}`}>Review by</p>
             <p className={`truncate text-sm font-bold ${isLight ? "text-[#33415f]" : "text-slate-100"}`}>{assignment.reviewer}</p>
@@ -156,7 +156,7 @@ function AssignmentCard({ assignment, isLight }) {
           href="https://practice.datasenseai.com/"
           target="_blank"
           rel="noreferrer"
-          className="inline-flex min-h-11 items-center gap-2 rounded-[10px] bg-[#f97316] px-4 text-sm font-bold text-white shadow-[0_12px_26px_-17px_rgba(249,115,22,0.7)] hover:bg-[#ea6b12]"
+          className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-[10px] bg-[#f97316] px-4 text-sm font-bold text-white shadow-[0_12px_26px_-17px_rgba(249,115,22,0.7)] hover:bg-[#ea6b12] min-[360px]:w-auto"
         >
           {assignment.action}
           <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -173,14 +173,14 @@ export default function WeeklyAssignmentsSection({ theme = "light" }) {
   return (
     <section
       id="weekly-assignments"
-      className={`py-4 md:py-5 ${isLight ? "bg-[#f7f9fc]" : "bg-[#020b18]"}`}
+      className={`overflow-x-clip py-4 md:py-5 ${isLight ? "bg-[#f7f9fc]" : "bg-[#020b18]"}`}
     >
       <div className="mx-auto max-w-[1580px] px-4 sm:px-5 lg:px-6">
         <div className="flex flex-col gap-5 px-1 sm:flex-row sm:items-start sm:justify-between">
-          <div>
+          <div className="min-w-0">
             <SplitGradientHeading
               theme={isLight ? "light" : "dark"}
-              className={`text-[32px] font-extrabold leading-tight tracking-[-0.04em] sm:text-[38px] ${isLight ? "text-[#111a3b]" : "text-white"}`}
+              className={`text-[clamp(1.75rem,9vw,2.375rem)] font-extrabold leading-[1.12] tracking-[-0.04em] ${isLight ? "text-[#111a3b]" : "text-white"}`}
               plain="Weekly Assignments &"
               accent="Practice"
             />
@@ -193,7 +193,7 @@ export default function WeeklyAssignmentsSection({ theme = "light" }) {
             href="https://practice.datasenseai.com/"
             target="_blank"
             rel="noreferrer"
-            className={`inline-flex min-h-12 w-fit shrink-0 items-center gap-3 rounded-xl border px-5 text-sm font-bold ${
+            className={`inline-flex min-h-12 w-full shrink-0 items-center justify-center gap-3 rounded-xl border px-5 text-sm font-bold sm:w-fit ${
               isLight
                 ? "border-orange-300 text-orange-600 hover:bg-orange-50"
                 : "border-orange-400/40 text-orange-300 hover:bg-orange-500/10"
@@ -205,13 +205,13 @@ export default function WeeklyAssignmentsSection({ theme = "light" }) {
         </div>
 
         <div className="mt-6 grid gap-5 xl:grid-cols-[minmax(0,2.35fr)_minmax(320px,1fr)]">
-          <div className={`rounded-[24px] border p-4 sm:p-5 ${isLight ? "border-slate-200/90 bg-white/65" : "border-white/[0.08] bg-[#081526]"}`}>
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
+          <div className={`min-w-0 rounded-[20px] border p-3 sm:rounded-[24px] sm:p-5 ${isLight ? "border-slate-200/90 bg-white/65" : "border-white/[0.08] bg-[#081526]"}`}>
+            <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+              <div className="flex min-w-0 items-center gap-3">
                 <span className="grid h-11 w-11 place-items-center rounded-xl bg-orange-500/10 text-orange-500">
                   <CalendarDays className="h-6 w-6" aria-hidden="true" />
                 </span>
-                <h2 className={`text-xl font-extrabold ${isLight ? "text-[#111a3b]" : "text-white"}`}>This Week&apos;s Challenges</h2>
+                <h2 className={`text-lg font-extrabold sm:text-xl ${isLight ? "text-[#111a3b]" : "text-white"}`}>This Week&apos;s Challenges</h2>
               </div>
               <span className="inline-flex items-center gap-2 rounded-full bg-orange-500/10 px-4 py-2 text-xs font-bold text-orange-500">
                 <Clock3 className="h-4 w-4" aria-hidden="true" />
@@ -219,7 +219,7 @@ export default function WeeklyAssignmentsSection({ theme = "light" }) {
               </span>
             </div>
 
-            <div className="weekly-assignments-scroll mt-5 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 lg:grid lg:grid-cols-3 lg:overflow-visible lg:pb-0">
+            <div className="weekly-assignments-scroll mt-5 flex min-w-0 snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain pb-2 lg:grid lg:grid-cols-3 lg:overflow-visible lg:pb-0">
               {assignments.map((assignment) => (
                 <AssignmentCard key={assignment.title} assignment={assignment} isLight={isLight} />
               ))}
@@ -229,7 +229,7 @@ export default function WeeklyAssignmentsSection({ theme = "light" }) {
               {benefits.map((benefit) => {
                 const Icon = benefit.icon;
                 return (
-                  <div key={benefit.label} className={`flex items-center gap-4 rounded-xl p-4 ${isLight ? "bg-white" : "bg-white/[0.035]"}`}>
+                  <div key={benefit.label} className={`flex items-center gap-3 rounded-xl p-3 sm:gap-4 sm:p-4 ${isLight ? "bg-white" : "bg-white/[0.035]"}`}>
                     <span className={`grid h-12 w-12 shrink-0 place-items-center rounded-full ${tones[benefit.tone]}`}>
                       <Icon className="h-6 w-6" aria-hidden="true" />
                     </span>
@@ -244,7 +244,7 @@ export default function WeeklyAssignmentsSection({ theme = "light" }) {
             </div>
           </div>
 
-          <aside className={`rounded-[24px] border p-5 ${isLight ? "border-slate-200/90 bg-white/65" : "border-white/[0.08] bg-[#081526]"}`}>
+          <aside className={`min-w-0 rounded-[20px] border p-4 sm:rounded-[24px] sm:p-5 ${isLight ? "border-slate-200/90 bg-white/65" : "border-white/[0.08] bg-[#081526]"}`}>
             <h2 className={`text-xl font-extrabold ${isLight ? "text-[#111a3b]" : "text-white"}`}>How Practice Works</h2>
             <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
               {practiceSteps.map((step) => {

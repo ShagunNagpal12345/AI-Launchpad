@@ -864,6 +864,18 @@ button:hover, a:hover { transform: translateY(-1px); }
   }
 }
 
+@media (max-width: 639px) {
+  .text-\[38px\] {
+    font-size: clamp(2rem, 10vw, 2.375rem);
+  }
+
+  button.h-10.w-10,
+  button.h-9.w-9 {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .course-modal-panel {
     animation: none;

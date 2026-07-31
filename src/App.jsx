@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { AdminContentProvider } from './content/AdminContentContext';
 import Navbar from './components/Navbar';
@@ -23,16 +23,17 @@ import DataSenseStudio from './components/datasensestudio';
 import AdminGate from './components/AdminGate';
 import CtaSection from './components/CtaSection';
 import SiteFooter from './components/SiteFooter';
-import AdvancedAiPage from './pages/AdvancedAiPage';
-import AiForProfessionalsPage from './pages/AiForProfessionalsPage';
-import AiFundamentalsPage from './pages/AiFundamentalsPage';
-import ChatGPTForEveryonePage from './pages/ChatGPTForEveryonePage';
-import DeepLearningHandbookPage from './pages/DeepLearningHandbookPage';
-import LLMProjectGuidePage from './pages/LLMProjectGuidePage';
-import MachineLearningPage from './pages/MachineLearningPage';
-import MLOpsBestPracticesPage from './pages/MLOpsBestPracticesPage';
-import PythonForDataSciencePage from './pages/PythonForDataSciencePage';
-import AdminConsolePage from './pages/AdminConsolePage';
+
+const AdvancedAiPage = lazy(() => import('./pages/AdvancedAiPage'));
+const AiForProfessionalsPage = lazy(() => import('./pages/AiForProfessionalsPage'));
+const AiFundamentalsPage = lazy(() => import('./pages/AiFundamentalsPage'));
+const ChatGPTForEveryonePage = lazy(() => import('./pages/ChatGPTForEveryonePage'));
+const DeepLearningHandbookPage = lazy(() => import('./pages/DeepLearningHandbookPage'));
+const LLMProjectGuidePage = lazy(() => import('./pages/LLMProjectGuidePage'));
+const MachineLearningPage = lazy(() => import('./pages/MachineLearningPage'));
+const MLOpsBestPracticesPage = lazy(() => import('./pages/MLOpsBestPracticesPage'));
+const PythonForDataSciencePage = lazy(() => import('./pages/PythonForDataSciencePage'));
+const AdminConsolePage = lazy(() => import('./pages/AdminConsolePage'));
 
 const defaultTheme = 'light';
 const rootThemeTargets = ['documentElement', 'body'];
@@ -63,6 +64,7 @@ export default function App() {
         style={{ backgroundImage: 'var(--page-gradient)' }}
       >
         <Navbar theme={theme} onToggleTheme={() => setTheme((current) => current === 'dark' ? 'light' : 'dark')} />
+        <Suspense fallback={<div className="grid min-h-[50vh] place-items-center px-5 text-sm font-semibold text-muted">Loading…</div>}>
         <Routes>
         <Route
           path="/"
@@ -143,6 +145,7 @@ export default function App() {
           }
         />
         </Routes>
+        </Suspense>
         <SiteFooter theme={theme} />
       </div>
     </AdminContentProvider>

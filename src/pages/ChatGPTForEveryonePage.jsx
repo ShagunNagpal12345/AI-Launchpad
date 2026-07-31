@@ -1704,7 +1704,7 @@ function TopicSidebar({
 
       <aside
         className={`
-          fixed inset-y-0 left-0 z-50 flex w-[320px] flex-col border-r
+          fixed inset-y-0 left-0 z-50 flex w-full max-w-[320px] flex-col border-r
           transition-transform duration-300 lg:sticky lg:top-0 lg:z-10
           lg:h-screen lg:translate-x-0
           ${styles.sidebar}
@@ -1873,7 +1873,7 @@ function PromptCard({ item, index, theme }) {
           : "border-gray-800 bg-gray-900"
       }`}
     >
-      <div className={`mb-4 flex items-start justify-between gap-4 border-b pb-4 ${styles.border}`}>
+      <div className={`mb-4 flex flex-col items-start gap-3 border-b pb-4 min-[380px]:flex-row min-[380px]:justify-between min-[380px]:gap-4 ${styles.border}`}>
         <div>
           <p className={`text-xs font-semibold uppercase tracking-wider ${styles.primaryText}`}>
             Template {index + 1}
@@ -1886,7 +1886,7 @@ function PromptCard({ item, index, theme }) {
         <button
           type="button"
           onClick={copyPrompt}
-          className={`inline-flex shrink-0 items-center gap-2 rounded-md border px-3 py-1.5 text-xs font-medium transition ${styles.button}`}
+          className={`inline-flex min-h-11 shrink-0 items-center gap-2 rounded-md border px-3 py-2 text-xs font-medium transition ${styles.button}`}
         >
           {copied ? <Check className="h-4 w-4 text-green-600" /> : <Copy className="h-4 w-4" />}
           {copied ? "Copied" : "Copy"}
@@ -1946,7 +1946,7 @@ export default function ChatGPTForEveryonePage({ theme = "light" }) {
               <button
                 type="button"
                 onClick={() => setMobileOpen(true)}
-                className={`grid h-9 w-9 place-items-center rounded-md border lg:hidden ${styles.border} ${styles.text}`}
+                className={`grid h-11 w-11 place-items-center rounded-md border lg:hidden ${styles.border} ${styles.text}`}
               >
                 <Menu className="h-4 w-4" />
               </button>

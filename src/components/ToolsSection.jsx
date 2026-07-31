@@ -297,6 +297,8 @@ function MainToolCard({ tool, index, isVisible, isLight, onComingSoonClick }) {
       <img
         src={theme.image}
         alt={`${tool.title} visual`}
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 h-full w-full object-cover opacity-1 transition duration-500 ease-out group-hover:scale-[1.03]"
       />
 
@@ -381,6 +383,8 @@ function SecondaryToolCard({ item, index, isVisible, isLight }) {
       <img
         src={item.image}
         alt={`${item.title} visual`}
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 h-full w-full object-cover transition duration-500 ease-out group-hover:scale-[1.03]"
       />
       <div className="absolute inset-0 rounded-[18px] bg-[linear-gradient(180deg,rgba(248,250,252,0.02),rgba(15,23,42,0.24)_45%,rgba(15,23,42,0.78))]" />
