@@ -57,6 +57,32 @@ export default function App() {
     window.localStorage.setItem('theme', theme);
   }, [theme]);
 
+  useEffect(() => {
+    const resetHorizontalScroll = () => {
+      const scrollTop = window.scrollY;
+      window.scrollTo(0, scrollTop);
+
+      if (document.scrollingElement) {
+        document.scrollingElement.scrollLeft = 0;
+      }
+    };
+
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+
+    resetHorizontalScroll();
+    window.addEventListener('pageshow', resetHorizontalScroll);
+    window.addEventListener('resize', resetHorizontalScroll);
+    window.addEventListener('orientationchange', resetHorizontalScroll);
+
+    return () => {
+      window.removeEventListener('pageshow', resetHorizontalScroll);
+      window.removeEventListener('resize', resetHorizontalScroll);
+      window.removeEventListener('orientationchange', resetHorizontalScroll);
+    };
+  }, []);
+
   return (
     <AdminContentProvider>
       <div

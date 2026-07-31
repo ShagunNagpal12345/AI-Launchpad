@@ -55,13 +55,34 @@
   --cta-band-to: #fde7cf;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: none;
+}
+
 body {
   margin: 0;
   min-width: 320px;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
+  position: relative;
   background: rgb(var(--color-base));
   background-image: var(--page-gradient);
   color: rgb(var(--color-ink));
+}
+
+#root {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: clip;
 }
 * { box-sizing: border-box; }
 button, a { transition: transform .2s ease, background-color .2s ease, border-color .2s ease, color .2s ease; }
