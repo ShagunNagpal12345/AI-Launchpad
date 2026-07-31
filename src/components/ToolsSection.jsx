@@ -83,8 +83,8 @@ const mainToolCards = [
     href: "/resume-builder",
     button: "Build Resume",
     status: "coming-soon",
-    launchDate: "2026-08-01T00:00:00+05:30",
-    launchLabel: "1st August",
+    launchDate: "2026-09-01T00:00:00+05:30",
+    launchLabel: "1st September",
   },
   {
     ...careerTools[4],

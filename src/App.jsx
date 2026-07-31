@@ -8,11 +8,15 @@ import EcosystemSection from './components/EcosystemSection';
 import GoalsSection from './components/GoalsSection';
 import LearnAiSection from './components/LearnAiSection';
 import InsideClassroom from './components/InsideClassroom';
+import LiveExpertsSection from './components/LiveExpertsSection';
 import EventsArenaSection from './components/EventsArenaSection';
 import PracticeSection from './components/PracticeSection';
+import WeeklyAssignmentsSection from './components/WeeklyAssignmentsSection';
 import ResourcesSection from './components/ResourcesSection';
 import ToolsSection from './components/ToolsSection';
+import AiInteractiveToolsSection from './components/AiInteractiveToolsSection';
 import ProjectsCommunitySection from './components/ProjectsCommunitySection';
+import CareerRoadmapSection from './components/CareerRoadmapSection';
 import TestimonialsCareerSection from './components/TestimonialsCareerSection';
 import PricingSection from './components/PricingSection';
 import DataSenseStudio from './components/datasensestudio';
@@ -70,11 +74,15 @@ export default function App() {
               <GoalsSection theme={theme} />
               <LearnAiSection theme={theme} />
               <InsideClassroom theme={theme} />
+              <LiveExpertsSection theme={theme} />
               <EventsArenaSection />
+              <WeeklyAssignmentsSection theme={theme} />
               <PracticeSection theme={theme} />
               <ResourcesSection theme={theme} />
               <ToolsSection theme={theme} />
+              <AiInteractiveToolsSection theme={theme} />
               <ProjectsCommunitySection theme={theme} />
+              <CareerRoadmapSection theme={theme} />
               <TestimonialsCareerSection theme={theme} />
               <PricingSection theme={theme} />
               <DataSenseStudio theme={theme} />

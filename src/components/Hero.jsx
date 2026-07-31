@@ -1,20 +1,62 @@
 import {
   ArrowRight,
+  Maximize2,
+  Minimize2,
   Play,
+  X,
 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 import heroBackDark from "../assets/hero/herobackdark.png";
 import heroBackDarkVideo from "../assets/hero/herobackdark.mp4";
 import heroBackLight from "../assets/hero/herobacklight.png";
 import heroBackLightVideo from "../assets/hero/herobacklight.mp4";
+import promoVideo from "../assets/Promo.mp4";
 import { useAdminContent } from "../content/AdminContentContext";
 
 export default function Hero({ theme = "dark" }) {
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [isVideoMinimized, setIsVideoMinimized] = useState(false);
+  const promoVideoRef = useRef(null);
   const { content } = useAdminContent();
   const heroContent = content.hero;
   const isLight = theme === "light";
   const heroBackground = isLight ? heroBackLight : heroBackDark;
   const heroBackgroundVideo = isLight ? heroBackLightVideo : heroBackDarkVideo;
+
+  useEffect(() => {
+    if (!isVideoOpen) return undefined;
+
+    promoVideoRef.current?.play().catch(() => {
+      // Browser autoplay policies may still require the native play control.
+    });
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        promoVideoRef.current?.pause();
+        if (promoVideoRef.current) promoVideoRef.current.currentTime = 0;
+        setIsVideoOpen(false);
+        setIsVideoMinimized(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [isVideoOpen]);
+
+  const openVideo = () => {
+    setIsVideoMinimized(false);
+    setIsVideoOpen(true);
+  };
+
+  const closeVideo = () => {
+    if (promoVideoRef.current) {
+      promoVideoRef.current.pause();
+      promoVideoRef.current.currentTime = 0;
+    }
+    setIsVideoOpen(false);
+    setIsVideoMinimized(false);
+  };
 
   return (
     <section
@@ -65,6 +107,7 @@ export default function Hero({ theme = "dark" }) {
           relative
           mx-auto
           flex
+          flex-col
           min-h-[560px]
           max-w-[1440px]
           items-center
@@ -73,6 +116,7 @@ export default function Hero({ theme = "dark" }) {
           sm:px-8
           sm:py-14
           lg:min-h-[500px]
+          lg:flex-row
           lg:px-10
           lg:py-12
           xl:min-h-[540px]
@@ -171,8 +215,11 @@ export default function Hero({ theme = "dark" }) {
               <ArrowRight className="h-[18px] w-[18px]" strokeWidth={2.2} />
             </a>
 
-            <a
-              href="#ecosystem"
+            <button
+              type="button"
+              onClick={openVideo}
+              aria-expanded={isVideoOpen}
+              aria-controls="hero-promo-player"
               className={`
                 inline-flex
                 min-h-[52px]
@@ -232,10 +279,91 @@ export default function Hero({ theme = "dark" }) {
                   strokeWidth={0}
                 />
               </span>
-            </a>
+            </button>
           </div>
 
         </div>
+
+        {isVideoOpen && (
+          <div
+            id="hero-promo-player"
+            role="region"
+            aria-label="AI Launchpad platform video"
+            className={`
+              relative
+              z-20
+              mt-9
+              w-full
+              overflow-hidden
+              rounded-2xl
+              border
+              shadow-[0_28px_70px_-24px_rgba(2,11,24,0.75)]
+              transition-[max-width]
+              duration-300
+              ease-out
+              lg:absolute
+              lg:right-10
+              lg:top-1/2
+              lg:mt-0
+              lg:-translate-y-1/2
+              xl:right-12
+              ${isVideoMinimized ? "max-w-[360px] lg:max-w-[330px]" : "max-w-[760px] lg:max-w-[48%] xl:max-w-[52%]"}
+              ${isLight ? "border-slate-200 bg-[#eef2f7]" : "border-white/15 bg-[#06101f]"}
+            `}
+          >
+            <div
+              className={`flex h-11 items-center justify-between gap-4 px-3 ${
+                isLight ? "bg-[#f8fafc] text-[#101b35]" : "bg-[#071222] text-white"
+              }`}
+            >
+              <span className="truncate pl-1 text-xs font-bold tracking-wide">
+                Explore AI Launchpad
+              </span>
+
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => setIsVideoMinimized((current) => !current)}
+                  className={`grid h-8 w-8 place-items-center rounded-md transition-colors ${
+                    isLight ? "hover:bg-slate-200" : "hover:bg-white/10"
+                  }`}
+                  aria-label={isVideoMinimized ? "Maximize video player" : "Minimize video player"}
+                  title={isVideoMinimized ? "Maximize" : "Minimize"}
+                >
+                  {isVideoMinimized ? (
+                    <Maximize2 className="h-4 w-4" aria-hidden="true" />
+                  ) : (
+                    <Minimize2 className="h-4 w-4" aria-hidden="true" />
+                  )}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={closeVideo}
+                  className={`grid h-8 w-8 place-items-center rounded-md transition-colors ${
+                    isLight ? "hover:bg-red-100 hover:text-red-700" : "hover:bg-red-500/20 hover:text-red-300"
+                  }`}
+                  aria-label="Close video player"
+                  title="Close"
+                >
+                  <X className="h-[18px] w-[18px]" aria-hidden="true" />
+                </button>
+              </div>
+            </div>
+
+            <video
+              ref={promoVideoRef}
+              src={promoVideo}
+              controls
+              onEnded={closeVideo}
+              playsInline
+              preload="metadata"
+              className="aspect-video w-full bg-black object-contain"
+            >
+              Your browser does not support the video element.
+            </video>
+          </div>
+        )}
 
         {/* Mobile artwork */}
         <div

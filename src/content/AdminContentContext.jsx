@@ -26,16 +26,33 @@ function readStorage(key) {
   }
 }
 
+function migrateContent(content) {
+  if (!content?.hero) return content;
+
+  const legacyHeroLabels = ["Explore the Platform", "Explore AI Platform"];
+  if (!legacyHeroLabels.includes(content.hero.secondaryButtonLabel)) {
+    return content;
+  }
+
+  return {
+    ...content,
+    hero: {
+      ...content.hero,
+      secondaryButtonLabel: "Explore AI Launchpad",
+    },
+  };
+}
+
 export function AdminContentProvider({ children }) {
   const location = useLocation();
   const [savedContent, setSavedContent] = useState(() => {
-    const stored = readStorage(SAVED_STORAGE_KEY);
+    const stored = migrateContent(readStorage(SAVED_STORAGE_KEY));
     return stored
       ? { ...cloneContent(DEFAULT_ADMIN_CONTENT), ...stored }
       : cloneContent(DEFAULT_ADMIN_CONTENT);
   });
   const [draftContent, setDraftContent] = useState(() => {
-    const stored = readStorage(DRAFT_STORAGE_KEY);
+    const stored = migrateContent(readStorage(DRAFT_STORAGE_KEY));
     return stored
       ? { ...cloneContent(DEFAULT_ADMIN_CONTENT), ...stored }
       : cloneContent(DEFAULT_ADMIN_CONTENT);
@@ -45,7 +62,7 @@ export function AdminContentProvider({ children }) {
   const isPreviewMode = !isAdminRoute && new URLSearchParams(location.search).get("preview") === "1";
 
   const previewContent = useMemo(() => {
-    const stored = readStorage(PREVIEW_STORAGE_KEY);
+    const stored = migrateContent(readStorage(PREVIEW_STORAGE_KEY));
     return stored
       ? { ...cloneContent(DEFAULT_ADMIN_CONTENT), ...stored }
       : null;

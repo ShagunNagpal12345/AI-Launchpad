@@ -284,7 +284,7 @@ export default function TestimonialsCareerSection({ theme = "light" }) {
   const isLight = ["light", "day", "white"].includes(normalizedTheme);
 
   return (
-    <section className={`py-4 md:py-7 ${isLight ? "bg-[#f7f9fc]" : "bg-[#020b18]"}`}>
+    <section id="testimonials" className={`scroll-mt-20 py-4 md:py-7 ${isLight ? "bg-[#f7f9fc]" : "bg-[#020b18]"}`}>
       <div className="mx-auto max-w-[1580px] px-4 sm:px-5 lg:px-6">
         <div className="grid gap-5 xl:grid-cols-[0.9fr_1.1fr]">
           {/* Social presence */}

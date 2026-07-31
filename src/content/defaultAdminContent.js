@@ -39,7 +39,7 @@ export const DEFAULT_ADMIN_CONTENT = {
     subheading:
       "A practical AI learning ecosystem with live classes, projects, practice arenas, and a builder community to help you go from learning to building real-world solutions.",
     primaryButtonLabel: "Join Free on Skool",
-    secondaryButtonLabel: "Explore the Platform",
+    secondaryButtonLabel: "Explore AI Launchpad",
   },
   cardGrid: {
     sectionName: "Card Grid",

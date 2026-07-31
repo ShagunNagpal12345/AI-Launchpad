@@ -178,6 +178,73 @@ button:hover, a:hover { transform: translateY(-1px); }
   display: none;
 }
 
+.live-experts-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.live-experts-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.weekly-assignments-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.weekly-assignments-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.practice-showcase-track {
+  width: max-content;
+  animation: practiceShowcaseLoop 52s linear infinite;
+  will-change: transform;
+}
+
+.practice-showcase-shell:hover .practice-showcase-track,
+.practice-showcase-shell:focus-within .practice-showcase-track {
+  animation-play-state: paused;
+}
+
+@keyframes practiceShowcaseLoop {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(calc(-50% - 0.5rem), 0, 0);
+  }
+}
+
+@media (min-width: 640px) {
+  @keyframes practiceShowcaseLoop {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+
+    to {
+      transform: translate3d(calc(-50% - 0.625rem), 0, 0);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .practice-showcase-shell {
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+
+  .practice-showcase-track {
+    animation: none;
+    transform: none;
+  }
+
+  .practice-showcase-track > div:last-child {
+    display: none;
+  }
+}
+
 .materials-scroll {
   scrollbar-width: none;
   -ms-overflow-style: none;
