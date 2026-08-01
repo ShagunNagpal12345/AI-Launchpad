@@ -276,6 +276,18 @@ export const DEFAULT_ADMIN_CONTENT = {
       },
     ],
   },
+  homepageSections: {
+    learnAi: { name: "AI Launchpad Tracks", heading: "AI", accentHeading: "Launchpad", description: "Structured learning paths with curated courses, projects & assessments.", ctaLabel: "View all", ctaHref: "#curriculum" },
+    liveExperts: { name: "Live Experts", heading: "Learn Live with Our", accentHeading: "Experts", description: "Live classes, doubt support, office hours, and mentorship to help you move faster.", ctaLabel: "View all", ctaHref: "https://www.skool.com/the-agent-lab-3899" },
+    weeklyAssignments: { name: "Weekly Assignments", heading: "Weekly Assignments &", accentHeading: "Practice", description: "Learn by doing with hands-on assignments, quizzes, deadlines, and expert feedback.", ctaLabel: "View all assignments", ctaHref: "https://practice.datasenseai.com/" },
+    resources: { name: "Learning Materials", heading: "Latest AI Learning", accentHeading: "Materials", description: "", ctaLabel: "View all", ctaHref: "#all-resources" },
+    careerTools: { name: "Career Tools", heading: "Everything You Need to", accentHeading: "Get Hired", description: "Build resumes, prepare for interviews, check ATS readiness, and earn certifications with one focused workflow.", ctaLabel: "", ctaHref: "" },
+    aiTools: { name: "AI Interactive Tools", heading: "AI Tools &", accentHeading: "Interactive Experiences", description: "Learn by building with powerful AI tools, creative playgrounds, and guided utilities.", ctaLabel: "Explore all", ctaHref: "https://www.skool.com/the-agent-lab-3899" },
+    projects: { name: "Projects", heading: "Projects by Our", accentHeading: "Members", description: "", ctaLabel: "View all", ctaHref: "#all-projects" },
+    community: { name: "Community", heading: "Our Community on", accentHeading: "Skool", description: "", ctaLabel: "Join Now", ctaHref: "https://www.skool.com/the-agent-lab-3899" },
+    careerRoadmap: { name: "Career Roadmap", heading: "Career Roadmap,", accentHeading: "Certifications & Progress", description: "Track your growth, earn recognized certificates, and follow a personalized roadmap toward your next role.", ctaLabel: "View all", ctaHref: "https://www.skool.com/the-agent-lab-3899" },
+    finalCta: { name: "Final Call to Action", heading: "Ready to kickstart your AI", accentHeading: "journey?", description: "Join thousands of learners building the future with AI.", ctaLabel: "Join Now, It's Free!", ctaHref: "https://www.skool.com/the-agent-lab-3899" },
+  },
   social: {
     heading: "We're Active",
     accentHeading: "Everywhere",

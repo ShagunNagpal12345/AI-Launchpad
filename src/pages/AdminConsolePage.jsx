@@ -15,6 +15,7 @@ const adminTabs = [
   { id: "track3", label: "Track 04" },
   { id: "track4", label: "Ongoing" },
   { id: "liveClasses", label: "Upcoming Live Classes" },
+  { id: "homepageSections", label: "Other Homepage Sections" },
   { id: "social", label: "We're Active Everywhere" },
   { id: "testimonials", label: "What Learners Say" },
   { id: "pricing", label: "Pricing" },
@@ -847,6 +848,28 @@ export default function AdminConsolePage() {
     </Card>
   );
 
+  const renderHomepageSectionsEditor = () => (
+    <Card
+      title="Other Homepage Sections"
+      actions={<ActionButton onClick={() => resetSection("homepageSections")}><RotateCcw className="h-3.5 w-3.5" />Reset</ActionButton>}
+    >
+      <p className="text-sm leading-6 text-slate-600">Update the headings, descriptions, and primary links for every remaining homepage section.</p>
+      {Object.entries(content.homepageSections).map(([sectionKey, section]) => (
+        <ItemShell key={sectionKey} title={section.name}>
+          <div className="grid gap-4 md:grid-cols-2">
+            <InputField label="Heading" value={section.heading} onChange={(value) => updateSection("homepageSections", { ...content.homepageSections, [sectionKey]: { ...section, heading: value } })} />
+            <InputField label="Accent Heading" value={section.accentHeading} onChange={(value) => updateSection("homepageSections", { ...content.homepageSections, [sectionKey]: { ...section, accentHeading: value } })} />
+          </div>
+          <TextAreaField label="Description" rows={3} value={section.description} onChange={(value) => updateSection("homepageSections", { ...content.homepageSections, [sectionKey]: { ...section, description: value } })} />
+          <div className="grid gap-4 md:grid-cols-2">
+            <InputField label="CTA Label" value={section.ctaLabel} onChange={(value) => updateSection("homepageSections", { ...content.homepageSections, [sectionKey]: { ...section, ctaLabel: value } })} />
+            <InputField label="CTA Link" value={section.ctaHref} onChange={(value) => updateSection("homepageSections", { ...content.homepageSections, [sectionKey]: { ...section, ctaHref: value } })} />
+          </div>
+        </ItemShell>
+      ))}
+    </Card>
+  );
+
   const renderSocialEditor = () => (
     <Card
       title="We're Active Everywhere"
@@ -1341,6 +1364,8 @@ export default function AdminConsolePage() {
         return renderClassroomIntroEditor();
       case "liveClasses":
         return renderLiveClassesEditor();
+      case "homepageSections":
+        return renderHomepageSectionsEditor();
       case "social":
         return renderSocialEditor();
       case "testimonials":

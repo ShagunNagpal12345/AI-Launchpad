@@ -13,6 +13,7 @@ import {
   Wrench,
 } from "lucide-react";
 import SplitGradientHeading from "./SplitGradientHeading";
+import { useAdminContent } from "../content/AdminContentContext";
 
 const tools = [
   { icon: MessageCircleMore, title: "Prompt Lab", text: "Craft, test, and optimize prompts for any use case.", tone: "violet" },
@@ -71,6 +72,8 @@ function ToolkitPreview({ isLight }) {
 }
 
 export default function AiInteractiveToolsSection({ theme = "light" }) {
+  const { content } = useAdminContent();
+  const sectionContent = content.homepageSections.aiTools;
   const isLight = ["light", "day", "white"].includes(String(theme).toLowerCase());
   const panelClass = isLight ? "border-slate-200/90 bg-white shadow-[0_18px_48px_-40px_rgba(15,23,42,0.25)]" : "border-white/[0.08] bg-[#0c1a2d] shadow-[0_22px_65px_-48px_rgba(0,0,0,0.9)]";
 
@@ -78,8 +81,8 @@ export default function AiInteractiveToolsSection({ theme = "light" }) {
     <section id="ai-interactive-tools" className={`py-4 md:py-5 ${isLight ? "bg-[#f7f9fc]" : "bg-[#020b18]"}`}>
       <div className="mx-auto max-w-[1580px] px-4 sm:px-5 lg:px-6">
         <div className="flex flex-col gap-4 px-1 sm:flex-row sm:items-start sm:justify-between">
-          <div><SplitGradientHeading theme={theme} className={`text-[26px] font-extrabold leading-tight tracking-[-0.035em] sm:text-[29px] ${isLight ? "text-[#111a3b]" : "text-white"}`} plain="AI Tools &" accent="Interactive Experiences" /><p className={`mt-2 max-w-[760px] text-[14px] font-medium leading-5 ${isLight ? "text-slate-600" : "text-slate-300"}`}>Learn by building with powerful AI tools, creative playgrounds, and guided utilities.</p></div>
-          <a href="https://www.skool.com/the-agent-lab-3899" target="_blank" rel="noreferrer" className={`inline-flex min-h-12 w-fit shrink-0 items-center gap-3 rounded-xl border px-5 text-sm font-bold ${isLight ? "border-orange-300 text-orange-600 hover:bg-orange-50" : "border-orange-400/40 text-orange-300 hover:bg-orange-500/10"}`}>Explore all <ArrowRight className="h-4 w-4" /></a>
+          <div><SplitGradientHeading theme={theme} className={`text-[26px] font-extrabold leading-tight tracking-[-0.035em] sm:text-[29px] ${isLight ? "text-[#111a3b]" : "text-white"}`} plain={sectionContent.heading} accent={sectionContent.accentHeading} /><p className={`mt-2 max-w-[760px] text-[14px] font-medium leading-5 ${isLight ? "text-slate-600" : "text-slate-300"}`}>{sectionContent.description}</p></div>
+          <a href={sectionContent.ctaHref} target="_blank" rel="noreferrer" className={`inline-flex min-h-12 w-fit shrink-0 items-center gap-3 rounded-xl border px-5 text-sm font-bold ${isLight ? "border-orange-300 text-orange-600 hover:bg-orange-50" : "border-orange-400/40 text-orange-300 hover:bg-orange-500/10"}`}>{sectionContent.ctaLabel} <ArrowRight className="h-4 w-4" /></a>
         </div>
 
         <div className="mt-4 grid gap-4 xl:grid-cols-[1.02fr_1fr]">

@@ -1,9 +1,12 @@
 import { ArrowRight } from 'lucide-react';
 import SplitGradientHeading from './SplitGradientHeading';
+import { useAdminContent } from '../content/AdminContentContext';
 
 const shell = 'mx-auto max-w-7xl px-5 lg:px-8';
 
 export default function CtaSection({ theme = "light" }) {
+  const { content } = useAdminContent();
+  const sectionContent = content.homepageSections.finalCta;
   const normalizedTheme = String(theme).toLowerCase();
   const isLight = ["light", "day", "white"].includes(normalizedTheme);
 
@@ -24,24 +27,24 @@ export default function CtaSection({ theme = "light" }) {
                 className={`text-[26px] font-extrabold tracking-[-0.04em] sm:text-[30px] ${
                   isLight ? "text-[#13337a]" : "text-white"
                 }`}
-                plain="Ready to kickstart your AI"
-                accent="journey?"
+                plain={sectionContent.heading}
+                accent={sectionContent.accentHeading}
               />
               <p className={`mt-1.5 text-[14px] font-medium sm:text-[15px] ${
                 isLight ? "text-[#4e6390]" : "text-slate-300"
               }`}>
-                Join thousands of learners building the future with AI.
+                {sectionContent.description}
               </p>
             </div>
 
             <div className="flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row">
               <a
                 className="inline-flex min-h-[54px] w-full items-center justify-center gap-2 rounded-[12px] bg-[#ff7a1a] px-6 text-center text-[15px] font-extrabold text-white shadow-[0_14px_28px_-18px_rgba(249,115,22,0.72)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#ef6d10] sm:w-auto sm:min-w-[320px]"
-                href="https://www.skool.com/the-agent-lab-3899"
+                href={sectionContent.ctaHref}
                 target="_blank"
                 rel="noreferrer"
               >
-                Join Now, It&apos;s Free!
+                {sectionContent.ctaLabel}
                 <ArrowRight className="h-4 w-4" />
               </a>
 

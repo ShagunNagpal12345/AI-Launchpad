@@ -12,6 +12,7 @@ import {
   UploadCloud,
 } from "lucide-react";
 import SplitGradientHeading from "./SplitGradientHeading";
+import { useAdminContent } from "../content/AdminContentContext";
 
 import arjunAvatar from "../assets/community-section-assets/member-avatars/member-arjun-p.png";
 import meeraAvatar from "../assets/community-section-assets/member-avatars/member-meera-k.png";
@@ -167,6 +168,8 @@ function AssignmentCard({ assignment, isLight }) {
 }
 
 export default function WeeklyAssignmentsSection({ theme = "light" }) {
+  const { content } = useAdminContent();
+  const sectionContent = content.homepageSections.weeklyAssignments;
   const normalizedTheme = String(theme).toLowerCase();
   const isLight = ["light", "day", "white"].includes(normalizedTheme);
 
@@ -181,16 +184,16 @@ export default function WeeklyAssignmentsSection({ theme = "light" }) {
             <SplitGradientHeading
               theme={isLight ? "light" : "dark"}
               className={`text-[clamp(1.75rem,9vw,2.375rem)] font-extrabold leading-[1.12] tracking-[-0.04em] ${isLight ? "text-[#111a3b]" : "text-white"}`}
-              plain="Weekly Assignments &"
-              accent="Practice"
+              plain={sectionContent.heading}
+              accent={sectionContent.accentHeading}
             />
             <p className={`mt-3 max-w-[760px] text-[15px] font-medium leading-6 sm:text-base ${isLight ? "text-slate-600" : "text-slate-300"}`}>
-              Learn by doing with hands-on assignments, quizzes, deadlines, and expert feedback.
+              {sectionContent.description}
             </p>
           </div>
 
           <a
-            href="https://practice.datasenseai.com/"
+            href={sectionContent.ctaHref}
             target="_blank"
             rel="noreferrer"
             className={`inline-flex min-h-12 w-full shrink-0 items-center justify-center gap-3 rounded-xl border px-5 text-sm font-bold sm:w-fit ${
@@ -199,7 +202,7 @@ export default function WeeklyAssignmentsSection({ theme = "light" }) {
                 : "border-orange-400/40 text-orange-300 hover:bg-orange-500/10"
             }`}
           >
-            View all assignments
+            {sectionContent.ctaLabel}
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </a>
         </div>

@@ -34,6 +34,7 @@ const MachineLearningPage = lazy(() => import('./pages/MachineLearningPage'));
 const MLOpsBestPracticesPage = lazy(() => import('./pages/MLOpsBestPracticesPage'));
 const PythonForDataSciencePage = lazy(() => import('./pages/PythonForDataSciencePage'));
 const AdminConsolePage = lazy(() => import('./pages/AdminConsolePage'));
+const DashboardPage = lazy(() => import('./pages/DashboardPage'));
 
 const defaultTheme = 'light';
 const rootThemeTargets = ['documentElement', 'body'];
@@ -92,6 +93,14 @@ export default function App() {
         <Navbar theme={theme} onToggleTheme={() => setTheme((current) => current === 'dark' ? 'light' : 'dark')} />
         <Suspense fallback={<div className="grid min-h-[50vh] place-items-center px-5 text-sm font-semibold text-muted">Loading…</div>}>
         <Routes>
+        <Route
+          path="/dashboard"
+          element={
+            <AdminGate areaName="Dashboard">
+              <DashboardPage theme={theme} />
+            </AdminGate>
+          }
+        />
         <Route
           path="/"
           element={

@@ -15,6 +15,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import SplitGradientHeading from "./SplitGradientHeading";
+import { useAdminContent } from "../content/AdminContentContext";
 
 const roadmap = [
   { icon: BookOpen, title: "AI Foundations", text: "Learn core AI concepts, tools & Python basics", status: "Completed", tone: "green" },
@@ -60,6 +61,8 @@ function RoadmapStep({ step, index, isLight }) {
 }
 
 export default function CareerRoadmapSection({ theme = "light" }) {
+  const { content } = useAdminContent();
+  const sectionContent = content.homepageSections.careerRoadmap;
   const normalizedTheme = String(theme).toLowerCase();
   const isLight = ["light", "day", "white"].includes(normalizedTheme);
   const panelClass = isLight
@@ -71,13 +74,13 @@ export default function CareerRoadmapSection({ theme = "light" }) {
       <div className="mx-auto max-w-[1580px] px-4 sm:px-5 lg:px-6">
         <div className="flex flex-col gap-4 px-1 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <SplitGradientHeading theme={theme} className={`text-[26px] font-extrabold leading-tight tracking-[-0.035em] sm:text-[29px] ${isLight ? "text-[#111a3b]" : "text-white"}`} plain="Career Roadmap," accent="Certifications & Progress" />
+            <SplitGradientHeading theme={theme} className={`text-[26px] font-extrabold leading-tight tracking-[-0.035em] sm:text-[29px] ${isLight ? "text-[#111a3b]" : "text-white"}`} plain={sectionContent.heading} accent={sectionContent.accentHeading} />
             <p className={`mt-2 max-w-[820px] text-[14px] font-medium leading-5 ${isLight ? "text-slate-600" : "text-slate-300"}`}>
-              Track your growth, earn recognized certificates, and follow a personalized roadmap toward your next role.
+              {sectionContent.description}
             </p>
           </div>
-          <a href="https://www.skool.com/the-agent-lab-3899" target="_blank" rel="noreferrer" className={`inline-flex min-h-12 w-fit shrink-0 items-center gap-3 rounded-xl border px-5 text-sm font-bold ${isLight ? "border-orange-300 text-orange-600 hover:bg-orange-50" : "border-orange-400/40 text-orange-300 hover:bg-orange-500/10"}`}>
-            View all <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          <a href={sectionContent.ctaHref} target="_blank" rel="noreferrer" className={`inline-flex min-h-12 w-fit shrink-0 items-center gap-3 rounded-xl border px-5 text-sm font-bold ${isLight ? "border-orange-300 text-orange-600 hover:bg-orange-50" : "border-orange-400/40 text-orange-300 hover:bg-orange-500/10"}`}>
+            {sectionContent.ctaLabel} <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </a>
         </div>
 

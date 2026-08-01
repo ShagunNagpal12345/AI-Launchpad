@@ -10,6 +10,7 @@ import {
   UsersRound,
   Video,
 } from "lucide-react";
+import { useAdminContent } from "../content/AdminContentContext";
 
 const liveClasses = [
   {
@@ -184,6 +185,8 @@ function LiveClassCard({ item, isLight }) {
 }
 
 export default function LiveExpertsSection({ theme = "light" }) {
+  const { content } = useAdminContent();
+  const sectionContent = content.homepageSections.liveExperts;
   const isLight = theme === "light";
 
   return (
@@ -202,15 +205,15 @@ export default function LiveExpertsSection({ theme = "light" }) {
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <h2 className={`text-[26px] font-extrabold leading-tight tracking-[-0.035em] sm:text-[29px] ${isLight ? "text-[#111a3b]" : "text-white"}`}>
-              Learn Live with Our <span className="text-orange-500">Experts</span>
+              {sectionContent.heading} <span className="text-orange-500">{sectionContent.accentHeading}</span>
             </h2>
             <p className={`mt-3 max-w-[720px] text-[14px] font-medium leading-6 ${isLight ? "text-slate-600" : "text-slate-300"}`}>
-              Live classes, doubt support, office hours, and mentorship to help you move faster.
+              {sectionContent.description}
             </p>
           </div>
 
           <a
-            href="https://www.skool.com/the-agent-lab-3899"
+            href={sectionContent.ctaHref}
             target="_blank"
             rel="noreferrer"
             className={`inline-flex min-h-12 w-fit shrink-0 items-center gap-3 rounded-xl border px-5 text-sm font-extrabold ${
@@ -219,7 +222,7 @@ export default function LiveExpertsSection({ theme = "light" }) {
                 : "border-orange-400/40 text-orange-300 hover:bg-orange-500/10"
             }`}
           >
-            View all <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            {sectionContent.ctaLabel} <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </a>
         </div>
 

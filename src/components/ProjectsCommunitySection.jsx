@@ -26,6 +26,7 @@ import projectFeedbackIcon from "../assets/community-section-assets/community-ic
 import careerSupportIcon from "../assets/community-section-assets/community-icons/career-support.svg";
 import liveEventsIcon from "../assets/community-section-assets/community-icons/live-events.svg";
 import SplitGradientHeading from "./SplitGradientHeading";
+import { useAdminContent } from "../content/AdminContentContext";
 
 /* Community stat icons */
 import membersIcon from "../assets/community-section-assets/stats-icons/members-count.svg";
@@ -333,6 +334,9 @@ function CommunityBenefit({ benefit, isLight }) {
 }
 
 export default function ProjectsCommunitySection({ theme = "light" }) {
+  const { content } = useAdminContent();
+  const projectsContent = content.homepageSections.projects;
+  const communityContent = content.homepageSections.community;
   const normalizedTheme = String(theme).toLowerCase();
   const isLight = ["light", "day", "white"].includes(normalizedTheme);
 
@@ -357,12 +361,12 @@ export default function ProjectsCommunitySection({ theme = "light" }) {
                 className={`text-[21px] font-extrabold tracking-[-0.035em] sm:text-[24px] md:text-[28px] ${
                   isLight ? "text-[#111a3b]" : "text-white"
                 }`}
-                plain="Projects by Our"
-                accent="Members"
+                plain={projectsContent.heading}
+                accent={projectsContent.accentHeading}
               />
 
-              <SectionAction href="#all-projects">
-                View all
+              <SectionAction href={projectsContent.ctaHref}>
+                {projectsContent.ctaLabel}
                 <ArrowRight className="h-3.5 w-3.5" />
               </SectionAction>
             </div>
@@ -402,12 +406,12 @@ export default function ProjectsCommunitySection({ theme = "light" }) {
                 className={`text-[21px] font-extrabold tracking-[-0.035em] sm:text-[24px] md:text-[28px] ${
                   isLight ? "text-[#111a3b]" : "text-white"
                 }`}
-                plain="Our Community on"
-                accent="Skool"
+                plain={communityContent.heading}
+                accent={communityContent.accentHeading}
               />
 
-              <SectionAction href="https://www.skool.com/the-agent-lab-3899">
-                Join Now
+              <SectionAction href={communityContent.ctaHref}>
+                {communityContent.ctaLabel}
               </SectionAction>
             </div>
 

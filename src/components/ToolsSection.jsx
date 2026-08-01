@@ -5,6 +5,7 @@ import { ArrowRight, PenLine, ShieldCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 import { careerTools } from "../data/siteData";
 import SplitGradientHeading from "./SplitGradientHeading";
+import { useAdminContent } from "../content/AdminContentContext";
 
 import InterviewImg from "../assets/Career/Interview.png";
 import ResumeImg from "../assets/Career/Resume.png";
@@ -439,6 +440,8 @@ function SecondaryToolCard({ item, index, isVisible, isLight }) {
 }
 
 export default function ToolsSection({ theme = "light" }) {
+  const { content } = useAdminContent();
+  const sectionContent = content.homepageSections.careerTools;
   const { ref, isVisible } = useInViewOnce();
   const [activeComingSoonTool, setActiveComingSoonTool] = useState(null);
   const normalizedTheme = String(theme).toLowerCase();
@@ -468,15 +471,14 @@ export default function ToolsSection({ theme = "light" }) {
             className={`text-[24px] font-extrabold tracking-[-0.035em] sm:text-[28px] ${
               isLight ? "text-[#111a3b]" : "text-white"
             }`}
-            plain="Everything You Need to"
-            accent="Get Hired"
+            plain={sectionContent.heading}
+            accent={sectionContent.accentHeading}
           />
 
           <p className={`mx-auto mt-2 max-w-2xl text-[13px] font-medium leading-6 ${
             isLight ? "text-slate-500" : "text-slate-400"
           }`}>
-            Build resumes, prepare for interviews, check ATS readiness, and earn
-            certifications with one focused workflow.
+            {sectionContent.description}
           </p>
         </div>
 

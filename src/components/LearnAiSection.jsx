@@ -1,6 +1,7 @@
 import { Check, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import SplitGradientHeading from "./SplitGradientHeading";
+import { useAdminContent } from "../content/AdminContentContext";
 
 const learningHighlights = [
   "Step-by-step roadmap",
@@ -232,6 +233,8 @@ function TrackCard({ track, isLight }) {
 }
 
 export default function LearnAiSection({ theme = "light" }) {
+  const { content } = useAdminContent();
+  const sectionContent = content.homepageSections.learnAi;
   const normalizedTheme = String(theme).toLowerCase();
 
   const isLight = ["light", "day", "white"].includes(normalizedTheme);
@@ -270,8 +273,8 @@ export default function LearnAiSection({ theme = "light" }) {
                 className={`text-[27px] font-black tracking-[-0.04em] sm:text-[31px] ${
                   isLight ? "text-[#111a3b]" : "text-white"
                 }`}
-                plain="AI"
-                accent="Launchpad"
+                plain={sectionContent.heading}
+                accent={sectionContent.accentHeading}
               />
 
               <span
@@ -286,7 +289,7 @@ export default function LearnAiSection({ theme = "light" }) {
             <LevelLegend isLight={isLight} />
 
             <a
-              href="#curriculum"
+              href={sectionContent.ctaHref}
               className={`
                 inline-flex h-12 w-full items-center justify-center gap-2 rounded-[12px]
                 border px-5 text-[14px] font-bold transition
@@ -305,7 +308,7 @@ export default function LearnAiSection({ theme = "light" }) {
                 }
               `}
             >
-              View all
+              {sectionContent.ctaLabel}
               <ChevronRight className="h-4 w-4" />
             </a>
           </div>
@@ -318,8 +321,7 @@ export default function LearnAiSection({ theme = "light" }) {
                   isLight ? "text-[#4f596d]" : "text-slate-300"
                 }`}
               >
-                Structured learning paths with curated courses, projects &
-                assessments.
+                {sectionContent.description}
               </p>
 
               <ul className="mt-9 space-y-5">

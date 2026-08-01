@@ -1,6 +1,7 @@
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 import SplitGradientHeading from "./SplitGradientHeading";
+import { useAdminContent } from "../content/AdminContentContext";
 
 import samplePdf from "../assets/Learning Material/sample.pdf";
 
@@ -205,6 +206,8 @@ function MaterialCard({ material, index, isLight }) {
 }
 
 export default function ResourcesSection({ theme = "light" }) {
+  const { content } = useAdminContent();
+  const sectionContent = content.homepageSections.resources;
   const normalizedTheme = String(theme).toLowerCase();
 
   const isLight = ["light", "day", "white"].includes(normalizedTheme);
@@ -255,12 +258,12 @@ export default function ResourcesSection({ theme = "light" }) {
                     : "text-white"
                 }
               `}
-              plain="Latest AI Learning"
-              accent="Materials"
+              plain={sectionContent.heading}
+              accent={sectionContent.accentHeading}
             />
 
             <a
-              href="#all-resources"
+              href={sectionContent.ctaHref}
               className={`
                 inline-flex
                 shrink-0
@@ -294,7 +297,7 @@ export default function ResourcesSection({ theme = "light" }) {
                 }
               `}
             >
-              View all
+              {sectionContent.ctaLabel}
               <ArrowRight className="h-4 w-4" strokeWidth={2.2} />
             </a>
           </div>

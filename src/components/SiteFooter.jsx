@@ -50,7 +50,7 @@ const footerGroups = [
       { label: "About Data Sense", href: "#about" },
       { label: "Our Mission", href: "#mission" },
       { label: "Contact Us", href: "#contact" },
-      { label: "Privacy Policy", href: "#privacy" },
+      { label: "Dashboard", href: "/dashboard", internal: true },
       { label: "Admin Console", href: "/admin", internal: true },
     ],
   },
