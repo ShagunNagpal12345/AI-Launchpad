@@ -6,19 +6,12 @@ import Hero from './components/Hero';
 import LaunchpadVideoSection from './components/LaunchpadVideoSection';
 import HeroStatsStrip from './components/HeroStatsStrip';
 import EcosystemSection from './components/EcosystemSection';
-import GoalsSection from './components/GoalsSection';
-import LearnAiSection from './components/LearnAiSection';
-import InsideClassroom from './components/InsideClassroom';
-import LiveExpertsSection from './components/LiveExpertsSection';
-import WeeklyAssignmentsSection from './components/WeeklyAssignmentsSection';
 import ResourcesSection from './components/ResourcesSection';
-import ToolsSection from './components/ToolsSection';
-import AiInteractiveToolsSection from './components/AiInteractiveToolsSection';
+import LearnAiSection from './components/LearnAiSection';
+import WeeklyAssignmentsSection from './components/WeeklyAssignmentsSection';
 import ProjectsCommunitySection from './components/ProjectsCommunitySection';
-import CareerRoadmapSection from './components/CareerRoadmapSection';
 import TestimonialsCareerSection from './components/TestimonialsCareerSection';
 import PricingSection from './components/PricingSection';
-import DataSenseStudio from './components/datasensestudio';
 import AdminGate from './components/AdminGate';
 import CtaSection from './components/CtaSection';
 import SiteFooter from './components/SiteFooter';
@@ -36,6 +29,9 @@ const EbookReaderPage = lazy(() => import('./pages/EbookReaderPage'));
 const EvaluationReportPage = lazy(() => import('./pages/EvaluationReportPage'));
 const TestimonialsPage = lazy(() => import('./pages/TestimonialsPage'));
 const LearningArenaPage = lazy(() => import('./pages/LearningArenaPage'));
+const LearnExperiencePage = lazy(() => import('./pages/LearnExperiencePage'));
+const BuildCareerPage = lazy(() => import('./pages/BuildCareerPage'));
+const CommunityPage = lazy(() => import('./pages/CommunityPage'));
 
 const defaultTheme = 'light';
 const rootThemeTargets = ['documentElement', 'body'];
@@ -112,18 +108,11 @@ export default function App() {
               <LaunchpadVideoSection theme={theme} />
               <EcosystemSection theme={theme} />
               <ResourcesSection theme={theme} />
-              <GoalsSection theme={theme} />
               <LearnAiSection theme={theme} />
-              <InsideClassroom theme={theme} />
-              <LiveExpertsSection theme={theme} />
               <WeeklyAssignmentsSection theme={theme} />
-              <ToolsSection theme={theme} />
-              <AiInteractiveToolsSection theme={theme} />
               <ProjectsCommunitySection theme={theme} />
-              <CareerRoadmapSection theme={theme} />
               <TestimonialsCareerSection theme={theme} />
               <PricingSection theme={theme} />
-              <DataSenseStudio theme={theme} />
               <CtaSection theme={theme} />
             </main>
           }
@@ -134,6 +123,9 @@ export default function App() {
         <Route path="/evaluation-report" element={<EvaluationReportPage theme={theme} />} />
         <Route path="/testimonials" element={<TestimonialsPage theme={theme} />} />
         <Route path="/learning-arena" element={<LearningArenaPage theme={theme} />} />
+        <Route path="/learn" element={<LearnExperiencePage theme={theme} />} />
+        <Route path="/build-career" element={<BuildCareerPage theme={theme} />} />
+        <Route path="/community" element={<CommunityPage theme={theme} />} />
         <Route
           path="/learn-ai/ai-fundamentals"
           element={<AiFundamentalsPage theme={theme} />}

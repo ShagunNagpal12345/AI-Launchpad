@@ -1,20 +1,11 @@
 import {
   ArrowRight,
-  Download,
-  Heart,
+  Code2,
+  MapPinned,
+  Network,
+  Swords,
+  UsersRound,
 } from "lucide-react";
-
-/* Project icons */
-import sentimentProjectIcon from "../assets/community-section-assets/project-icons/sentiment-analysis-app.png";
-import resumeProjectIcon from "../assets/community-section-assets/project-icons/ai-resume-analyzer.png";
-import stockProjectIcon from "../assets/community-section-assets/project-icons/stock-price-predictor.png";
-import ragProjectIcon from "../assets/community-section-assets/project-icons/chatbot-with-rag.png";
-
-/* Member avatars */
-import rishaAvatar from "../assets/community-section-assets/member-avatars/member-risha-s.png";
-import arjunAvatar from "../assets/community-section-assets/member-avatars/member-arjun-p.png";
-import meeraAvatar from "../assets/community-section-assets/member-avatars/member-meera-k.png";
-import devAvatar from "../assets/community-section-assets/member-avatars/member-dev-t.png";
 
 /* Skool logo */
 import skoolLogo from "../assets/community-section-assets/skool-logo/skool-seeklogo.svg";
@@ -35,36 +26,36 @@ import eventsIcon from "../assets/community-section-assets/stats-icons/events-co
 
 const memberProjects = [
   {
-    title: "Sentiment Analysis App",
-    member: "Risha S.",
-    avatar: rishaAvatar,
-    projectIcon: sentimentProjectIcon,
-    downloads: "1.2K",
-    likes: "128",
+    title: "Custom & Public MCP Servers",
+    member: "Rajat Arora",
+    platform: "GitLab",
+    href: "https://gitlab.com/arora.rajat08/mcp_custom_and_public",
+    icon: Network,
+    iconTone: "bg-orange-500/10 text-orange-500",
   },
   {
-    title: "AI Resume Analyzer",
-    member: "Arjun P.",
-    avatar: arjunAvatar,
-    projectIcon: resumeProjectIcon,
-    downloads: "960",
-    likes: "96",
+    title: "Trip Planner Agent",
+    member: "Shivani larokar",
+    platform: "GitHub",
+    href: "https://github.com/Shivanilarokar/TripplannerAgent-langgraph-mcp-",
+    icon: MapPinned,
+    iconTone: "bg-blue-500/10 text-blue-500",
   },
   {
-    title: "Stock Price Predictor",
-    member: "Meera K.",
-    avatar: meeraAvatar,
-    projectIcon: stockProjectIcon,
-    downloads: "1.1K",
-    likes: "110",
+    title: "Customer Segmentation",
+    member: "Puru yadav",
+    platform: "GitHub",
+    href: "https://github.com/Puruyadav/Customer-Segmentation",
+    icon: UsersRound,
+    iconTone: "bg-emerald-500/10 text-emerald-500",
   },
   {
-    title: "Chatbot with RAG",
-    member: "Dev T.",
-    avatar: devAvatar,
-    projectIcon: ragProjectIcon,
-    downloads: "890",
-    likes: "94",
+    title: "AI Chess Arena",
+    member: "Satvik",
+    platform: "GitHub",
+    href: "https://github.com/fnusatvik07/chess_arena",
+    icon: Swords,
+    iconTone: "bg-violet-500/10 text-violet-500",
   },
 ];
 
@@ -143,8 +134,14 @@ function SectionAction({ children, href }) {
 }
 
 function ProjectCard({ project, isLight }) {
+  const ProjectIcon = project.icon;
+
   return (
-    <article
+    <a
+      href={project.href}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={`View ${project.title} repository by ${project.member}`}
       className={`
         group
         flex
@@ -166,22 +163,9 @@ function ProjectCard({ project, isLight }) {
       `}
     >
       <div className="flex min-h-[86px] items-center justify-center px-3 pt-4 sm:min-h-[96px] sm:px-4 md:min-h-[110px]">
-        <img
-          src={project.projectIcon}
-          alt={`${project.title} project`}
-          className="
-            h-[62px]
-            w-[62px]
-            object-contain
-            transition
-            duration-300
-            group-hover:scale-105
-            sm:h-[72px]
-            sm:w-[72px]
-            md:h-[86px]
-            md:w-[86px]
-          "
-        />
+        <span className={`grid h-[62px] w-[62px] place-items-center rounded-full transition duration-300 group-hover:scale-105 sm:h-[72px] sm:w-[72px] md:h-[78px] md:w-[78px] ${project.iconTone}`}>
+          <ProjectIcon className="h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9" strokeWidth={1.8} aria-hidden="true" />
+        </span>
       </div>
 
       <div className="flex flex-1 flex-col px-3 pb-3.5 sm:px-4 sm:pb-4">
@@ -208,23 +192,9 @@ function ProjectCard({ project, isLight }) {
         </h3>
 
         <div className="mt-3.5 flex items-center gap-2 sm:mt-4 md:mt-5">
-          <img
-            src={project.avatar}
-            alt={project.member}
-            className="
-              h-7
-              w-7
-              rounded-full
-              border
-              border-slate-200
-              object-cover
-              sm:h-8
-              sm:w-8
-              md:h-9
-              md:w-9
-            "
-          />
-
+          <span className={`grid h-7 w-7 shrink-0 place-items-center rounded-full sm:h-8 sm:w-8 ${isLight ? "bg-[#f1f4f8] text-[#5d687d]" : "bg-white/[0.06] text-slate-300"}`}>
+            <Code2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden="true" />
+          </span>
           <span className={`text-[11px] font-semibold sm:text-[12px] md:text-[13px] ${isLight ? "text-[#5d687d]" : "text-slate-300"}`}>
             {project.member}
           </span>
@@ -247,18 +217,14 @@ function ProjectCard({ project, isLight }) {
             ${isLight ? "border-[#edf0f4] text-[#778196]" : "border-[#22344b] text-slate-400"}
           `}
         >
-          <span className="inline-flex items-center gap-1">
-            <Download className="h-3.5 w-3.5 md:h-4 md:w-4" strokeWidth={2} />
-            {project.downloads}
-          </span>
-
-          <span className="inline-flex items-center gap-1">
-            <Heart className="h-3.5 w-3.5 md:h-4 md:w-4" strokeWidth={2} />
-            {project.likes}
+          <span>{project.platform}</span>
+          <span className="inline-flex items-center gap-1 text-orange-500">
+            View
+            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" strokeWidth={2} />
           </span>
         </div>
       </div>
-    </article>
+    </a>
   );
 }
 
@@ -355,7 +321,7 @@ export default function ProjectsCommunitySection({ theme = "light" }) {
                 : "border-[#1d2d43] bg-[linear-gradient(145deg,#071426,#051121)] shadow-[0_22px_65px_-48px_rgba(0,0,0,0.9)]"
             }`}
           >
-            <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
               <SplitGradientHeading
                 theme={theme}
                 className={`text-[21px] font-extrabold tracking-[-0.035em] sm:text-[24px] md:text-[28px] ${
@@ -364,11 +330,6 @@ export default function ProjectsCommunitySection({ theme = "light" }) {
                 plain={projectsContent.heading}
                 accent={projectsContent.accentHeading}
               />
-
-              <SectionAction href={projectsContent.ctaHref}>
-                {projectsContent.ctaLabel}
-                <ArrowRight className="h-3.5 w-3.5" />
-              </SectionAction>
             </div>
 
             <div

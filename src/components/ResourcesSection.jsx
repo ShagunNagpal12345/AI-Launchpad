@@ -251,7 +251,7 @@ export default function ResourcesSection({ theme = "light" }) {
             />
 
             <Link
-              to="/elearning"
+              to="/elearning#elearning-top"
               className={`
                 inline-flex
                 shrink-0

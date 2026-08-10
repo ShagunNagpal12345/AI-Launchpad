@@ -1,46 +1,47 @@
 import { ChevronDown, Menu, Moon, Sun, Users, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 import dsLogoPng from "../assets/DS Logo.png";
 
 const serviceGroups = [
   {
     title: "Learn",
     items: [
-      { label: "Learning Paths", href: "/#learn-ai" },
-      { label: "Inside the Classroom", href: "/#classroom" },
-      { label: "Live with Experts", href: "/#live-experts" },
-      { label: "Learning Resources", href: "/#resources" },
+      { label: "Learning Paths", href: "/learn#learn-ai" },
+      { label: "Inside the Classroom", href: "/learn#classroom" },
+      { label: "Live with Experts", href: "/learn#live-experts" },
+      { label: "Learning Resources", href: "/learn#resources" },
     ],
   },
   {
     title: "Practice",
     items: [
       { label: "Practice Experience", href: "/learning-arena#practice-showcase" },
-      { label: "Weekly Assignments", href: "/#weekly-assignments" },
+      { label: "Weekly Assignments", href: "/learn#weekly-assignments" },
       { label: "Practice Arenas", href: "/learning-arena#practice" },
     ],
   },
   {
     title: "Build & Grow",
     items: [
-      { label: "Career Tools", href: "/#career-tools" },
-      { label: "AI Builder Toolkit", href: "/#ai-interactive-tools" },
-      { label: "Member Projects", href: "/#projects" },
-      { label: "Career Roadmap", href: "/#career-roadmap" },
+      { label: "Career Tools", href: "/build-career#career-tools" },
+      { label: "AI Builder Toolkit", href: "/build-career#ai-interactive-tools" },
+      { label: "Member Projects", href: "/community#projects" },
+      { label: "Career Roadmap", href: "/build-career#career-roadmap" },
     ],
   },
 ];
 
 const primaryLinks = [
   { label: "Home", href: "/#top" },
-  { label: "Learning Arena", href: "/learning-arena" },
-  { label: "Studio", href: "/#youtube-studio" },
-  { label: "Community", href: "/#community" },
-  { label: "Testimonials", href: "/#testimonials" },
-  { label: "Pricing", href: "/#pricing" },
+  { label: "Classroom", href: "/learn" },
+  { label: "Play & Practice", href: "/learning-arena" },
+  { label: "Build & Career", href: "/build-career" },
+  { label: "Community", href: "/community" },
 ];
 
 export default function Navbar({ theme, onToggleTheme }) {
+  const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const navigationRef = useRef(null);
@@ -66,6 +67,16 @@ export default function Navbar({ theme, onToggleTheme }) {
     setIsServicesOpen(false);
   };
 
+  const isActive = (item) => {
+    if (item.label === "Home") return location.pathname === "/";
+    if (item.label === "Learn") return location.pathname === "/learn" || location.pathname.startsWith("/learn-ai/") || location.pathname === "/elearning" || location.pathname.startsWith("/learning/");
+    if (item.label === "Community") return location.pathname === "/community" || location.pathname === "/testimonials";
+    return location.pathname === item.href.split("#")[0];
+  };
+
+  const desktopLinkClass = (item) => `rounded-lg px-2 py-2 text-xs font-semibold transition-colors xl:px-3 xl:text-sm ${isActive(item) ? "bg-orange-500/10 text-orange-500" : "text-muted hover:bg-panel2/60 hover:text-ink"}`;
+  const mobileLinkClass = (item) => `rounded-xl border px-4 py-3 text-sm font-semibold transition-colors ${isActive(item) ? "border-orange-400/30 bg-orange-500/10 text-orange-500" : "border-line/10 bg-panel2/60 text-ink"}`;
+
   return (
     <header ref={navigationRef} className="sticky top-0 z-50 border-b border-line/10 bg-base/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-4 sm:px-8 lg:px-10 xl:px-12">
@@ -80,7 +91,7 @@ export default function Navbar({ theme, onToggleTheme }) {
         </a>
 
         <nav className="relative hidden items-center gap-1 lg:flex" aria-label="Primary navigation">
-          <a href="/#top" className="rounded-lg px-3 py-2 text-sm font-semibold text-muted hover:bg-panel2/60 hover:text-ink">Home</a>
+          <a href="/#top" aria-current={isActive(primaryLinks[0]) ? "page" : undefined} className={desktopLinkClass(primaryLinks[0])}>Home</a>
 
           <div className="relative">
             <button
@@ -115,7 +126,7 @@ export default function Navbar({ theme, onToggleTheme }) {
           </div>
 
           {primaryLinks.slice(1).map((item) => (
-            <a key={item.label} href={item.href} className="rounded-lg px-3 py-2 text-sm font-semibold text-muted hover:bg-panel2/60 hover:text-ink">{item.label}</a>
+            <a key={item.label} href={item.href} aria-current={isActive(item) ? "page" : undefined} className={desktopLinkClass(item)}>{item.label}</a>
           ))}
         </nav>
 
@@ -134,7 +145,7 @@ export default function Navbar({ theme, onToggleTheme }) {
       {isMenuOpen && (
         <div className="max-h-[calc(100vh-64px)] overflow-y-auto border-t border-line/10 bg-base/95 px-4 py-4 backdrop-blur-xl lg:hidden">
           <nav className="mx-auto flex max-w-[1440px] flex-col gap-2" aria-label="Mobile navigation">
-            <a href="/#top" onClick={closeNavigation} className="rounded-xl border border-line/10 bg-panel2/60 px-4 py-3 text-sm font-semibold text-ink">Home</a>
+            <a href="/#top" onClick={closeNavigation} aria-current={isActive(primaryLinks[0]) ? "page" : undefined} className={mobileLinkClass(primaryLinks[0])}>Home</a>
 
             <button type="button" onClick={() => setIsServicesOpen((current) => !current)} className="flex min-h-12 items-center justify-between rounded-xl border border-line/10 bg-panel2/60 px-4 py-3 text-left text-sm font-semibold text-ink" aria-expanded={isServicesOpen}>
               Our Services <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isServicesOpen ? "rotate-180" : ""}`} />
@@ -153,7 +164,7 @@ export default function Navbar({ theme, onToggleTheme }) {
               </div>
             )}
 
-            {primaryLinks.slice(1).map((item) => <a key={item.label} href={item.href} onClick={closeNavigation} className="rounded-xl border border-line/10 bg-panel2/60 px-4 py-3 text-sm font-semibold text-ink">{item.label}</a>)}
+            {primaryLinks.slice(1).map((item) => <a key={item.label} href={item.href} onClick={closeNavigation} aria-current={isActive(item) ? "page" : undefined} className={mobileLinkClass(item)}>{item.label}</a>)}
 
             <a href="https://www.skool.com/the-agent-lab-3899" target="_blank" rel="noreferrer" className="mt-2 inline-flex min-h-[46px] items-center justify-center gap-2 rounded-xl bg-accent px-4 py-3 text-sm font-bold text-slate-950 shadow-glow"><Users className="h-4 w-4" />Join Skool</a>
           </nav>

@@ -39,6 +39,7 @@ export default function GoalsSection({ theme = "light" }) {
 
   return (
     <section
+      id="learning-goals"
       className={`py-10 md:py-16 transition-colors duration-300 ${
         isLight ? "bg-[#f7f9fc]" : "bg-[#020b18]"
       }`}

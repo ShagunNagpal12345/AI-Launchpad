@@ -31,6 +31,13 @@ const assignmentProofs = Object.values(
   }),
 );
 
+const progressTrackingImages = Object.values(
+  import.meta.glob("../assets/Assignments/Tracking Progress/*.{png,jpg,jpeg,webp}", {
+    eager: true,
+    import: "default",
+  }),
+);
+
 const skoolCommunityUrl = "https://www.skool.com/the-agent-lab-3899";
 
 const assignments = [
@@ -182,13 +189,21 @@ function AssignmentCard({ assignment, isLight }) {
   );
 }
 
-function AssignmentProofGallery({ isLight, onClose }) {
+function AssignmentProofGallery({
+  images,
+  isLight,
+  onClose,
+  eyebrow,
+  title,
+  imageLabel,
+  showCommunityLink = false,
+}) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [zoom, setZoom] = useState(1);
 
   const move = (direction) => {
-    setActiveIndex((current) => (current + direction + assignmentProofs.length) % assignmentProofs.length);
+    setActiveIndex((current) => (current + direction + images.length) % images.length);
     setZoom(1);
   };
 
@@ -198,14 +213,14 @@ function AssignmentProofGallery({ isLight, onClose }) {
   };
 
   useEffect(() => {
-    if (isPaused || assignmentProofs.length < 2 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
+    if (isPaused || images.length < 2 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
     const timer = window.setInterval(() => move(1), 4000);
     return () => window.clearInterval(timer);
   }, [isPaused]);
 
   return (
     <section
-      aria-label="Assignments in action"
+      aria-label={title}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onFocusCapture={() => setIsPaused(true)}
@@ -214,8 +229,8 @@ function AssignmentProofGallery({ isLight, onClose }) {
     >
       <div className="flex items-center justify-between gap-4">
         <div>
-          <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-orange-500">Learner submissions</p>
-          <h2 className={`mt-1 text-xl font-extrabold ${isLight ? "text-[#111a3b]" : "text-white"}`}>Assignments in Action</h2>
+          <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-orange-500">{eyebrow}</p>
+          <h2 className={`mt-1 text-xl font-extrabold ${isLight ? "text-[#111a3b]" : "text-white"}`}>{title}</h2>
         </div>
         <div className="flex items-center gap-2">
           <button type="button" onClick={() => setZoom((current) => Math.max(1, current - 0.2))} disabled={zoom <= 1} aria-label="Reduce assignment image size" className={`grid h-11 w-11 place-items-center rounded-xl border disabled:cursor-not-allowed disabled:opacity-35 ${isLight ? "border-slate-200 text-slate-600" : "border-white/10 text-slate-300"}`}>
@@ -234,10 +249,10 @@ function AssignmentProofGallery({ isLight, onClose }) {
       </div>
 
       <div className="relative mt-4 h-[250px] overflow-hidden sm:h-[340px] lg:h-[400px] [perspective:1200px]">
-        {assignmentProofs.map((image, index) => {
+        {images.map((image, index) => {
           let offset = index - activeIndex;
-          if (offset > assignmentProofs.length / 2) offset -= assignmentProofs.length;
-          if (offset < -assignmentProofs.length / 2) offset += assignmentProofs.length;
+          if (offset > images.length / 2) offset -= images.length;
+          if (offset < -images.length / 2) offset += images.length;
           const distance = Math.abs(offset);
           const isActive = offset === 0;
 
@@ -246,7 +261,7 @@ function AssignmentProofGallery({ isLight, onClose }) {
               type="button"
               key={image}
               onClick={() => (isActive ? setZoom((current) => current === 1 ? 1.4 : 1) : selectImage(index))}
-              aria-label={`View assignment proof ${index + 1}`}
+              aria-label={`View ${imageLabel} ${index + 1}`}
               aria-current={isActive ? "true" : undefined}
               className="absolute left-1/2 top-1/2 w-[64%] max-w-[660px] -translate-x-1/2 -translate-y-1/2 focus-visible:outline focus-visible:outline-4 focus-visible:outline-orange-400"
               style={{
@@ -257,7 +272,7 @@ function AssignmentProofGallery({ isLight, onClose }) {
                 pointerEvents: distance > 2 ? "none" : "auto",
               }}
             >
-              <img src={image} alt={`DataSense live assignment example ${index + 1}`} className={`block max-h-[370px] w-full rounded-xl border object-contain shadow-[0_28px_60px_-30px_rgba(15,23,42,0.55)] ${isLight ? "border-slate-200 bg-slate-50" : "border-white/10 bg-[#020b18]"}`} />
+              <img src={image} alt={`DataSense ${imageLabel} ${index + 1}`} className={`block max-h-[370px] w-full rounded-xl border object-contain shadow-[0_28px_60px_-30px_rgba(15,23,42,0.55)] ${isLight ? "border-slate-200 bg-slate-50" : "border-white/10 bg-[#020b18]"}`} />
             </button>
           );
         })}
@@ -271,26 +286,24 @@ function AssignmentProofGallery({ isLight, onClose }) {
       </div>
 
       <div className="mt-3 flex flex-col items-center justify-between gap-4 sm:flex-row">
-        <div className="flex gap-2" aria-label="Choose assignment image">
-          {assignmentProofs.map((image, index) => (
+        <div className="flex flex-wrap justify-center gap-2" aria-label={`Choose ${imageLabel}`}>
+          {images.map((image, index) => (
             <button key={image} type="button" onClick={() => selectImage(index)} aria-label={`Show image ${index + 1}`} className={`h-2.5 rounded-full transition-[width,background-color] ${index === activeIndex ? "w-7 bg-orange-500" : isLight ? "w-2.5 bg-slate-300" : "w-2.5 bg-slate-600"}`} />
           ))}
         </div>
-        <a href={skoolCommunityUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-orange-500 px-5 text-sm font-bold text-white sm:w-auto">
-          View Live Assignments <ArrowRight className="h-4 w-4" />
-        </a>
+        {showCommunityLink && <a href={skoolCommunityUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-orange-500 px-5 text-sm font-bold text-white sm:w-auto">View Live Assignments <ArrowRight className="h-4 w-4" /></a>}
       </div>
 
       {zoom > 1 && (
         <div
           role="dialog"
           aria-modal="true"
-          aria-label={`Enlarged assignment image ${activeIndex + 1}`}
+          aria-label={`Enlarged ${imageLabel} ${activeIndex + 1}`}
           className="fixed inset-0 z-[100] flex flex-col bg-[#020813]/95 p-3 sm:p-5"
         >
           <div className="flex shrink-0 items-center justify-between gap-3 rounded-2xl bg-[#0c1a2d] p-2.5 text-white ring-1 ring-white/10 sm:px-4">
             <div>
-              <p className="text-xs font-extrabold uppercase tracking-[0.12em] text-orange-400">Assignment proof {activeIndex + 1} of {assignmentProofs.length}</p>
+              <p className="text-xs font-extrabold uppercase tracking-[0.12em] text-orange-400">{imageLabel} {activeIndex + 1} of {images.length}</p>
               <p className="mt-1 hidden text-xs text-slate-400 sm:block">The complete image remains available by scrolling when enlarged.</p>
             </div>
             <div className="flex items-center gap-2">
@@ -309,8 +322,8 @@ function AssignmentProofGallery({ isLight, onClose }) {
 
           <div className="mt-3 flex min-h-0 flex-1 items-start justify-center overflow-auto rounded-2xl bg-[#050b16] p-3 sm:p-5">
             <img
-              src={assignmentProofs[activeIndex]}
-              alt={`Full DataSense live assignment example ${activeIndex + 1}`}
+              src={images[activeIndex]}
+              alt={`Full DataSense ${imageLabel} ${activeIndex + 1}`}
               className="block h-auto rounded-xl bg-white object-contain shadow-2xl"
               style={
                 zoom <= 1.2
@@ -330,17 +343,17 @@ export default function WeeklyAssignmentsSection({ theme = "light" }) {
   const sectionContent = content.homepageSections.weeklyAssignments;
   const normalizedTheme = String(theme).toLowerCase();
   const isLight = ["light", "day", "white"].includes(normalizedTheme);
-  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  const [activeGallery, setActiveGallery] = useState(null);
   const galleryRef = useRef(null);
 
-  const toggleGallery = () => {
-    setIsGalleryOpen((current) => !current);
+  const toggleGallery = (gallery) => {
+    setActiveGallery((current) => current === gallery ? null : gallery);
   };
 
   useEffect(() => {
-    if (!isGalleryOpen) return;
+    if (!activeGallery) return;
     window.requestAnimationFrame(() => galleryRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" }));
-  }, [isGalleryOpen]);
+  }, [activeGallery]);
 
   return (
     <section
@@ -361,25 +374,42 @@ export default function WeeklyAssignmentsSection({ theme = "light" }) {
             </p>
           </div>
 
-          <button
-            type="button"
-            onClick={toggleGallery}
-            aria-expanded={isGalleryOpen}
-            aria-controls="assignment-proof-gallery"
-            className={`inline-flex min-h-12 w-full shrink-0 items-center justify-center gap-3 rounded-xl border px-5 text-sm font-bold sm:w-fit ${
-              isLight
-                ? "border-orange-300 text-orange-600 hover:bg-orange-50"
-                : "border-orange-400/40 text-orange-300 hover:bg-orange-500/10"
-            }`}
-          >
-            View Assignments in Action
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </button>
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+            <button
+              type="button"
+              onClick={() => toggleGallery("progress")}
+              aria-expanded={activeGallery === "progress"}
+              aria-controls="weekly-gallery"
+              className={`inline-flex min-h-12 w-full shrink-0 items-center justify-center gap-3 rounded-xl border px-5 text-sm font-bold sm:w-fit ${isLight ? "border-orange-300 text-orange-600 hover:bg-orange-50" : "border-orange-400/40 text-orange-300 hover:bg-orange-500/10"}`}
+            >
+              Track Progress
+              <BarChart3 className="h-4 w-4" aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              onClick={() => toggleGallery("assignments")}
+              aria-expanded={activeGallery === "assignments"}
+              aria-controls="weekly-gallery"
+              className={`inline-flex min-h-12 w-full shrink-0 items-center justify-center gap-3 rounded-xl border px-5 text-sm font-bold sm:w-fit ${isLight ? "border-orange-300 text-orange-600 hover:bg-orange-50" : "border-orange-400/40 text-orange-300 hover:bg-orange-500/10"}`}
+            >
+              Assignments in Action
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </button>
+          </div>
         </div>
 
-        {isGalleryOpen && (
-          <div id="assignment-proof-gallery" ref={galleryRef}>
-            <AssignmentProofGallery isLight={isLight} onClose={() => setIsGalleryOpen(false)} />
+        {activeGallery && (
+          <div id="weekly-gallery" ref={galleryRef}>
+            <AssignmentProofGallery
+              key={activeGallery}
+              images={activeGallery === "progress" ? progressTrackingImages : assignmentProofs}
+              isLight={isLight}
+              onClose={() => setActiveGallery(null)}
+              eyebrow={activeGallery === "progress" ? "Learning analytics" : "Learner submissions"}
+              title={activeGallery === "progress" ? "Track Your Progress" : "Assignments in Action"}
+              imageLabel={activeGallery === "progress" ? "progress view" : "assignment proof"}
+              showCommunityLink={activeGallery === "assignments"}
+            />
           </div>
         )}
 

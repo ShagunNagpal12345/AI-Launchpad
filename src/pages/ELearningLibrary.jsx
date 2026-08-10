@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, BookOpen, Clock3, FileText, GraduationCap, Home, Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ebooks } from "../data/ebooks";
@@ -11,8 +11,13 @@ export default function ELearningLibrary({ theme = "light" }) {
   const filtered = useMemo(() => items.filter((item) => `${item.title} ${item.description} ${item.level || item.category}`.toLowerCase().includes(query.toLowerCase())), [items, query]);
   const isLearning = tab === "learning";
   const isLight = theme === "light";
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, []);
+
   return (
-    <main className={`min-h-screen px-4 py-10 sm:px-8 lg:px-10 ${isLight ? "bg-[#f7f9fc]" : "bg-[#020b18]"}`}>
+    <main id="elearning-top" className={`min-h-screen scroll-mt-20 px-4 py-10 sm:px-8 lg:px-10 ${isLight ? "bg-[#f7f9fc]" : "bg-[#020b18]"}`}>
     <div className={`mx-auto max-w-[1440px] rounded-[22px] border p-5 sm:p-7 ${isLight ? "border-slate-200 bg-white" : "border-white/10 bg-[#071426] [&_*]:border-white/10 [&_h2]:text-white [&_h3]:text-white [&_p]:text-slate-300"}`}>
       <section className="flex flex-col gap-5 border-b border-slate-200 pb-6 lg:flex-row lg:items-center lg:justify-between">
         <div>

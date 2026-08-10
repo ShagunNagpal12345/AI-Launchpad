@@ -288,8 +288,8 @@ export default function LearnAiSection({ theme = "light" }) {
 
             <LevelLegend isLight={isLight} />
 
-            <a
-              href="#classroom"
+            <Link
+              to={sectionContent.ctaHref}
               className={`
                 inline-flex h-12 w-full items-center justify-center gap-2 rounded-[12px]
                 border px-5 text-[14px] font-bold transition
@@ -308,9 +308,9 @@ export default function LearnAiSection({ theme = "light" }) {
                 }
               `}
             >
-              View Tracks
+              {sectionContent.ctaLabel}
               <ChevronRight className="h-4 w-4" />
-            </a>
+            </Link>
           </div>
 
           {/* Main content */}

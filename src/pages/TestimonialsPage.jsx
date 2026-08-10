@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
-import { ArrowLeft, ExternalLink, Quote, Search, Star } from "lucide-react";
-import { Link } from "react-router-dom";
+import { ExternalLink, Quote, Search, Star } from "lucide-react";
+import ContentPageHero from "../components/ContentPageHero";
 import { testimonials } from "../data/testimonials";
 
 export default function TestimonialsPage({ theme = "light" }) {
@@ -15,29 +15,27 @@ export default function TestimonialsPage({ theme = "light" }) {
   }, [query]);
 
   return (
-    <main className={`min-h-screen px-4 py-10 sm:px-8 lg:px-10 ${isLight ? "bg-[#f7f9fc] text-[#111a3b]" : "bg-[#020b18] text-white"}`}>
-      <div className="mx-auto max-w-[1280px]">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <Link to="/#testimonials" className={`inline-flex min-h-11 items-center gap-2 rounded-xl border px-4 text-sm font-bold ${isLight ? "border-slate-200 bg-white text-[#0b2d61]" : "border-white/10 bg-white/[0.04] text-white"}`}>
-            <ArrowLeft className="h-4 w-4" /> Back to Home
-          </Link>
+    <main className={`min-h-screen ${isLight ? "bg-[#f7f9fc] text-[#111a3b]" : "bg-[#020b18] text-white"}`}>
+      <ContentPageHero
+        theme={theme}
+        eyebrow="Verified Topmate feedback"
+        plain="What learners say"
+        accent="about DataSense"
+        description="Real feedback from learners who joined DataSense workshops, classes, and mentorship sessions."
+        sections={[{ label: "Search feedback", href: "#testimonial-search" }, { label: "Learner stories", href: "#testimonials-list" }]}
+      />
+
+      <div className="mx-auto max-w-[1280px] px-4 py-8 sm:px-8 lg:px-10">
+        <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+          <div className="inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-4 py-2 text-sm font-extrabold text-orange-700">
+            <Star className="h-4 w-4" fill="currentColor" /> 4.7/5 · {testimonials.length} testimonials
+          </div>
           <a href="https://topmate.io/datasense" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[#ef6c28] px-4 text-sm font-bold text-white">
             View on Topmate <ExternalLink className="h-4 w-4" />
           </a>
         </div>
 
-        <header className="mx-auto mt-10 max-w-[760px] text-center">
-          <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#ef6c28]">Verified Topmate feedback</p>
-          <h1 className="mt-3 text-[clamp(2rem,5vw,3.6rem)] font-black leading-[1.04] tracking-[-0.045em]">What learners say about DataSense</h1>
-          <p className={`mx-auto mt-4 max-w-[650px] leading-7 ${isLight ? "text-slate-600" : "text-slate-300"}`}>
-            Real feedback from learners who joined DataSense workshops, classes, and mentorship sessions.
-          </p>
-          <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-4 py-2 text-sm font-extrabold text-orange-700">
-            <Star className="h-4 w-4" fill="currentColor" /> 4.7/5 · {testimonials.length} testimonials
-          </div>
-        </header>
-
-        <div className="mx-auto mt-8 max-w-xl">
+        <div id="testimonial-search" className="mx-auto mt-8 max-w-xl scroll-mt-20">
           <label className={`flex min-h-12 items-center gap-3 rounded-2xl border px-4 ${isLight ? "border-slate-200 bg-white" : "border-white/10 bg-white/[0.04]"}`}>
             <Search className="h-5 w-5 text-slate-400" aria-hidden="true" />
             <span className="sr-only">Search testimonials</span>
@@ -52,7 +50,7 @@ export default function TestimonialsPage({ theme = "light" }) {
           {query && <p className="mt-2 text-center text-xs font-semibold text-slate-500">{visibleTestimonials.length} results</p>}
         </div>
 
-        <section aria-label="Learner testimonials" className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <section id="testimonials-list" aria-label="Learner testimonials" className="mt-10 grid scroll-mt-20 gap-5 md:grid-cols-2 xl:grid-cols-3">
           {visibleTestimonials.map((testimonial, index) => (
             <article key={`${testimonial.name}-${testimonial.date}-${index}`} className={`flex min-h-[260px] flex-col rounded-[20px] border p-6 ${isLight ? "border-slate-200 bg-white shadow-[0_18px_50px_-40px_rgba(15,23,42,0.35)]" : "border-white/10 bg-[#0c1a2d]"}`}>
               <Quote className="h-8 w-8 text-[#ef6c28]" aria-hidden="true" />

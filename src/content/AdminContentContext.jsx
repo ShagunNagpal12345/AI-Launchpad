@@ -30,17 +30,25 @@ function migrateContent(content) {
   if (!content?.hero) return content;
 
   const legacyHeroLabels = ["Explore the Platform", "Explore AI Platform"];
-  if (!legacyHeroLabels.includes(content.hero.secondaryButtonLabel)) {
-    return content;
+  const migrated = cloneContent(content);
+
+  if (legacyHeroLabels.includes(migrated.hero.secondaryButtonLabel)) {
+    migrated.hero.secondaryButtonLabel = "Explore AI Launchpad";
   }
 
-  return {
-    ...content,
-    hero: {
-      ...content.hero,
-      secondaryButtonLabel: "Explore AI Launchpad",
-    },
-  };
+  const sections = migrated.homepageSections;
+  if (sections?.resources?.ctaLabel === "View all") {
+    sections.resources.ctaLabel = "Explore Learning";
+  }
+  if (sections?.learnAi?.ctaLabel === "View Tracks") {
+    sections.learnAi.ctaLabel = "Enter Classroom";
+    sections.learnAi.ctaHref = "/learn#classroom-page-top";
+  }
+  if (sections?.liveExperts?.ctaLabel === "View all") {
+    sections.liveExperts.ctaLabel = "Connect with an Expert";
+  }
+
+  return migrated;
 }
 
 export function AdminContentProvider({ children }) {
