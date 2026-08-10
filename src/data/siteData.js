@@ -9,7 +9,7 @@ export const navItems = [
   { label: 'Learn AI', href: '/#learn-ai' },
   { label: 'Classroom', href: '/#classroom' },
   { label: 'Live Classes', href: '/#live-classes' },
-  { label: 'Practice', href: '/#practice' },
+  { label: 'Practice', href: '/learning-arena#practice-showcase' },
   { label: 'Resources', href: '/#resources' },
   { label: 'Career Tools', href: '/#career-tools' },
   { label: 'Projects', href: '/#projects' },

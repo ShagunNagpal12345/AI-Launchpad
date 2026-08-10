@@ -3,50 +3,61 @@ import { Link } from "react-router-dom";
 import SplitGradientHeading from "./SplitGradientHeading";
 import { useAdminContent } from "../content/AdminContentContext";
 
-import samplePdf from "../assets/Learning Material/sample.pdf";
+import chatGptThumbnail from "../assets/Elearnings/ChatGPT.png";
+import deepLearningThumbnail from "../assets/Elearnings/DeepLearning.png";
+import llmProjectThumbnail from "../assets/Elearnings/LLMProject.png";
+import machineLearningThumbnail from "../assets/Elearnings/MachineLearning.png";
+import mlOpsThumbnail from "../assets/Elearnings/MLOps.png";
+import pythonDataScienceThumbnail from "../assets/Elearnings/Python4DS.png";
 
 const learningMaterials = [
   {
     title: "ChatGPT for Everyone",
     type: "Ebook",
     fileType: "PDF",
-    href: "/resources/chatgpt-for-everyone",
+    href: "/elearning",
     isInternal: true,
+    thumbnail: chatGptThumbnail,
   },
   {
     title: "LLM Project Guide",
     type: "Guide",
     fileType: "PDF",
-    href: "/resources/llm-project-guide",
+    href: "/elearning",
     isInternal: true,
+    thumbnail: llmProjectThumbnail,
   },
   {
     title: "Machine Learning Cheatsheet",
     type: "Cheatsheet",
     fileType: "PDF",
-    href: "/resources/machine-learning-cheatsheet",
+    href: "/elearning",
     isInternal: true,
+    thumbnail: machineLearningThumbnail,
   },
   {
     title: "Python for Data Science",
     type: "Ebook",
     fileType: "PDF",
-    href: "/resources/python-for-data-science",
+    href: "/elearning",
     isInternal: true,
+    thumbnail: pythonDataScienceThumbnail,
   },
   {
     title: "Deep Learning Handbook",
     type: "Ebook",
     fileType: "PDF",
-    href: "/resources/deep-learning-handbook",
+    href: "/elearning",
     isInternal: true,
+    thumbnail: deepLearningThumbnail,
   },
   {
     title: "MLOps Best Practices",
     type: "Guide",
     fileType: "PDF",
-    href: "/resources/mlops-best-practices",
+    href: "/elearning",
     isInternal: true,
+    thumbnail: mlOpsThumbnail,
   },
 ];
 
@@ -79,22 +90,13 @@ const materialStyles = [
 
 function MaterialCard({ material, index, isLight }) {
   const style = materialStyles[index % materialStyles.length];
-  const CardTag = material.isInternal ? Link : "a";
-  const cardProps = material.isInternal
-    ? { to: material.href }
-    : {
-        href: samplePdf,
-        target: "_blank",
-        rel: "noreferrer",
-      };
-
   return (
-    <CardTag
-      {...cardProps}
+    <Link
+      to={material.href}
       className={`
         group
         flex
-        min-h-[145px]
+        min-h-[210px]
         w-[84vw]
         max-w-[260px]
         shrink-0
@@ -102,8 +104,7 @@ function MaterialCard({ material, index, isLight }) {
         flex-col
         rounded-[16px]
         border
-        px-5
-        py-5
+        overflow-hidden
         transition
         duration-300
         hover:-translate-y-0.5
@@ -128,11 +129,22 @@ function MaterialCard({ material, index, isLight }) {
         }
       `}
     >
+      <div className="relative aspect-[16/9] overflow-hidden bg-[#07172f]">
+        <img
+          src={material.thumbnail}
+          alt={`${material.title} thumbnail`}
+          className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.035]"
+        />
+        <span className="absolute right-2.5 top-2.5 rounded-full border border-white/20 bg-[#07172f]/90 px-2.5 py-1 text-[9px] font-black uppercase tracking-wider text-white">
+          Free
+        </span>
+      </div>
+
+      <div className="flex flex-1 flex-col px-4 py-3.5">
       <div className="flex items-start justify-between gap-3">
         <h3
           className={`
-            max-w-[175px]
-            text-[16px]
+            text-[14px]
             font-bold
             leading-[1.25]
             tracking-[-0.02em]
@@ -166,7 +178,7 @@ function MaterialCard({ material, index, isLight }) {
         />
       </div>
 
-      <div className="mt-auto flex items-center justify-between gap-3 pt-5">
+      <div className="mt-auto flex items-center justify-between gap-3 pt-3">
         <span
           className={`
             rounded-full
@@ -201,7 +213,8 @@ function MaterialCard({ material, index, isLight }) {
           {material.fileType}
         </span>
       </div>
-    </CardTag>
+      </div>
+    </Link>
   );
 }
 
@@ -215,35 +228,10 @@ export default function ResourcesSection({ theme = "light" }) {
   return (
     <section
       id="resources"
-      className={`py-5 md:py-7 ${
-        isLight
-          ? "bg-[#f7f9fc]"
-          : "bg-[#020b18]"
-      }`}
+      className="scroll-mt-24 py-5 md:py-7"
     >
       <div className="mx-auto max-w-[1580px] px-4 sm:px-5 lg:px-6">
-        <div
-          className={`
-            rounded-[22px]
-            border
-            px-4
-            py-6
-            sm:px-6
-            ${
-              isLight
-                ? `
-                  border-[#e5eaf1]
-                  bg-white
-                  shadow-[0_16px_55px_-44px_rgba(15,23,42,0.28)]
-                `
-                : `
-                  border-[#1d2d43]
-                  bg-[linear-gradient(145deg,#071426,#051121)]
-                  shadow-[0_22px_65px_-48px_rgba(0,0,0,0.9)]
-                `
-            }
-          `}
-        >
+        <div className="px-1 py-4 sm:px-2">
           <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
             <SplitGradientHeading
               theme={theme}
@@ -258,12 +246,12 @@ export default function ResourcesSection({ theme = "light" }) {
                     : "text-white"
                 }
               `}
-              plain={sectionContent.heading}
-              accent={sectionContent.accentHeading}
+              plain="Free E-Learning"
+              accent="Materials"
             />
 
-            <a
-              href={sectionContent.ctaHref}
+            <Link
+              to="/elearning"
               className={`
                 inline-flex
                 shrink-0
@@ -299,7 +287,7 @@ export default function ResourcesSection({ theme = "light" }) {
             >
               {sectionContent.ctaLabel}
               <ArrowRight className="h-4 w-4" strokeWidth={2.2} />
-            </a>
+            </Link>
           </div>
 
           <div

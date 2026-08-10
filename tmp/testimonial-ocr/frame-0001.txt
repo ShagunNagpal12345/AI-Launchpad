@@ -1,0 +1,21 @@
+x
+* 149 testimonials
+4 68 Helpful 4 88 Insightful 4 40 Friendly
+3 PINNED
+
+w 5/5
+The Datasense instructor did a phenomenal job explaining the Superpowers,
+including how to set it up and how to run it in Claude. They made effective
+comparisons between vanilla Claude code and code enabled with
+Superpowers. What surprised me the most is that the Software Development
+Life Cycle (SDLC) process is codified in the Superpowers Claude plugin,
+which | can immediately apply to the projects | am building on the side. One
+suggestion | have is to provide additional resources for the attendees of the
+open workshop, as many may not be familiar with components of Al coding
+assistants, such as the "skills" command or "memory." It would be beneficial
+to include pre-reading materials or a YouTube video from DataSense for such
+workshops.
+
+Ly
+Roopmathi
+18th Apr, 2026

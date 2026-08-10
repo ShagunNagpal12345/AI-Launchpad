@@ -14,7 +14,7 @@ const footerGroups = [
     title: "Platform",
     links: [
       { label: "Learn AI", href: "#learn-ai" },
-      { label: "Practice", href: "#practice" },
+      { label: "Practice", href: "/learning-arena#practice-showcase" },
       { label: "Projects", href: "#projects" },
       { label: "Live Classes", href: "#live-classes" },
       { label: "Career Tools", href: "#career-tools" },
@@ -24,7 +24,7 @@ const footerGroups = [
     title: "Resources",
     links: [
       { label: "AI Courses", href: "#learn-ai" },
-      { label: "SQL Arena", href: "#practice" },
+      { label: "SQL Arena", href: "/learning-arena#practice" },
       { label: "Guides", href: "#resources" },
       { label: "Blog", href: "#blog" },
       { label: "AI This Week", href: "#ai-this-week" },

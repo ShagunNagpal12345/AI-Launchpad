@@ -2,6 +2,7 @@ export default function SplitGradientHeading({
   as: Tag = 'h2',
   theme = 'light',
   className = '',
+  id,
   plain = '',
   accent = '',
   suffix = '',
@@ -13,7 +14,7 @@ export default function SplitGradientHeading({
     : 'bg-[linear-gradient(90deg,#58a9f5_0%,#53d5df_22%,#67d39a_42%,#ffd45c_62%,#ff9b54_80%,#f2556f_100%)]';
 
   return (
-    <Tag className={className}>
+    <Tag id={id} className={className}>
       {plain ? <span>{plain}</span> : null}
       {plain && accent ? ' ' : null}
       {accent ? (

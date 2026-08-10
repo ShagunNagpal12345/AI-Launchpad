@@ -5,13 +5,13 @@ import youtubeIcon from "../assets/social-testimonials-assets/social-icons/youtu
 import linkedinIcon from "../assets/social-testimonials-assets/social-icons/linkedin.svg";
 import instagramIcon from "../assets/social-testimonials-assets/social-icons/instagram.svg";
 import topmateIcon from "../assets/social-testimonials-assets/social-icons/tompate.jpeg";
+import facebookIcon from "../assets/social-testimonials-assets/social-icons/facebook.svg";
+import whatsappIcon from "../assets/social-testimonials-assets/social-icons/whatsapp.svg";
+import discordIcon from "../assets/social-testimonials-assets/social-icons/discord.svg";
+import skoolIcon from "../assets/community-section-assets/skool-logo/skool-seeklogo.svg";
 import SplitGradientHeading from "./SplitGradientHeading";
 import { useAdminContent } from "../content/AdminContentContext";
-
-/* Learner avatars */
-import snehaAvatar from "../assets/social-testimonials-assets/learner-avatars/sneha-r.png";
-import vikramAvatar from "../assets/social-testimonials-assets/learner-avatars/vikram-m.png";
-import poojaAvatar from "../assets/social-testimonials-assets/learner-avatars/pooja-s.png";
+import { testimonials } from "../data/testimonials";
 
 /* Rating icon */
 import starIcon from "../assets/social-testimonials-assets/ui-icons/star.svg";
@@ -22,54 +22,79 @@ const socialPlatforms = [
     value: "125K+",
     label: "Viewers",
     icon: youtubeIcon,
-    href: "https://www.youtube.com/",
+    href: "https://www.youtube.com/@Senseofdata",
   },
   {
     name: "Topmate",
     value: "5K+",
     label: "Bookings",
     icon: topmateIcon,
-    href: "#topmate",
+    href: "https://topmate.io/datasense",
   },
   {
     name: "LinkedIn",
     value: "5K+",
     label: "Followers",
     icon: linkedinIcon,
-    href: "https://www.linkedin.com/",
+    href: "https://www.linkedin.com/company/data-sense-lms/",
   },
   {
     name: "Instagram",
     value: "25K+",
     label: "Followers",
     icon: instagramIcon,
-    href: "https://www.instagram.com/",
+    href: "https://www.instagram.com/senseofdata/",
   },
 ];
 
-const learnerTestimonials = [
+const socialHrefByName = Object.fromEntries(
+  socialPlatforms.map(({ name, href }) => [name, href]),
+);
+
+const additionalSocialPlatforms = [
   {
-    name: "Sneha R.",
-    role: "ML Engineer",
-    quote:
-      "DataSense AI Launchpad changed my career path completely! The projects are amazing.",
-    avatar: snehaAvatar,
+    name: "Facebook",
+    value: "Follow",
+    label: "Our Page",
+    icon: facebookIcon,
+    href: "https://www.facebook.com/people/Data-Sense/61550202884240/",
   },
   {
-    name: "Vikram M.",
-    role: "Data Scientist",
-    quote:
-      "The live classes and mentors are top-notch. Best place to learn AI hands-on.",
-    avatar: vikramAvatar,
+    name: "WhatsApp",
+    value: "Join",
+    label: "Community",
+    icon: whatsappIcon,
+    href: "https://chat.whatsapp.com/KK6a61YIea259m3WYedVZe",
   },
   {
-    name: "Pooja S.",
-    role: "AI Engineer",
-    quote:
-      "Practice Arena helped me crack multiple interviews. Highly recommended!",
-    avatar: poojaAvatar,
+    name: "Skool",
+    value: "Learn",
+    label: "With Builders",
+    icon: skoolIcon,
+    href: "https://www.skool.com/the-agent-lab-3899",
+  },
+  {
+    name: "Discord",
+    value: "Connect",
+    label: "Coming Soon",
+    icon: discordIcon,
+    href: "",
   },
 ];
+
+const featuredTestimonialKeys = [
+  ["Rajesh Kumar Sharma", "2 May 2026"],
+  ["Priyanka Neogi", "3 Aug 2025"],
+  ["Karnica Jain", "3 Aug 2025"],
+];
+
+const featuredTestimonials = featuredTestimonialKeys
+  .map(([name, date]) =>
+    testimonials.find(
+      (testimonial) => testimonial.name.startsWith(name) && testimonial.date === date,
+    ),
+  )
+  .filter(Boolean);
 
 function HeaderAction({ href, children }) {
   return (
@@ -105,11 +130,14 @@ function HeaderAction({ href, children }) {
 }
 
 function SocialCard({ platform, isLight }) {
+  const CardElement = platform.href ? "a" : "div";
+
   return (
-    <a
-      href={platform.href}
-      target={platform.href.startsWith("http") ? "_blank" : undefined}
-      rel={platform.href.startsWith("http") ? "noreferrer" : undefined}
+    <CardElement
+      href={platform.href || undefined}
+      target={platform.href?.startsWith("http") ? "_blank" : undefined}
+      rel={platform.href?.startsWith("http") ? "noreferrer" : undefined}
+      aria-label={platform.href ? undefined : `${platform.name} — link coming soon`}
       className={`
         group
         flex
@@ -179,14 +207,14 @@ function SocialCard({ platform, isLight }) {
       <span className={`mt-2 text-[11px] font-medium sm:mt-2.5 sm:text-[12px] md:mt-3 md:text-[13px] ${isLight ? "text-[#68748a]" : "text-slate-400"}`}>
         {platform.label}
       </span>
-    </a>
+    </CardElement>
   );
 }
 
-function RatingStars() {
+function RatingStars({ rating }) {
   return (
-    <div className="flex items-center gap-1.5">
-      {Array.from({ length: 5 }).map((_, index) => (
+    <div className="flex items-center gap-1.5" aria-label={`${rating} out of 5 stars`}>
+      {Array.from({ length: rating }).map((_, index) => (
         <img
           key={index}
           src={starIcon}
@@ -226,7 +254,7 @@ function TestimonialCard({ testimonial, isLight }) {
         }
       `}
     >
-      <RatingStars />
+      <RatingStars rating={testimonial.rating} />
 
       <p
         className={`
@@ -246,31 +274,14 @@ function TestimonialCard({ testimonial, isLight }) {
         {testimonial.quote}
       </p>
 
-      <div className="mt-5 flex items-center gap-3 pt-0 sm:mt-auto sm:pt-6 md:pt-7">
-        <img
-          src={testimonial.avatar}
-          alt={testimonial.name}
-          className="
-            h-10
-            w-10
-            rounded-full
-            border
-            border-slate-200/70
-            object-cover
-            sm:h-11
-            sm:w-11
-            md:h-12
-            md:w-12
-          "
-        />
-
+      <div className={`mt-5 border-t pt-4 sm:mt-auto sm:pt-5 ${isLight ? "border-slate-100" : "border-white/10"}`}>
         <div>
           <h3 className={`text-[12px] font-bold sm:text-[13px] md:text-[14px] ${isLight ? "text-[#111a3b]" : "text-white"}`}>
             {testimonial.name}
           </h3>
 
           <p className={`mt-1 text-[10px] font-medium sm:text-[11px] md:text-[12px] ${isLight ? "text-[#7a8497]" : "text-slate-400"}`}>
-            {testimonial.role}
+            {testimonial.date} · Verified Topmate feedback
           </p>
         </div>
       </div>
@@ -282,6 +293,15 @@ export default function TestimonialsCareerSection({ theme = "light" }) {
   const { content } = useAdminContent();
   const normalizedTheme = String(theme).toLowerCase();
   const isLight = ["light", "day", "white"].includes(normalizedTheme);
+  const visibleSocialPlatforms = [
+    ...content.social.items,
+    ...additionalSocialPlatforms.filter(
+      (additionalPlatform) =>
+        !content.social.items.some(
+          (platform) => platform.name === additionalPlatform.name,
+        ),
+    ),
+  ];
 
   return (
     <section id="testimonials" className={`scroll-mt-20 py-4 md:py-7 ${isLight ? "bg-[#f7f9fc]" : "bg-[#020b18]"}`}>
@@ -315,9 +335,15 @@ export default function TestimonialsCareerSection({ theme = "light" }) {
                 lg:grid-cols-4
               "
             >
-              {content.social.items.map((platform) => (
+              {visibleSocialPlatforms.map((platform) => (
                 <div key={platform.name}>
-                  <SocialCard platform={platform} isLight={isLight} />
+                  <SocialCard
+                    platform={{
+                      ...platform,
+                      href: socialHrefByName[platform.name] || platform.href,
+                    }}
+                    isLight={isLight}
+                  />
                 </div>
               ))}
             </div>
@@ -341,7 +367,7 @@ export default function TestimonialsCareerSection({ theme = "light" }) {
                 accent={content.testimonials.accentHeading}
               />
 
-              <HeaderAction href="#all-testimonials">
+              <HeaderAction href="/testimonials">
                 {content.testimonials.ctaLabel}
                 <ArrowRight className="h-3.5 w-3.5" />
               </HeaderAction>
@@ -360,8 +386,8 @@ export default function TestimonialsCareerSection({ theme = "light" }) {
                 md:grid-cols-3
               "
             >
-              {content.testimonials.items.map((testimonial) => (
-                <div key={testimonial.name}>
+              {featuredTestimonials.map((testimonial) => (
+                <div key={`${testimonial.name}-${testimonial.date}`}>
                   <TestimonialCard testimonial={testimonial} isLight={isLight} />
                 </div>
               ))}

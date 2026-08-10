@@ -213,7 +213,16 @@ export default function EcosystemSection({ theme = "dark" }) {
         (defaultItem) => defaultItem.title === item.title,
       ),
   );
-  const items = [...mergedItems, ...extraItems];
+  const arenaHrefByTitle = {
+    "Practice Arena": "/learning-arena#practice-showcase",
+    "Gaming Arena": "/learning-arena#practice",
+    "SQL Practice Arena": "/learning-arena#practice",
+    "Coding Practice Arena": "/learning-arena#practice-showcase",
+  };
+  const items = [...mergedItems, ...extraItems].map((item) => ({
+    ...item,
+    href: arenaHrefByTitle[item.title] || item.href,
+  }));
   const loopingItems = [...items, ...items];
 
   return (

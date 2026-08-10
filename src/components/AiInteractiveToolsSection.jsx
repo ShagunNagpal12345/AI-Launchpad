@@ -82,7 +82,6 @@ export default function AiInteractiveToolsSection({ theme = "light" }) {
       <div className="mx-auto max-w-[1580px] px-4 sm:px-5 lg:px-6">
         <div className="flex flex-col gap-4 px-1 sm:flex-row sm:items-start sm:justify-between">
           <div><SplitGradientHeading theme={theme} className={`text-[26px] font-extrabold leading-tight tracking-[-0.035em] sm:text-[29px] ${isLight ? "text-[#111a3b]" : "text-white"}`} plain={sectionContent.heading} accent={sectionContent.accentHeading} /><p className={`mt-2 max-w-[760px] text-[14px] font-medium leading-5 ${isLight ? "text-slate-600" : "text-slate-300"}`}>{sectionContent.description}</p></div>
-          <a href={sectionContent.ctaHref} target="_blank" rel="noreferrer" className={`inline-flex min-h-12 w-fit shrink-0 items-center gap-3 rounded-xl border px-5 text-sm font-bold ${isLight ? "border-orange-300 text-orange-600 hover:bg-orange-50" : "border-orange-400/40 text-orange-300 hover:bg-orange-500/10"}`}>{sectionContent.ctaLabel} <ArrowRight className="h-4 w-4" /></a>
         </div>
 
         <div className="mt-4 grid gap-4 xl:grid-cols-[1.02fr_1fr]">
@@ -92,7 +91,6 @@ export default function AiInteractiveToolsSection({ theme = "light" }) {
               <h3 className={`mt-4 text-2xl font-extrabold tracking-[-0.03em] ${isLight ? "text-[#111a3b]" : "text-white"}`}>AI Builder Toolkit</h3>
               <p className={`mt-3 text-sm leading-6 ${isLight ? "text-slate-600" : "text-slate-300"}`}>Create, experiment, and ship with powerful AI utilities in one focused workspace.</p>
               <div className="mt-4 flex flex-wrap gap-2">{toolkitItems.map((item) => <span key={item} className={`rounded-lg border px-2.5 py-1.5 text-[11px] font-bold ${isLight ? "border-slate-200 bg-white text-[#33415f]" : "border-white/10 bg-white/[0.04] text-slate-300"}`}>{item}</span>)}</div>
-              <a href="https://www.skool.com/the-agent-lab-3899" target="_blank" rel="noreferrer" className="mt-5 inline-flex min-h-11 w-fit items-center gap-2 rounded-[10px] bg-[#f97316] px-5 text-sm font-bold text-white shadow-[0_12px_26px_-17px_rgba(249,115,22,0.7)] hover:bg-[#ea6b12]">Open Toolkit <ArrowRight className="h-4 w-4" /></a>
             </div>
             <ToolkitPreview isLight={isLight} />
           </article>

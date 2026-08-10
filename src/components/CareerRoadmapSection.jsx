@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import SplitGradientHeading from "./SplitGradientHeading";
 import { useAdminContent } from "../content/AdminContentContext";
+import { Link } from "react-router-dom";
 
 const roadmap = [
   { icon: BookOpen, title: "AI Foundations", text: "Learn core AI concepts, tools & Python basics", status: "Completed", tone: "green" },
@@ -79,9 +80,9 @@ export default function CareerRoadmapSection({ theme = "light" }) {
               {sectionContent.description}
             </p>
           </div>
-          <a href={sectionContent.ctaHref} target="_blank" rel="noreferrer" className={`inline-flex min-h-12 w-fit shrink-0 items-center gap-3 rounded-xl border px-5 text-sm font-bold ${isLight ? "border-orange-300 text-orange-600 hover:bg-orange-50" : "border-orange-400/40 text-orange-300 hover:bg-orange-500/10"}`}>
-            {sectionContent.ctaLabel} <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </a>
+          <Link to="/evaluation-report" className={`inline-flex min-h-12 w-fit shrink-0 items-center gap-3 rounded-xl border px-5 text-sm font-bold ${isLight ? "border-orange-300 text-orange-600 hover:bg-orange-50" : "border-orange-400/40 text-orange-300 hover:bg-orange-500/10"}`}>
+            View Evaluation Report <FileText className="h-4 w-4" aria-hidden="true" />
+          </Link>
         </div>
 
         <div className="mt-4 grid gap-4 xl:grid-cols-[1.25fr_0.9fr]">

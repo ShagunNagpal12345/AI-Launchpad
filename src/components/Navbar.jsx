@@ -15,9 +15,9 @@ const serviceGroups = [
   {
     title: "Practice",
     items: [
-      { label: "Practice Experience", href: "/#practice-showcase" },
+      { label: "Practice Experience", href: "/learning-arena#practice-showcase" },
       { label: "Weekly Assignments", href: "/#weekly-assignments" },
-      { label: "Practice Arenas", href: "/#practice" },
+      { label: "Practice Arenas", href: "/learning-arena#practice" },
     ],
   },
   {
@@ -33,6 +33,7 @@ const serviceGroups = [
 
 const primaryLinks = [
   { label: "Home", href: "/#top" },
+  { label: "Learning Arena", href: "/learning-arena" },
   { label: "Studio", href: "/#youtube-studio" },
   { label: "Community", href: "/#community" },
   { label: "Testimonials", href: "/#testimonials" },

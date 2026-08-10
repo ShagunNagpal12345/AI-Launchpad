@@ -3,14 +3,13 @@ import { Route, Routes } from 'react-router-dom';
 import { AdminContentProvider } from './content/AdminContentContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import LaunchpadVideoSection from './components/LaunchpadVideoSection';
 import HeroStatsStrip from './components/HeroStatsStrip';
 import EcosystemSection from './components/EcosystemSection';
 import GoalsSection from './components/GoalsSection';
 import LearnAiSection from './components/LearnAiSection';
 import InsideClassroom from './components/InsideClassroom';
 import LiveExpertsSection from './components/LiveExpertsSection';
-import EventsArenaSection from './components/EventsArenaSection';
-import PracticeSection from './components/PracticeSection';
 import WeeklyAssignmentsSection from './components/WeeklyAssignmentsSection';
 import ResourcesSection from './components/ResourcesSection';
 import ToolsSection from './components/ToolsSection';
@@ -27,14 +26,16 @@ import SiteFooter from './components/SiteFooter';
 const AdvancedAiPage = lazy(() => import('./pages/AdvancedAiPage'));
 const AiForProfessionalsPage = lazy(() => import('./pages/AiForProfessionalsPage'));
 const AiFundamentalsPage = lazy(() => import('./pages/AiFundamentalsPage'));
-const ChatGPTForEveryonePage = lazy(() => import('./pages/ChatGPTForEveryonePage'));
 const DeepLearningHandbookPage = lazy(() => import('./pages/DeepLearningHandbookPage'));
-const LLMProjectGuidePage = lazy(() => import('./pages/LLMProjectGuidePage'));
 const MachineLearningPage = lazy(() => import('./pages/MachineLearningPage'));
-const MLOpsBestPracticesPage = lazy(() => import('./pages/MLOpsBestPracticesPage'));
-const PythonForDataSciencePage = lazy(() => import('./pages/PythonForDataSciencePage'));
 const AdminConsolePage = lazy(() => import('./pages/AdminConsolePage'));
 const DashboardPage = lazy(() => import('./pages/DashboardPage'));
+const ELearningLibrary = lazy(() => import('./pages/ELearningLibrary'));
+const ELearningPage = lazy(() => import('./pages/ELearningPage'));
+const EbookReaderPage = lazy(() => import('./pages/EbookReaderPage'));
+const EvaluationReportPage = lazy(() => import('./pages/EvaluationReportPage'));
+const TestimonialsPage = lazy(() => import('./pages/TestimonialsPage'));
+const LearningArenaPage = lazy(() => import('./pages/LearningArenaPage'));
 
 const defaultTheme = 'light';
 const rootThemeTargets = ['documentElement', 'body'];
@@ -106,16 +107,16 @@ export default function App() {
           element={
             <main>
               <Hero theme={theme} />
+
               <HeroStatsStrip theme={theme} />
+              <LaunchpadVideoSection theme={theme} />
               <EcosystemSection theme={theme} />
+              <ResourcesSection theme={theme} />
               <GoalsSection theme={theme} />
               <LearnAiSection theme={theme} />
               <InsideClassroom theme={theme} />
               <LiveExpertsSection theme={theme} />
-              <EventsArenaSection />
               <WeeklyAssignmentsSection theme={theme} />
-              <PracticeSection theme={theme} />
-              <ResourcesSection theme={theme} />
               <ToolsSection theme={theme} />
               <AiInteractiveToolsSection theme={theme} />
               <ProjectsCommunitySection theme={theme} />
@@ -127,30 +128,12 @@ export default function App() {
             </main>
           }
         />
-        <Route
-          path="/resources/chatgpt-for-everyone"
-          element={<ChatGPTForEveryonePage theme={theme} />}
-        />
-        <Route
-          path="/resources/llm-project-guide"
-          element={<LLMProjectGuidePage theme={theme} />}
-        />
-        <Route
-          path="/resources/machine-learning-cheatsheet"
-          element={<MachineLearningPage theme={theme} />}
-        />
-        <Route
-          path="/resources/python-for-data-science"
-          element={<PythonForDataSciencePage theme={theme} />}
-        />
-        <Route
-          path="/resources/deep-learning-handbook"
-          element={<DeepLearningHandbookPage theme={theme} />}
-        />
-        <Route
-          path="/resources/mlops-best-practices"
-          element={<MLOpsBestPracticesPage theme={theme} />}
-        />
+        <Route path="/elearning" element={<ELearningLibrary theme={theme} />} />
+        <Route path="/learning/:slug" element={<ELearningPage theme={theme} />} />
+        <Route path="/ebooks/:slug" element={<EbookReaderPage theme={theme} />} />
+        <Route path="/evaluation-report" element={<EvaluationReportPage theme={theme} />} />
+        <Route path="/testimonials" element={<TestimonialsPage theme={theme} />} />
+        <Route path="/learning-arena" element={<LearningArenaPage theme={theme} />} />
         <Route
           path="/learn-ai/ai-fundamentals"
           element={<AiFundamentalsPage theme={theme} />}

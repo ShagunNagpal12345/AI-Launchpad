@@ -288,7 +288,7 @@ export default function PracticeSection({ theme = "light" }) {
   return (
     <section
       id="practice"
-      className={`py-4 md:py-5 ${isLight ? "bg-[#f7f9fc]" : "bg-[#020b18]"}`}
+      className={`scroll-mt-20 py-4 md:py-5 ${isLight ? "bg-[#f7f9fc]" : "bg-[#020b18]"}`}
     >
       <div className="mx-auto max-w-[1580px] px-4 sm:px-5 lg:px-6">
         <div className="grid gap-5 xl:grid-cols-[0.9fr_1.1fr]">

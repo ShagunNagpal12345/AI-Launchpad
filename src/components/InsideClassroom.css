@@ -5,6 +5,7 @@
    ========================================================= */
 
 .classroom {
+  scroll-margin-top: 80px;
   --classroom-section: #f7f9fc;
   --classroom-shell-bg: #ffffff;
   --classroom-card: #ffffff;

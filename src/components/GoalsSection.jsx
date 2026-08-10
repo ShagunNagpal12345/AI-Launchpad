@@ -1,5 +1,3 @@
-import { ArrowRight } from "lucide-react";
-
 import aiForEveryoneIcon from "../assets/learning-goal-icons/ai-for-everyone.png";
 import claudeCodeForBuildersIcon from "../assets/learning-goal-icons/claude-code-for-builders.png";
 import aiForNonCodersIcon from "../assets/learning-goal-icons/ai-for-non-coders.png";
@@ -28,90 +26,6 @@ const goalIcons = [
   pythonProIcon,
   sqlMasterIcon,
 ];
-
-const accents = [
-  {
-    border: "group-hover:border-orange-200",
-    glow: "group-hover:shadow-[0_18px_40px_-24px_rgba(249,115,22,0.45)]",
-  },
-  {
-    border: "group-hover:border-orange-200",
-    glow: "group-hover:shadow-[0_18px_40px_-24px_rgba(249,115,22,0.45)]",
-  },
-  {
-    border: "group-hover:border-orange-200",
-    glow: "group-hover:shadow-[0_18px_40px_-24px_rgba(249,115,22,0.45)]",
-  },
-  {
-    border: "group-hover:border-violet-200",
-    glow: "group-hover:shadow-[0_18px_40px_-24px_rgba(139,92,246,0.45)]",
-  },
-  {
-    border: "group-hover:border-indigo-200",
-    glow: "group-hover:shadow-[0_18px_40px_-24px_rgba(99,102,241,0.45)]",
-  },
-  {
-    border: "group-hover:border-blue-200",
-    glow: "group-hover:shadow-[0_18px_40px_-24px_rgba(59,130,246,0.45)]",
-  },
-  {
-    border: "group-hover:border-cyan-200",
-    glow: "group-hover:shadow-[0_18px_40px_-24px_rgba(6,182,212,0.45)]",
-  },
-  {
-    border: "group-hover:border-emerald-200",
-    glow: "group-hover:shadow-[0_18px_40px_-24px_rgba(16,185,129,0.45)]",
-  },
-  {
-    border: "group-hover:border-fuchsia-200",
-    glow: "group-hover:shadow-[0_18px_40px_-24px_rgba(217,70,239,0.45)]",
-  },
-  {
-    border: "group-hover:border-sky-200",
-    glow: "group-hover:shadow-[0_18px_40px_-24px_rgba(14,165,233,0.45)]",
-  },
-  {
-    border: "group-hover:border-lime-200",
-    glow: "group-hover:shadow-[0_18px_40px_-24px_rgba(132,204,22,0.45)]",
-  },
-];
-
-const goalHrefByTitle = {
-  "AI for Everyone": "/resources/chatgpt-for-everyone",
-  "Claude Code for Builders": "#",
-  "AI for Non Coders": "#",
-  "Agentic AI": "#",
-  "Multiagent Orchestration": "#",
-  "AI Software Development": "#",
-  Devops: "#",
-  "N8N Expert": "#",
-  "AI Architect": "#",
-  "Python Pro": "/resources/python-for-data-science",
-  "SQL Master": "#",
-};
-
-function resolveGoalHref(goal) {
-  const mappedHref = goalHrefByTitle[goal.title];
-  const href = goal.href?.trim();
-
-  if (!mappedHref) {
-    return href || "#";
-  }
-
-  if (!href || href === "#") {
-    return mappedHref;
-  }
-
-  // Repair older saved admin content where a goal still points to the wrong legacy page.
-  if (
-    goal.title === "Machine Learning" &&
-    href === "/resources/llm-project-guide"
-  ) {
-    return mappedHref;
-  }
-
-  return href;
-}
 
 export default function GoalsSection({ theme = "light" }) {
   const { content } = useAdminContent();
@@ -173,23 +87,18 @@ export default function GoalsSection({ theme = "light" }) {
           >
             {goalItems.map((goal, index) => {
               const icon = goal.icon || goalIcons[index];
-              const accent = accents[index % accents.length];
-              const href = resolveGoalHref(goal);
 
               return (
-                <a
+                <article
                   key={goal.title}
-                  href={href}
                   className={`
-                    group relative flex min-h-[220px] w-[75vw] max-w-[220px] shrink-0 snap-start
+                    relative flex min-h-[220px] w-[75vw] max-w-[220px] shrink-0 snap-start
                     flex-col items-center rounded-[20px] border px-5 pb-6 pt-6 text-center
-                    transition-all duration-400 ease-out hover:-translate-y-1.5 
                     sm:w-[45vw] sm:max-w-[240px] md:w-auto md:flex-1 md:basis-[200px] lg:max-w-[240px]
-                    ${accent.border} ${accent.glow}
                     ${
                       isLight
-                        ? "border-[#e8ecf2] bg-white shadow-sm hover:shadow-[0_12px_30px_-15px_rgba(15,23,42,0.15)]"
-                        : "border-white/[0.06] bg-[#0c1a2d] hover:border-white/[0.12]"
+                        ? "border-[#e8ecf2] bg-white shadow-sm"
+                        : "border-white/[0.06] bg-[#0c1a2d]"
                     }
                   `}
                 >
@@ -197,7 +106,6 @@ export default function GoalsSection({ theme = "light" }) {
                   <div
                     className={`
                       mb-4 flex h-[72px] w-[72px] items-center justify-center rounded-2xl
-                      transition-transform duration-500 ease-out group-hover:scale-110
                       ${isLight ? "bg-slate-50" : "bg-white/[0.02]"}
                     `}
                   >
@@ -224,23 +132,7 @@ export default function GoalsSection({ theme = "light" }) {
                     {goal.description}
                   </p>
 
-                  {goal.cta && (
-                    <div
-                      className={`
-                        mt-auto flex items-center justify-center gap-1.5 pt-5 text-[13px] font-bold 
-                        opacity-0 translate-y-2 transition-all duration-300 ease-out
-                        group-hover:translate-y-0 group-hover:opacity-100
-                        ${isLight ? "text-blue-600" : "text-sky-400"}
-                      `}
-                    >
-                      {goal.cta}
-                      <ArrowRight
-                        className="h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-1"
-                        strokeWidth={2.5}
-                      />
-                    </div>
-                  )}
-                </a>
+                </article>
               );
             })}
           </div>
